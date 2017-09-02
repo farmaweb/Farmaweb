@@ -9,18 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
-
-	private static final long serialVersionUID = 412773056278474514L;
-
-	@Override
-    protected void service(HttpServletRequest req, HttpServletResponse res)
+@WebServlet("/")
+public class MainServlet extends HttpServlet{
+	
+	protected void service(HttpServletRequest req, HttpServletResponse res)
               throws ServletException, IOException {
 		
-   		String login = req.getParameter("login");
-	    String senha = req.getParameter("senha");
+   		RequestDispatcher rd = req.getRequestDispatcher("views/login.jsp");
+   		rd.forward(req, res);
     }
-	
 
 }

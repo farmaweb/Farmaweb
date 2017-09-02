@@ -8,10 +8,12 @@
 	<title>Farma Web</title>
 	</head>
 	<body>
-		<label for="login">Login</label>
-		<input type="text" name="login">		
-		<label for="Senha">Senha</label>
-		<input type="text" name="senha" value="">
-		<input type="submit" value="logar">	
+		<form action="/FarmaWeb/login" method="post">
+			<label for="login">Login</label>
+			<input type="text" name="login">		
+			<label for="Senha">Senha</label>
+			<input type="text" name="senha">
+			<input type="submit" value="login">
+		</form>	
 	</body>
 </html>
