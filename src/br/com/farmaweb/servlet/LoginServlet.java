@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.farmaweb.daos.LoginDao;
+
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
@@ -20,7 +22,22 @@ public class LoginServlet extends HttpServlet {
 		
    		String login = req.getParameter("login");
 	    String senha = req.getParameter("senha");
+	    
+	    LoginDao loginDao = null;
+	    
+		try {
+			loginDao = new LoginDao();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	    
+	    Boolean resultadoDaBusca = loginDao.buscaUsuario(login, senha);
+	    
+	    if(resultadoDaBusca == true) {
+	    	res.sendRedirect("views/sucesso.jsp");
+	    }else {
+	    	res.sendRedirect("views/acessonegado.jsp");
+	    }
     }
 	
-
 }

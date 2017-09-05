@@ -15,8 +15,7 @@ public class MainServlet extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse res)
               throws ServletException, IOException {
 		
-   		RequestDispatcher rd = req.getRequestDispatcher("views/login.jsp");
-   		rd.forward(req, res);
+		res.sendRedirect("views/login.jsp");
     }
 
 }

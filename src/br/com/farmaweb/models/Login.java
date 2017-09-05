@@ -2,7 +2,7 @@ package br.com.farmaweb.models;
 
 public class Login {
 	
-	private int    id;
+	private int	id;
 	private String login;
 	private String senha;
 	

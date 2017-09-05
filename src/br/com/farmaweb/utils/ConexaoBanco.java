@@ -5,8 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexaoBanco {
-	public Connection getConnection() {
+	public Connection getConnection() throws ClassNotFoundException {
         try {
+        	Class.forName("com.mysql.jdbc.Driver");
             return DriverManager.getConnection("jdbc:mysql://farmaweb.ddns.net/farmaweb", "matheus", "123456");
         } catch (SQLException e) {
             throw new RuntimeException(e);
