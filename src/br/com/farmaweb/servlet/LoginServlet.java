@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse res)
               throws ServletException, IOException {
 		
-   		String login = req.getParameter("login");
+   	    String login = req.getParameter("login");
 	    String senha = req.getParameter("senha");
 	    
 	    LoginDao loginDao = null;
