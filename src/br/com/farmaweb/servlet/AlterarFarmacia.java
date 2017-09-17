@@ -24,8 +24,8 @@ public class AlterarFarmacia extends HttpServlet {
 		int cod_farm = Integer.parseInt(req.getParameter("cod_farm"));
 		String nome_fantasia = req.getParameter("nome_fantasia");
 		String razao_social = req.getParameter("razao_social");
-		Integer cnpj_farm = Integer.parseInt(req.getParameter("cnpj_farm"));
-		Integer tel_farm = Integer.parseInt(req.getParameter("tel_farm"));
+		Long cnpj_farm = Long.parseLong(req.getParameter("cnpj_farm"));
+		Long tel_farm = Long.parseLong(req.getParameter("tel_farm"));
 		String observacao = req.getParameter("observacao");
 		
 		Farmacia farmacia = new Farmacia();

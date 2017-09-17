@@ -15,6 +15,8 @@ public class LoginDao {
 		this.connection = new ConexaoBanco().getConnection();
 	}
 	
+	
+	
 	public boolean buscaUsuario(String loginUsuario,String senhaUsuario) {
 	     try {
 	    	 

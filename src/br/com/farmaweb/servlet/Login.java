@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.farmaweb.daos.LoginDao;
 
 @WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+public class Login extends HttpServlet {
 
 	private static final long serialVersionUID = 412773056278474514L;
 
