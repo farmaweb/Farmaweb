@@ -5,7 +5,7 @@ public class Endereco {
 	private int cod_end;
 	private int cep;
 	private String rua;
-	private int num_end;
+	private String num_end;
 	private String bairro;
 	private String cidade;
 	private String estado;
@@ -35,11 +35,11 @@ public class Endereco {
 		this.rua = rua;
 	}
 
-	public int getNum_end() {
+	public String getNum_end() {
 		return num_end;
 	}
 
-	public void setNum_end(int num_end) {
+	public void setNum_end(String num_end) {
 		this.num_end = num_end;
 	}
 
