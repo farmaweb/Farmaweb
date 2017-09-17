@@ -25,12 +25,12 @@ public class FarmaciaDao {
 			stmt.setString(1, farmacia.getNome_fantasia());
 			stmt.setString(2, farmacia.getRazao_social());
 			stmt.setInt(3, farmacia.getCnpj_farm());
-		    stmt.setInt(4, farmacia.getTel_farm());
-		    stmt.setString(5, farmacia.getObservacao());
+		        stmt.setInt(4, farmacia.getTel_farm());
+			stmt.setString(5, farmacia.getObservacao());
 		        
-		    int ret = stmt.executeUpdate();
+		        int ret = stmt.executeUpdate();
 		    
-	        stmt.close();
+	                stmt.close();
 		        
 	        return ret;
 		} catch (SQLException e) {
