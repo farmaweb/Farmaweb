@@ -28,7 +28,7 @@ public class ListarFarmacia extends HttpServlet {
 			e.printStackTrace();
 		}
 
-	     ArrayList <Farmacia> farmacias = farmaciaDao.listarFarmacias();
+	     ArrayList <Farmacia> farmacias = farmaciaDao.getFarmacias();
 	        
 	        req.setAttribute("farmacias", farmacias);
 	            

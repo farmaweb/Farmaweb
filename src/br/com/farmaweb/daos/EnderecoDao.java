@@ -16,7 +16,7 @@ public class EnderecoDao {
 		this.connection = new ConexaoBanco().getConnection();
 	}
 
-	public ArrayList<Endereco> listarEndereco() {
+	public ArrayList<Endereco> getEnderecos() {
 		try {
 
 			PreparedStatement stmt = this.connection.prepareStatement("select * from endereco");

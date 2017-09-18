@@ -19,7 +19,7 @@ public class FarmaciaDao {
 		this.connection = new ConexaoBanco().getConnection();
 	}
 
-	public ArrayList<Farmacia> listarFarmacias() {
+	public ArrayList<Farmacia> getFarmacias() {
 		try {
 
 			PreparedStatement stmt = this.connection.prepareStatement("select * from farmacia");

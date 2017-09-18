@@ -1,8 +1,5 @@
-<%@page import="br.com.farmaweb.models.Farmacia"%>
-<%@page import="java.util.ArrayList"%>
-<%
-	ArrayList<Farmacia> farmacias = (ArrayList<Farmacia>) request.getAttribute("farmacias");
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <html>
 <head>
 <meta charset="utf-8">
@@ -14,31 +11,33 @@
 </head>
 
 <body class="container">
-		<table class="table table-striped">
+	<jsp:useBean id="dao" class="br.com.farmaweb.daos.FarmaciaDao"/>
+	<table class="table table-striped">
 
-			<tr>
-				<th>Código</th>
-				<th>Nome Fantasia</th>
-				<th>Razão Social</th>
-				<th>CNPJ</th>
-				<th>Telefone</th>
-				<th>Observação</th>
-			</tr>
+		<tr>
 
-			<%
-				for (Farmacia farmacia : farmacias) {
-			%>
+			<th>Nome Fantasia</th>
+			<th>Razão Social</th>
+			<th>CNPJ</th>
+			<th>Telefone</th>
+			<th>Observação</th>
+			<th>Ação</th>
+			<th></th>
+		</tr>
+		
+		<c:forEach var="farmacia" items="${dao.farmacias}">
 			<tr>
-				<td><%=farmacia.getCod_farm()%></td>
-				<td><%=farmacia.getNome_fantasia()%></td>
-				<td><%=farmacia.getRazao_social()%></td>
-				<td><%=farmacia.getCnpj_farm()%></td>
-				<td><%=farmacia.getTel_farm()%></td>
-				<td><%=farmacia.getObservacao()%></td>
+				<td>${farmacia.nome_fantasia}</td>
+				<td>${farmacia.razao_social}</td>
+				<td>${farmacia.cnpj_farm}</td>
+				<td>${farmacia.tel_farm}</td>
+				<td>${farmacia.observacao}</td>
+				<td><button type="button" class="btn btn-primary">Editar</button></td>
+				<td><button type="button" class="btn btn-primary">Excluir</button></td>
 			</tr>
-			<%
-				}
-			%>
-		</table>
+		</c:forEach>
+
+	</table>
+	<button type="button" class="btn btn-primary">Incluir Farmacia</button>
 </body>
 </html>

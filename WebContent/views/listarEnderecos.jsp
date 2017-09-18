@@ -1,8 +1,5 @@
-<%@page import="br.com.farmaweb.models.Endereco"%>
-<%@page import="java.util.ArrayList"%>
-<%
-	ArrayList<Endereco> enderecos = (ArrayList<Endereco>) request.getAttribute("enderecos");
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <html>
 <head>
 <meta charset="utf-8">
@@ -14,33 +11,36 @@
 </head>
 
 <body class="container">
-		<table class="table table-striped">
-
+	<jsp:useBean id="dao" class="br.com.farmaweb.daos.EnderecoDao"/>
+	<table class="table table-striped">
+		<tr>
+			<th>Cep</th>
+			<th>Rua</th>
+			<th>Número</th>
+			<th>Bairro</th>
+			<th>Cidade</th>
+			<th>Estado</th>
+			<th>Complemento</th>
+			<th>Ação</th>
+			<th></th>
+		</tr>
+		<c:forEach var="endereco" items="${dao.enderecos}">
 			<tr>
-				<th>Cep</th>
-				<th>Rua</th>
-				<th>Número</th>
-				<th>Bairro</th>
-				<th>Cidade</th>
-				<th>Estado</th>
-				<th>Complemento</th>
+				<td>${endereco.cep}</td>
+				<td>${endereco.rua}</td>
+				<td>${endereco.num_end}</td>
+				<td>${endereco.bairro}</td>
+				<td>${endereco.cidade}</td>
+				<td>${endereco.estado}</td>
+				<td>${endereco.complemento}</td>
+				<td><button type="button" class="btn btn-primary">Editar</button></td>
+				<td><button type="button" class="btn btn-primary">Excluir</button></td>
 			</tr>
+		</c:forEach>
 
-			<%
-				for (Endereco endereco : enderecos) {
-			%>
-			<tr>
-				<td><%=endereco.getCep()%></td>
-				<td><%=endereco.getRua()%></td>
-				<td><%=endereco.getNum_end()%></td>
-				<td><%=endereco.getBairro()%></td>
-				<td><%=endereco.getCidade()%></td>
-				<td><%=endereco.getEstado()%></td>
-				<td><%=endereco.getComplemento()%></td>
-			</tr>
-			<%
-				}
-			%>
-		</table>
+
+
+	</table>
+	<button type="button" class="btn btn-primary">Incluir Endereço</button>
 </body>
 </html>
