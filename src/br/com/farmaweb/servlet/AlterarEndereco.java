@@ -15,6 +15,9 @@ import br.com.farmaweb.models.Endereco;
 
 @WebServlet("/alterarEndereco")
 public class AlterarEndereco extends HttpServlet {
+
+	private static final long serialVersionUID = 8959886585148716609L;
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 

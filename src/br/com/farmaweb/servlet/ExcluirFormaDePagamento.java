@@ -16,6 +16,9 @@ import br.com.farmaweb.models.FormaDePagamento;
 
 @WebServlet("/excluirFormaDePagamento")
 public class ExcluirFormaDePagamento extends HttpServlet {
+
+	private static final long serialVersionUID = -7081740680122162046L;
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
