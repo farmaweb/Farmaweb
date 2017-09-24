@@ -7,7 +7,7 @@ public class Pedido {
 	private String status;
 	private Double valorTotal;
 	private Double valorDesconto;
-	private Date dataPedido;
+	private String dataPedido;
 	private int cod_pag_ped;
 	private int cod_cli_ped;
 	private int cod_func;
@@ -44,11 +44,11 @@ public class Pedido {
 		this.valorDesconto = valorDesconto;
 	}
 
-	public Date getDataPedido() {
+	public String getDataPedido() {
 		return dataPedido;
 	}
 
-	public void setDataPedido(Date dataPedido) {
+	public void setDataPedido(String dataPedido) {
 		this.dataPedido = dataPedido;
 	}
 
