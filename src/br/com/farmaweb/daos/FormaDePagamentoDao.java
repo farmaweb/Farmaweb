@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import br.com.farmaweb.models.Farmacia;
 import br.com.farmaweb.models.FormaDePagamento;
 import br.com.farmaweb.utils.ConexaoBanco;
 
