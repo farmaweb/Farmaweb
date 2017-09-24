@@ -7,20 +7,27 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<title>Formas de pagamento</title>
+<title>Funcionarios</title>
 </head>
 
 <body class="container">
-	<jsp:useBean id="dao" class="br.com.farmaweb.daos.FormaDePagamentoDao"/>
+	<jsp:useBean id="dao" class="br.com.farmaweb.daos.FuncionarioDao" />
 	<table class="table table-striped">
 		<tr>
-			<th>Tipo De Pagamento</th>
+			<th>Matrícula</th>
+			<th>Nome</th>
+			<th>Telefone</th>
+			<th>Função</th>
 			<th>Ação</th>
 			<th></th>
+
 		</tr>
-		<c:forEach var="forma" items="${dao.pagamentos}">
+		<c:forEach var="funcionario" items="${dao.funcionarios}">
 			<tr>
-				<td>${forma.tipo_pagamento}</td>
+				<td>${funcionario.matricula_funcionario}</td>
+				<td>${funcionario.nome_funcionario}</td>
+				<td>${funcionario.tel_funcionario}</td>
+				<td>${funcionario.funcao}</td>
 				<td><button type="button" class="btn btn-primary">Editar</button></td>
 				<td><button type="button" class="btn btn-primary">Excluir</button></td>
 			</tr>
@@ -29,6 +36,7 @@
 
 
 	</table>
-	<button type="button" class="btn btn-primary">Incluir Forma De Pagamento</button>
+	<button type="button" class="btn btn-primary">Incluir
+		Funcionario</button>
 </body>
 </html>
