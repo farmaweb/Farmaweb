@@ -2964,18 +2964,16 @@ keyframes fa-spin { 0%{
 					<li><a href="#"> <span class="sidebar-icon"><i
 								class="fa fa-dashboard"></i></span> <span class="sidebar-title">FarmaWeb</span>
 					</a></li>
-					<li><a href="#"> <span class="sidebar-title">Cliente</span>
-					</a></li>
-					<li><a href="#"> <span class="sidebar-title">Endereço</span>
-					</a></li>
-					<li><a href="#"> <span class="sidebar-title">Forma
+					<li><a href="/FarmaWeb/listaFormaDePagamento"> <span class="sidebar-title">Forma
 								de pagamento</span>
 					</a></li>
-					<li><a href="#"> <span class="sidebar-title">Funcionários</span>
+					<li><a href="/FarmaWeb/listaFuncionario"> <span class="sidebar-title">Funcionários</span>
 					</a></li>
-					<li><a href="#"> <span class="sidebar-title">Pedido</span>
+					<li><a href="/FarmaWeb/listaPedido"> <span class="sidebar-title">Pedido</span>
 					</a></li>
-					<li><a href="#"> <span class="sidebar-title">Produto</span>
+					<li><a href="/FarmaWeb/listaProduto"> <span class="sidebar-title">Produto</span>
+					</a></li>
+					<li><a href="/FarmaWeb/relatorio"> <span class="sidebar-title">Relatório</span>
 					</a></li>
 				</ul>
 			</aside>

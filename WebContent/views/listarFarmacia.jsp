@@ -11,7 +11,7 @@
 </head>
 
 <body class="container">
-	<jsp:useBean id="dao" class="br.com.farmaweb.daos.FarmaciaDao"/>
+	<jsp:useBean id="dao" class="br.com.farmaweb.daos.FarmaciaDao" />
 	<table class="table table-striped">
 
 		<tr>
@@ -24,7 +24,7 @@
 			<th>Ação</th>
 			<th></th>
 		</tr>
-		
+
 		<c:forEach var="farmacia" items="${dao.farmacias}">
 			<tr>
 				<td>${farmacia.nome_fantasia}</td>
@@ -38,6 +38,8 @@
 		</c:forEach>
 
 	</table>
+	<a href="/FarmaWeb/views/home.jsp#"><button type="button"
+			class="btn btn-primary">Voltar</button></a>
 	<button type="button" class="btn btn-primary">Incluir Farmacia</button>
 </body>
 </html>
