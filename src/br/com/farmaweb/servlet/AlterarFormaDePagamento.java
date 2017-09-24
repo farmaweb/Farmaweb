@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.farmaweb.daos.FarmaciaDao;
 import br.com.farmaweb.daos.FormaDePagamentoDao;
-import br.com.farmaweb.models.Farmacia;
 import br.com.farmaweb.models.FormaDePagamento;
 
 @WebServlet("/alterarFormaDePagamento")
