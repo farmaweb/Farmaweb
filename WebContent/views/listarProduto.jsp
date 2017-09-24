@@ -11,7 +11,7 @@
 </head>
 
 <body class="container">
-	<jsp:useBean id="dao" class="br.com.farmaweb.daos.ProdutoDao"/>
+	<jsp:useBean id="dao" class="br.com.farmaweb.daos.ProdutoDao" />
 	<table class="table table-striped">
 		<tr>
 			<th>Produto</th>
@@ -35,6 +35,9 @@
 
 
 	</table>
+	<a href="/FarmaWeb/views/home.jsp#"><button type="button"
+			class="btn btn-primary">Voltar</button></a>
+
 	<button type="button" class="btn btn-primary">Incluir Produto</button>
 </body>
 </html>

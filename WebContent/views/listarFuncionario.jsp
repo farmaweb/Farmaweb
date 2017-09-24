@@ -36,6 +36,9 @@
 
 
 	</table>
+	<a href="/FarmaWeb/views/home.jsp#"><button type="button"
+			class="btn btn-primary">Voltar</button></a>
+
 	<button type="button" class="btn btn-primary">Incluir
 		Funcionario</button>
 </body>
