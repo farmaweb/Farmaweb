@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class ConexaoBanco {
 	public static Connection getConnection() throws ClassNotFoundException {
-        try {
-        	Class.forName("com.mysql.jdbc.Driver");
-            return DriverManager.getConnection("jdbc:mysql://farmaweb.ddns.net/farmaweb?useSSL=false", "farmaweb", "123456");
+        try {	
+        	Class.forName("com.microsoft.jdbc.sqlserver.SQLServerDriver");
+            return DriverManager.getConnection("jdbc:sqlserver://farmaweb.ddns.net\\sqlexpress;databaseName=FarmaWeb; user=sa; password=739700");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
