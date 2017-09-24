@@ -7,14 +7,14 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<title>Lista Endereços</title>
+<title>Formas de pagamento</title>
 </head>
 
 <body class="container">
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.FormaDePagamentoDao"/>
 	<table class="table table-striped">
 		<tr>
-			<th>Forma De Pagamengo</th>
+			<th>Tipo De Pagamento</th>
 			<th>Ação</th>
 			<th></th>
 		</tr>

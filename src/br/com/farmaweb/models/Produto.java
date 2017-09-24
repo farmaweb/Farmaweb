@@ -1,51 +1,51 @@
 package br.com.farmaweb.models;
 
 public class Produto {
-	private int cod_prod;
-	private String nome_prod;
-	private String desc_prod;
-	private int quat_prod;
-	private Double preco;
+	private int cod_produto;
+	private String nome_produto;
+	private String descricao_produto;
+	private int quantidade_produto;
+	private float preco_unitario;
 	private int cod_farm_prod;
 
-	public int getCod_prod() {
-		return cod_prod;
+	public int getCod_produto() {
+		return cod_produto;
 	}
 
-	public void setCod_prod(int cod_prod) {
-		this.cod_prod = cod_prod;
+	public void setCod_produto(int cod_produto) {
+		this.cod_produto = cod_produto;
 	}
 
-	public String getNome_prod() {
-		return nome_prod;
+	public String getNome_produto() {
+		return nome_produto;
 	}
 
-	public void setNome_prod(String nome_prod) {
-		this.nome_prod = nome_prod;
+	public void setNome_produto(String nome_produto) {
+		this.nome_produto = nome_produto;
 	}
 
-	public String getDesc_prod() {
-		return desc_prod;
+	public String getDescricao_produto() {
+		return descricao_produto;
 	}
 
-	public void setDesc_prod(String desc_prod) {
-		this.desc_prod = desc_prod;
+	public void setDescricao_produto(String descricao_produto) {
+		this.descricao_produto = descricao_produto;
 	}
 
-	public int getQuat_prod() {
-		return quat_prod;
+	public int getQuantidade_produto() {
+		return quantidade_produto;
 	}
 
-	public void setQuat_prod(int quat_prod) {
-		this.quat_prod = quat_prod;
+	public void setQuantidade_produto(int quantidade_produto) {
+		this.quantidade_produto = quantidade_produto;
 	}
 
-	public Double getPreco() {
-		return preco;
+	public float getPreco_unitario() {
+		return preco_unitario;
 	}
 
-	public void setPreco(Double preco) {
-		this.preco = preco;
+	public void setPreco_unitario(float preco_unitario) {
+		this.preco_unitario = preco_unitario;
 	}
 
 	public int getCod_farm_prod() {
@@ -55,4 +55,5 @@ public class Produto {
 	public void setCod_farm_prod(int cod_farm_prod) {
 		this.cod_farm_prod = cod_farm_prod;
 	}
+
 }

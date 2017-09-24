@@ -2,44 +2,44 @@ package br.com.farmaweb.models;
 
 public class Funcionario {
 
-	private int cod_func;
-	private Long matr_func;
-	private String nome_func;
-	private Long tel_func;
+	private int cod_funcionario;
+	private Long matricula_funcionario;
+	private String nome_funcionario;
+	private Long tel_funcionario;
 	private String funcao;
-	private int cod_login_func;
 	private int cod_farm_func;
 
-	public int getCod_func() {
-		return cod_func;
+	public int getCod_funcionario() {
+		return cod_funcionario;
 	}
 
-	public void setCod_func(int cod_func) {
-		this.cod_func = cod_func;
+	public void setCod_funcionario(int cod_funcionario) {
+		this.cod_funcionario = cod_funcionario;
+	}
+	
+	public Long getMatricula_funcionario() {
+		return matricula_funcionario;
 	}
 
-	public Long getMatr_func() {
-		return matr_func;
+	public void setMatricula_funcionario(Long matricula_funcionario) {
+		this.matricula_funcionario = matricula_funcionario;
+	}
+	
+
+	public String getNome_funcionario() {
+		return nome_funcionario;
 	}
 
-	public void setMatr_func(Long matr_func) {
-		this.matr_func = matr_func;
+	public void setNome_funcionario(String nome_funcionario) {
+		this.nome_funcionario = nome_funcionario;
 	}
 
-	public String getNome_func() {
-		return nome_func;
+	public Long getTel_funcionario() {
+		return tel_funcionario;
 	}
 
-	public void setNome_func(String nome_func) {
-		this.nome_func = nome_func;
-	}
-
-	public Long getTel_func() {
-		return tel_func;
-	}
-
-	public void setTel_func(Long tel_func) {
-		this.tel_func = tel_func;
+	public void setTel_funcionario(Long tel_funcionario) {
+		this.tel_funcionario = tel_funcionario;
 	}
 
 	public String getFuncao() {
@@ -48,14 +48,6 @@ public class Funcionario {
 
 	public void setFuncao(String funcao) {
 		this.funcao = funcao;
-	}
-
-	public int getCod_login_func() {
-		return cod_login_func;
-	}
-
-	public void setCod_login_func(int cod_login_func) {
-		this.cod_login_func = cod_login_func;
 	}
 
 	public int getCod_farm_func() {
