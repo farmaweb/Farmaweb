@@ -5,10 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import br.com.farmaweb.models.Farmacia;
-import br.com.farmaweb.models.Login;
 import br.com.farmaweb.utils.ConexaoBanco;
 
 public class FarmaciaDao {

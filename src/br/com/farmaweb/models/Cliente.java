@@ -7,7 +7,6 @@ public class Cliente {
 	private Long cpf_cliente;
 	private String email_cliente;
 	private Long tel_cliente;
-	private int cod_login_cli;
 
 	public int getCod_cliente() {
 		return cod_cliente;
@@ -47,14 +46,6 @@ public class Cliente {
 
 	public void setTel_cliente(Long tel_cliente) {
 		this.tel_cliente = tel_cliente;
-	}
-
-	public int getCod_login_cli() {
-		return cod_login_cli;
-	}
-
-	public void setCod_login_cli(int cod_login_cli) {
-		this.cod_login_cli = cod_login_cli;
 	}
 
 }
