@@ -36,7 +36,7 @@ public class IncluirFormaDePagamento extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		RequestDispatcher rd = req.getRequestDispatcher("views/listarFormaPagamento.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("views/listarFormaDePagamento.jsp");
 		rd.forward(req, res);
 
 	}
