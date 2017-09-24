@@ -22,11 +22,11 @@ public class ExcluirFormaDePagamento extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		int cod_pag = Integer.parseInt(req.getParameter("cod_pag"));
+		int cod_pagamento = Integer.parseInt(req.getParameter("cod_pagamento"));
 
 		FormaDePagamento formadepagamento = new FormaDePagamento();
 
-		formadepagamento.setCod_pag(cod_pag);
+		formadepagamento.setCod_pagamento(cod_pagamento);
 
 		FormaDePagamentoDao formadepagamentoDao = null;
 

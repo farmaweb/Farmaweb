@@ -20,21 +20,21 @@ public class LoginDao {
 	public boolean buscaUsuario(String loginUsuario,String senhaUsuario) {
 	     try {
 	    	 
-	         PreparedStatement stmt = this.connection.prepareStatement("select * from login where login='"+
+	         PreparedStatement stmt = this.connection.prepareStatement("select * from login where usuario='"+
 	    	 loginUsuario+"' and "+ "senha='"+ senhaUsuario+"'");
 	         ResultSet rs = stmt.executeQuery();
 	 		 
 	         Login login = new Login();	
 	 		 
 	 		 while (rs.next()) {
-	             login.setLogin(rs.getString("login"));
+	             login.setUsuario(rs.getString("usuario"));
 	             login.setSenha(rs.getString("senha"));	 
 	         }
 	         
 	         rs.close();
 	         stmt.close();
 	         
-	         if(login.getLogin() != null && login.getSenha() != null) {
+	         if(login.getUsuario() != null && login.getSenha() != null) {
 	        	 return true;
 	         }else {
 	        	 return false;

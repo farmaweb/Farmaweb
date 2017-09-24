@@ -22,11 +22,11 @@ public class IncluirFormaDePagamento extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		String tipo_pag = req.getParameter("tipo_pag");
+		String tipo_pagamento = req.getParameter("tipo_pagamento");
 
 		FormaDePagamento formadepagamento = new FormaDePagamento();
 
-		formadepagamento.setTipo_pag(tipo_pag);
+		formadepagamento.setTipo_pagamento(tipo_pagamento);
 
 		FormaDePagamentoDao formadepagamentoDao = null;
 

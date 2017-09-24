@@ -12,9 +12,8 @@
 				<h1 class="text-center login-title">FarmaWeb</h1>
 				<div class="account-wall">
 					<form class="form-signin" action="/FarmaWeb/login">
-						<input type="text" class="form-control" placeholder="Login"
-							name="login" required autofocus> <input type="password"
-							class="form-control" placeholder="Senha" name="senha" required>
+						<input type="text" class="form-control" placeholder="Usuario" name="usuario" required autofocus> 
+						<input type="password" class="form-control" placeholder="Senha" name="senha" required>
 						<button class="btn btn-lg btn-primary btn-block" type="submit">
 							Entrar</button>
 					</form>

@@ -19,7 +19,7 @@ public class Login extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse res)
               throws ServletException, IOException {
 		
-   	    String login = req.getParameter("login");
+   	    String login = req.getParameter("usuario");
 	    String senha = req.getParameter("senha");
 	    
 	    LoginDao loginDao = null;
@@ -33,7 +33,7 @@ public class Login extends HttpServlet {
 	    Boolean resultadoDaBusca = loginDao.buscaUsuario(login, senha);
 	    
 	    if(resultadoDaBusca == true) {
-	    	res.sendRedirect("views/sucesso.jsp");
+	    	res.sendRedirect("views/home.jsp");
 	    }else {
 	    	res.sendRedirect("views/acessonegado.jsp");
 	    }

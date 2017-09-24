@@ -23,13 +23,13 @@ public class AlterarFormaDePagamento extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		int cod_pag = Integer.parseInt(req.getParameter("cod_pag"));
-		String tipo_pag = req.getParameter("tipo_pag");
+		int cod_pagamento = Integer.parseInt(req.getParameter("cod_pagamento"));
+		String tipo_pagamento = req.getParameter("tipo_pagamento");
 
 		FormaDePagamento formadepagamento = new FormaDePagamento();
 
-		formadepagamento.setCod_pag(cod_pag);
-		formadepagamento.setTipo_pag(tipo_pag);
+		formadepagamento.setCod_pagamento(cod_pagamento);
+		formadepagamento.setTipo_pagamento(tipo_pagamento);
 
 		FormaDePagamentoDao formadepagamentoDao = null;
 

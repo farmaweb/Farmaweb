@@ -15,10 +15,12 @@
 	<table class="table table-striped">
 		<tr>
 			<th>Forma De Pagamengo</th>
+			<th>Ação</th>
+			<th></th>
 		</tr>
-		<c:forEach var="forma" items="${dao.formadepagamentos}">
+		<c:forEach var="forma" items="${dao.pagamentos}">
 			<tr>
-				<td>${forma.tipo_pag}</td>
+				<td>${forma.tipo_pagamento}</td>
 				<td><button type="button" class="btn btn-primary">Editar</button></td>
 				<td><button type="button" class="btn btn-primary">Excluir</button></td>
 			</tr>

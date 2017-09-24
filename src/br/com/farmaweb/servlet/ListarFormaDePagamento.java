@@ -27,11 +27,11 @@ public class ListarFormaDePagamento extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		ArrayList<FormaDePagamento> formasDePagamentos = formadepagamentoDao.getFormaDePagamentos();
+		ArrayList<FormaDePagamento> formasDePagamentos = formadepagamentoDao.getPagamentos();
 
 		req.setAttribute("formasDePagamentos", formasDePagamentos);
 
-		RequestDispatcher rd = req.getRequestDispatcher("views/listarFormaPagamento.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("views/listarFormaDePagamento.jsp");
 		rd.forward(req, res);
 	}
 }
