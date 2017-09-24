@@ -1,13 +1,11 @@
 package br.com.farmaweb.models;
 
-import java.sql.Date;
-
 public class Pedido {
 	private int cod_pedido;
 	private String status;
-	private Double valorTotal;
-	private Double valorDesconto;
-	private String dataPedido;
+	private Double valor_total;
+	private Double valor_desconto;
+	private String data_pedido;
 	private int cod_pag_ped;
 	private int cod_cli_ped;
 	private int cod_func;
@@ -28,28 +26,28 @@ public class Pedido {
 		this.status = status;
 	}
 
-	public Double getValorTotal() {
-		return valorTotal;
+	public Double getValor_total() {
+		return valor_total;
 	}
 
-	public void setValorTotal(Double valorTotal) {
-		this.valorTotal = valorTotal;
+	public void setValor_total(Double valor_total) {
+		this.valor_total = valor_total;
 	}
 
-	public Double getValorDesconto() {
-		return valorDesconto;
+	public Double getValor_desconto() {
+		return valor_desconto;
 	}
 
-	public void setValorDesconto(Double valorDesconto) {
-		this.valorDesconto = valorDesconto;
+	public void setValor_desconto(Double valor_desconto) {
+		this.valor_desconto = valor_desconto;
 	}
 
-	public String getDataPedido() {
-		return dataPedido;
+	public String getData_pedido() {
+		return data_pedido;
 	}
 
-	public void setDataPedido(String dataPedido) {
-		this.dataPedido = dataPedido;
+	public void setData_pedido(String data_pedido) {
+		this.data_pedido = data_pedido;
 	}
 
 	public int getCod_pag_ped() {
@@ -75,4 +73,5 @@ public class Pedido {
 	public void setCod_func(int cod_func) {
 		this.cod_func = cod_func;
 	}
+
 }

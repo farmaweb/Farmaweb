@@ -21,11 +21,11 @@ public class ExcluirEndereco extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		int cod_end = Integer.parseInt(req.getParameter("cod_end"));
+		int cod_endereco = Integer.parseInt(req.getParameter("cod_endereco"));
 
 		Endereco endereco = new Endereco();
 
-		endereco.setCod_end(cod_end);
+		endereco.setCod_endereco(cod_endereco);
 
 		EnderecoDao enderecoDao = null;
 

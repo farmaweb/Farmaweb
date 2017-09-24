@@ -21,22 +21,22 @@ public class AlterarEndereco extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		int cod_end = Integer.parseInt(req.getParameter("cod_end"));
+		int cod_endereco = Integer.parseInt(req.getParameter("cod_endereco"));
 		int cep = Integer.parseInt(req.getParameter("cep"));
 		String rua = req.getParameter("rua");
-		String num_end = req.getParameter("num_end");
+		String numero = req.getParameter("numero");
 		String bairro = req.getParameter("bairro");
 		String cidade = req.getParameter("cidade");
 		String estado = req.getParameter("estado");
 		String complemento = req.getParameter("complemento");
-		String observacao = req.getParameter("observacao");
+
 
 		Endereco endereco = new Endereco();
 
-		endereco.setCod_end(cod_end);
+		endereco.setCod_endereco(cod_endereco);
 		endereco.setCep(cep);
 		endereco.setRua(rua);
-		endereco.setNum_end(num_end);
+		endereco.setNumero(numero);
 		endereco.setBairro(bairro);
 		endereco.setCidade(cidade);
 		endereco.setEstado(estado);

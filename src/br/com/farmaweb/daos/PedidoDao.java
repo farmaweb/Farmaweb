@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import br.com.farmaweb.models.FormaDePagamento;
 import br.com.farmaweb.models.Pedido;
 import br.com.farmaweb.utils.ConexaoBanco;
 
@@ -14,7 +13,8 @@ public class PedidoDao {
 	private Connection connection;
 
 	public PedidoDao() throws ClassNotFoundException {
-		this.connection = new ConexaoBanco().getConnection();
+		new ConexaoBanco();
+		this.connection = ConexaoBanco.getConnection();
 	}
 
 	public ArrayList<Pedido> getPedidos() {
@@ -30,9 +30,9 @@ public class PedidoDao {
 
 				pedido.setCod_pedido(rs.getInt("cod_pedido"));
 				pedido.setStatus(rs.getString("status"));
-				pedido.setValorTotal(rs.getDouble("valor_total"));
-				pedido.setValorDesconto(rs.getDouble("valor_desconto"));
-				pedido.setDataPedido(rs.getString("data_pedido"));
+				pedido.setValor_total(rs.getDouble("valor_total"));
+				pedido.setValor_desconto(rs.getDouble("valor_desconto"));
+				pedido.setData_pedido(rs.getString("data_pedido"));
 				pedido.setCod_pag_ped(rs.getInt("cod_pag_ped"));
 				pedido.setCod_cli_ped(rs.getInt("cod_cliente"));
 				pedido.setCod_func(rs.getInt("cod_funcionario"));

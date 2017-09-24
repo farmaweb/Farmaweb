@@ -13,7 +13,8 @@ public class FuncionarioDao {
 	private Connection connection;
 
 	public FuncionarioDao() throws ClassNotFoundException {
-		this.connection = new ConexaoBanco().getConnection();
+		new ConexaoBanco();
+		this.connection = ConexaoBanco.getConnection();
 	}
 
 	public ArrayList<Funcionario> getFuncionarios() {

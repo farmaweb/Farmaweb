@@ -35,6 +35,7 @@ public class Login extends HttpServlet {
 	    if(resultadoDaBusca == true) {
 	    	res.sendRedirect("views/home.jsp");
 	    }else {
+	    	
 	    	res.sendRedirect("views/acessonegado.jsp");
 	    }
     }
