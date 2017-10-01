@@ -2,12 +2,17 @@
 
 <html>
 <head>
-
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 #map {
 	width: 120%;
-	height: 620px;
-	background-color: black;
+	height: 661px;
+	text-align: center;
 }
 
 body {
@@ -34,7 +39,7 @@ body {
 	height: 100%;
 	margin-left: -250px;
 	overflow-y: auto;
-	background-color: #312A25 !Important;
+	background-color: #5bc0de;
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
 	-o-transition: all 0.5s ease;
@@ -74,13 +79,13 @@ body {
 .sidebar-nav li a {
 	display: block;
 	text-decoration: none;
-	color: #999999;
+	color: #fff;
 }
 
 .sidebar-nav li a:hover {
 	text-decoration: none;
 	color: #fff;
-	background: #312A25;
+	background: #A9A9A9;
 }
 
 .sidebar-nav li a:active, .sidebar-nav li a:focus {
@@ -318,7 +323,19 @@ body {
 
 
 
+
+
+
+
+
+
 :rotate(359deg)
+
+
+
+
+
+
 
 
 
@@ -341,7 +358,19 @@ transform
 
 
 
+
+
+
+
+
+
 :rotate(359deg)
+
+
+
+
+
+
 
 
 
@@ -372,7 +401,19 @@ keyframes fa-spin { 0%{
 
 
 
+
+
+
+
+
+
 :rotate(359deg)
+
+
+
+
+
+
 
 
 
@@ -395,7 +436,19 @@ transform
 
 
 
+
+
+
+
+
+
 :rotate(359deg)
+
+
+
+
+
+
 
 
 
@@ -3038,6 +3091,13 @@ transform
 	overflow: visible;
 	clip: auto
 }
+
+.btn-lg {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background-color: #A9A9A9;
+}
 </style>
 </head>
 <body>
@@ -3078,11 +3138,33 @@ transform
 						</a></li>
 					</c:if>
 				</ul>
+				<button type="button" class="btn btn-info btn-lg"
+					data-toggle="modal" data-target="#myModal">Sair</button>
 			</aside>
+
 		</div>
-		<main id="page-content-wrapper" role="main">
+	</div>
+
+
+
+
 		<div id="map"></div>
-		</main>
+	
+
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Deseja realmente sair ?</h4>
+				</div>
+				<div class="modal-footer">
+					<form class="bottom-left" action="/FarmaWeb/logout" method="POST">
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Sim</button>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

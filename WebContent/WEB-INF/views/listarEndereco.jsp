@@ -68,17 +68,17 @@
 						<div class="form-group">
 
 							<label for="cep">Cep:</label> <input id="cep"
-								type="text" name="cep" style="border-radius: 5px;" required>
+								type="text" name="cep" style="border-radius: 5px;" required></br>
 							<label for="rua">Rua:</label> <input id="rua" 
-								type="text" name="rua" style="border-radius: 5px;" disabled required>
+								type="text" name="rua" style="border-radius: 5px;" readonly="true" required></br>
 							<label for="numero">Número:</label> <input
-								type="text" name="numero" style="border-radius: 5px;" required>
+								type="text" name="numero" style="border-radius: 5px;" required></br>
 							<label for="bairro">Bairro:</label> <input id="bairro"
-								type="text" name="bairro" style="border-radius: 5px;" disabled required>
+								type="text" name="bairro" style="border-radius: 5px;" readonly="true" required></br>
 							<label for="cidade">Cidade:</label> <input id="cidade"
-								type="text" name="cidade" style="border-radius: 5px;" disabled required>
+								type="text" name="cidade" style="border-radius: 5px;" readonly="true" required></br>
 								<label for="estado">Estado:</label> <input id="estado"
-								type="text" name="estado" style="border-radius: 5px;" disabled required>
+								type="text" name="estado" style="border-radius: 5px;" readonly="true" required></br>
 								<label for="complemento">Complemento:</label> <input
 								type="text" name="complemento" style="border-radius: 5px;">	
 						</div>

@@ -2,6 +2,7 @@ package br.com.farmaweb.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,5 +14,7 @@ public class Logout extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getSession().invalidate();
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/login.jsp");
+		rd.forward(req, resp);
 	}
 }

@@ -42,7 +42,8 @@ public class EfetuaLogin extends HttpServlet {
 			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
 			rd.forward(req, res);
 		} else {
-			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/acessonegado.jsp");
+			req.setAttribute("verificaResultado",0);
+			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/login.jsp");
 			rd.forward(req, res);
 		}
 	}
