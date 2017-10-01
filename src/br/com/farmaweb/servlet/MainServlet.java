@@ -2,6 +2,7 @@ package br.com.farmaweb.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +16,8 @@ public class MainServlet extends HttpServlet {
 
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		res.sendRedirect("views/login.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/login.jsp");
+		rd.forward(req, res);
 	}
 
 }
