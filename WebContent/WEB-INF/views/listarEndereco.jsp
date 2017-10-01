@@ -70,7 +70,7 @@
 							<label for="cep">Cep:</label> <input id="cep"
 								type="text" name="cep" style="border-radius: 5px;" required></br>
 							<label for="rua">Rua:</label> <input id="rua" 
-								type="text" name="rua" style="border-radius: 5px;" readonly="true" required></br>
+							type="text" name="rua" style="border-radius: 5px;" readonly="true" required></br>
 							<label for="numero">Número:</label> <input
 								type="text" name="numero" style="border-radius: 5px;" required></br>
 							<label for="bairro">Bairro:</label> <input id="bairro"
