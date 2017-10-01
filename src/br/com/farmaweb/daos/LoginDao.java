@@ -12,7 +12,8 @@ public class LoginDao {
 	private Connection connection;
 
 	public LoginDao() throws ClassNotFoundException {
-		this.connection = new ConexaoBanco().getConnection();
+		new ConexaoBanco();
+		this.connection = ConexaoBanco.getConnection();
 	}
 	
 	
@@ -21,14 +22,14 @@ public class LoginDao {
 	     try {
 	    	 
 	         PreparedStatement stmt = this.connection.prepareStatement("select * from login where usuario='"+
-	    	 loginUsuario+"' and "+ "senha='"+ senhaUsuario+"'");
+	    	 loginUsuario+"' and "+ "senha='"+ senhaUsuario+"' ");
 	         ResultSet rs = stmt.executeQuery();
 	 		 
 	         Login login = new Login();	
 	 		 
 	 		 while (rs.next()) {
 	             login.setUsuario(rs.getString("usuario"));
-	             login.setSenha(rs.getString("senha"));	 
+	             login.setSenha(rs.getString("senha"));
 	         }
 	         
 	         rs.close();

@@ -16,12 +16,14 @@ import br.com.farmaweb.models.Endereco;
 @WebServlet("/incluirEndereco")
 public class IncluirEndereco extends HttpServlet {
 
+	private static final long serialVersionUID = -8719919992473646719L;
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		int cep = Integer.parseInt(req.getParameter("cep"));
 		String rua = req.getParameter("rua");
-		String num_end = req.getParameter("num_end");
+		String numero = req.getParameter("numero");
 		String bairro = req.getParameter("bairro");
 		String cidade = req.getParameter("cidade");
 		String estado = req.getParameter("estado");
@@ -31,7 +33,7 @@ public class IncluirEndereco extends HttpServlet {
 
 		endereco.setCep(cep);
 		endereco.setRua(rua);
-		endereco.setNum_end(num_end);
+		endereco.setNumero(numero);
 		endereco.setBairro(bairro);
 		endereco.setCidade(cidade);
 		endereco.setEstado(estado);

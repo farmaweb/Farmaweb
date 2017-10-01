@@ -13,7 +13,8 @@ public class EnderecoDao {
 	private Connection connection;
 
 	public EnderecoDao() throws ClassNotFoundException {
-		this.connection = new ConexaoBanco().getConnection();
+		new ConexaoBanco();
+		this.connection = ConexaoBanco.getConnection();
 	}
 
 	public ArrayList<Endereco> getEnderecos() {
@@ -27,10 +28,10 @@ public class EnderecoDao {
 			while (rs.next()) {
 				Endereco endereco = new Endereco();
 
-				endereco.setCod_end(rs.getInt("cod_end"));
+				endereco.setCod_endereco(rs.getInt("cod_endereco"));
 				endereco.setCep(rs.getInt("cep"));
 				endereco.setRua(rs.getString("rua"));
-				endereco.setNum_end(rs.getString("num_end"));
+				endereco.setNumero(rs.getString("numero"));
 				endereco.setBairro(rs.getString("bairro"));
 				endereco.setCidade(rs.getString("cidade"));
 				endereco.setEstado(rs.getString("estado"));
@@ -51,12 +52,12 @@ public class EnderecoDao {
 	public int incluirEndereco(Endereco endereco) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"insert into endereco(cep,rua,num_end,bairro,cidade,estado,complemento)"
+					"insert into endereco(cep,rua,numero,bairro,cidade,estado,complemento)"
 							+ "values ( ?,?,?,?,?,?,? )");
 
 			stmt.setInt(1, endereco.getCep());
 			stmt.setString(2, endereco.getRua());
-			stmt.setString(3, endereco.getNum_end());
+			stmt.setString(3, endereco.getNumero());
 			stmt.setString(4, endereco.getBairro());
 			stmt.setString(5, endereco.getCidade());
 			stmt.setString(6, endereco.getEstado());
@@ -74,9 +75,9 @@ public class EnderecoDao {
 
 	public int excluirEndereco(Endereco endereco) throws SQLException {
 		try {
-			PreparedStatement stmt = this.connection.prepareStatement("delete from endereco where cod_end = ?");
+			PreparedStatement stmt = this.connection.prepareStatement("delete from endereco where cod_endereco = ?");
 
-			stmt.setInt(1, endereco.getCod_end());
+			stmt.setInt(1, endereco.getCod_endereco());
 			;
 
 			int ret = stmt.executeUpdate();
@@ -92,17 +93,16 @@ public class EnderecoDao {
 	public int alterarEndereco(Endereco endereco) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"update endereco set cep = ?, rua = ?, num_end = ?, bairro = ?, cidade = ?, estado = ?, complemento = ? where cod_end = ?");
+					"update endereco set cep = ?, rua = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, complemento = ? where cod_endereco = ?");
 
 			stmt.setInt(1, endereco.getCep());
 			stmt.setString(2, endereco.getRua());
-			stmt.setString(3, endereco.getNum_end());
+			stmt.setString(3, endereco.getNumero());
 			stmt.setString(4, endereco.getBairro());
 			stmt.setString(5, endereco.getCidade());
 			stmt.setString(6, endereco.getEstado());
 			stmt.setString(7, endereco.getComplemento());
-			stmt.setString(8, endereco.getNum_end());
-			
+					
 			int ret = stmt.executeUpdate();
 
 			stmt.close();

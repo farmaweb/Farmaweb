@@ -28,7 +28,7 @@
 			<tr>
 				<td>${endereco.cep}</td>
 				<td>${endereco.rua}</td>
-				<td>${endereco.num_end}</td>
+				<td>${endereco.numero}</td>
 				<td>${endereco.bairro}</td>
 				<td>${endereco.cidade}</td>
 				<td>${endereco.estado}</td>

@@ -21,11 +21,11 @@ public class ExcluirFarmacia extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse res)
               throws ServletException, IOException {
 		
-		int cod_farm = Integer.parseInt(req.getParameter("cod_farm"));
+		int cod_farmacia = Integer.parseInt(req.getParameter("cod_farmacia"));
 		
 		Farmacia farmacia = new Farmacia();
 		
-		farmacia.setCod_farm(cod_farm);
+		farmacia.setCod_farmacia(cod_farmacia);
 		
 		FarmaciaDao farmaciaDao = null;
 		

@@ -9,10 +9,10 @@
 			<input type="text" name="nome_fantasia">	
 			<label for="razao_social">Razão Social</label>
 			<input type="text" name="razao_social">		
-			<label for="cnpj_farm">CNPJ</label>
-			<input type="text" name="cnpj_farm">
-			<label for="tel_farm">Telefone</label>
-			<input type="text" name="tel_farm">
+			<label for="cnpj">CNPJ</label>
+			<input type="text" name="cnpj">
+			<label for="tel_farmacia">Telefone</label>
+			<input type="text" name="tel_farmacia">
 			<label for="observacao">Observação</label>
 			<input type="text" name="observacao">
 			<input type="submit" value="Incluir">

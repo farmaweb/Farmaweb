@@ -13,7 +13,8 @@ public class FormaDePagamentoDao {
 	private Connection connection;
 
 	public FormaDePagamentoDao() throws ClassNotFoundException {
-		this.connection = new ConexaoBanco().getConnection();
+		new ConexaoBanco();
+		this.connection = ConexaoBanco.getConnection();
 	}
 
 	public ArrayList<FormaDePagamento> getPagamentos() {

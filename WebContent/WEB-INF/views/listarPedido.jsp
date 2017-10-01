@@ -23,9 +23,9 @@
 		<c:forEach var="pedido" items="${dao.pedidos}">
 			<tr>
 				<td>${pedido.status}</td>
-				<td>${pedido.valorTotal}</td>
-				<td>${pedido.valorDesconto}</td>
-				<td>${pedido.dataPedido}</td>
+				<td>${pedido.valor_total}</td>
+				<td>${pedido.valor_desconto}</td>
+				<td>${pedido.data_pedido}</td>
 			</tr>
 		</c:forEach>
 	</table>

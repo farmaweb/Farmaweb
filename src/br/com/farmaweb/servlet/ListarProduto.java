@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/listaProduto")
 public class ListarProduto extends HttpServlet {
+
+	private static final long serialVersionUID = -726513135710869258L;
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 

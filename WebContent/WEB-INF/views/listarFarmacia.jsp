@@ -29,8 +29,8 @@
 			<tr>
 				<td>${farmacia.nome_fantasia}</td>
 				<td>${farmacia.razao_social}</td>
-				<td>${farmacia.cnpj_farm}</td>
-				<td>${farmacia.tel_farm}</td>
+				<td>${farmacia.cnpj}</td>
+				<td>${farmacia.tel_farmacia}</td>
 				<td>${farmacia.observacao}</td>
 				<td><button type="button" class="btn btn-primary">Editar</button></td>
 				<td><button type="button" class="btn btn-primary">Excluir</button></td>
