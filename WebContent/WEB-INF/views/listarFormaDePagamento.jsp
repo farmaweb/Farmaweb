@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 
 <html>
 <head>
@@ -38,7 +39,7 @@
 
 
 	</table>
-	<a href="/FarmaWeb/views/home.jsp#"><button type="button"
+	<a href="javascript:window.history.go(-1)"><button type="button"
 			class="btn btn-primary">Voltar</button></a>
 	<button type="button" class="btn btn-primary" data-toggle="modal"
 		data-target="#myModal">Incluir</button>

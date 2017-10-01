@@ -43,7 +43,7 @@ public class AlterarFormaDePagamento extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		RequestDispatcher rd = req.getRequestDispatcher("views/listarFormaPagamento.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/listarFormaPagamento.jsp");
 		rd.forward(req, res);
 
 	}

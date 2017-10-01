@@ -50,7 +50,7 @@ public class IncluirEndereco extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		RequestDispatcher rd = req.getRequestDispatcher("views/listarEnderecos.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/listarEnderecos.jsp");
 		rd.forward(req, res);
 
 	}

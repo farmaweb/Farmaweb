@@ -51,7 +51,7 @@ public class AlterarFarmacia extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		res.sendRedirect("views/sucesso.jsp");
+		res.sendRedirect("/WEB-INF/views/sucesso.jsp");
 		
 	}
 	

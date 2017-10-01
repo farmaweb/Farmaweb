@@ -30,7 +30,7 @@
 		</c:forEach>
 	</table>
 
-	<a href="/FarmaWeb/views/home.jsp#"><button type="button"
+	<a href="/FarmaWeb/WEB-INF/views/home.jsp#"><button type="button"
 			class="btn btn-primary">Voltar</button></a>
 
 </body>

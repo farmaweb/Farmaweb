@@ -16,7 +16,7 @@ public class ListarFarmacia extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		RequestDispatcher rd = req.getRequestDispatcher("views/listarFarmacia.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/listarFarmacia.jsp");
 		rd.forward(req, res);
 
 	}

@@ -17,7 +17,7 @@ public class ListarFuncionario extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		RequestDispatcher rd = req.getRequestDispatcher("views/listarFuncionario.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/listarFuncionario.jsp");
 		rd.forward(req, res);
 	}
 }

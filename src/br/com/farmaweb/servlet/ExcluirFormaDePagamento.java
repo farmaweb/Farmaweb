@@ -38,7 +38,7 @@ public class ExcluirFormaDePagamento extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		RequestDispatcher rd = req.getRequestDispatcher("views/listarFormaDePagamento.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/listarFormaDePagamento.jsp");
 		rd.forward(req, res);
 
 	}
