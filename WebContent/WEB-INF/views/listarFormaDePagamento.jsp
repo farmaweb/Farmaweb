@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
+
 
 <html>
 <head>
@@ -28,7 +28,8 @@
 			<tr>
 				<td>${forma.tipo_pagamento}</td>
 				<td><button type="button" class="btn btn-primary">Editar</button></td>
-				<td><form action="/FarmaWeb/excluirFormaDePagamento" method="POST">
+				<td><form action="/FarmaWeb/excluirFormaDePagamento"
+						method="POST">
 						<input type="hidden" name="cod_pagamento"
 							value="${forma.cod_pagamento}" />
 						<button type="submit" class="btn btn-primary">Excluir</button>
@@ -39,10 +40,12 @@
 
 
 	</table>
-	<a href="javascript:window.history.go(-1)"><button type="button"
-			class="btn btn-primary">Voltar</button></a>
-	<button type="button" class="btn btn-primary" data-toggle="modal"
+	<form action="/FarmaWeb/voltar" method="POST">
+		<button type="submit" class="btn btn-primary">Voltar</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal"
 		data-target="#myModal">Incluir</button>
+	</form>
+	
 
 	<div id="myModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
@@ -66,10 +69,9 @@
 						</div>
 					</form>
 				</div>
-
 			</div>
-
 		</div>
 	</div>
+	
 </body>
 </html>

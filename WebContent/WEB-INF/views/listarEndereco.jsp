@@ -6,28 +6,39 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<title>Lista de Clientes</title>
+<title>Lista Endereços</title>
 </head>
 
 <body class="container">
-	<jsp:useBean id="dao" class="br.com.farmaweb.daos.ClienteDao" />
+	<jsp:useBean id="dao" class="br.com.farmaweb.daos.EnderecoDao" />
 	<table class="table table-striped">
 		<tr>
-			<th>Clientes</th>
-			<th>CPF</th>
-			<th>E-mail</th>
-			<th>Telefone</th>
+			<th>Cep</th>
+			<th>Rua</th>
+			<th>Número</th>
+			<th>Bairro</th>
+			<th>Cidade</th>
+			<th>Estado</th>
+			<th>Complemento</th>
 			<th>Ação</th>
 			<th></th>
 		</tr>
-		<c:forEach var="cliente" items="${dao.clientes}">
+		<c:forEach var="endereco" items="${dao.enderecos}">
 			<tr>
-				<td>${cliente.nome_cliente}</td>
-				<td>${cliente.cpf_cliente}</td>
-				<td>${cliente.email_cliente}</td>
-				<td>${cliente.tel_cliente}</td>
+				<td>${endereco.cep}</td>
+				<td>${endereco.rua}</td>
+				<td>${endereco.numero}</td>
+				<td>${endereco.bairro}</td>
+				<td>${endereco.cidade}</td>
+				<td>${endereco.estado}</td>
+				<td>${endereco.complemento}</td>
 				<td><button type="button" class="btn btn-primary">Editar</button></td>
-				<td><button type="button" class="btn btn-primary">Excluir</button></td>
+				<td><form action="/FarmaWeb/excluirEndereco" method="POST">
+					<input type="hidden" name="cod_endereco"
+							value="${endereco.cod_endereco}" />
+						<button type="submit" class="btn btn-primary">Excluir</button>
+					</form>
+				</td>
 			</tr>
 		</c:forEach>
 
