@@ -9,9 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import br.com.farmaweb.daos.EndCliDao;
 import br.com.farmaweb.daos.EnderecoDao;
 import br.com.farmaweb.models.Endereco;
+import br.com.farmaweb.models.Login;
 
 @WebServlet("/incluirEndereco")
 public class IncluirEndereco extends HttpServlet {
@@ -19,7 +22,7 @@ public class IncluirEndereco extends HttpServlet {
 	private static final long serialVersionUID = -8719919992473646719L;
 
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		int cep = Integer.parseInt(req.getParameter("cep"));
 		String rua = req.getParameter("rua");
@@ -40,17 +43,25 @@ public class IncluirEndereco extends HttpServlet {
 		endereco.setComplemento(complemento);
 
 		EnderecoDao enderecoDao = null;
+		EndCliDao endcliDao = null;
+		
+		HttpSession session = req.getSession();
+		Login usuarioLogado = (Login) session.getAttribute("usuarioLogado");
 
 		try {
 			enderecoDao = new EnderecoDao();
-			enderecoDao.incluirEndereco(endereco);
+			endcliDao = new EndCliDao();
+
+			int cod_endereco = enderecoDao.incluirEndereco(endereco);
+			endcliDao.incluirEndCli(cod_endereco, usuarioLogado.getCod_login());
+
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/listarEnderecos.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/listarEndereco.jsp");
 		rd.forward(req, res);
 
 	}

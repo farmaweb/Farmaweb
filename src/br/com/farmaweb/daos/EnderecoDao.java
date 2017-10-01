@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import br.com.farmaweb.models.Endereco;
@@ -17,10 +18,14 @@ public class EnderecoDao {
 		this.connection = ConexaoBanco.getConnection();
 	}
 
-	public ArrayList<Endereco> getEnderecos() {
+	public ArrayList<Endereco> getEnderecos(int cod_cliente) {
 		try {
 
-			PreparedStatement stmt = this.connection.prepareStatement("select * from endereco");
+			PreparedStatement stmt = this.connection.prepareStatement(
+					"select e.cod_endereco, e.cep, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.complemento from cliente as c inner join end_cli as ec on c.cod_cliente = ec.cod_cliente inner join endereco as e on e.cod_endereco = ec.cod_endereco where c.cod_cliente = ?");
+			
+			stmt.setInt(1, cod_cliente);
+
 			ResultSet rs = stmt.executeQuery();
 
 			ArrayList<Endereco> enderecos = new ArrayList<Endereco>();
@@ -51,9 +56,9 @@ public class EnderecoDao {
 
 	public int incluirEndereco(Endereco endereco) throws SQLException {
 		try {
-			PreparedStatement stmt = this.connection.prepareStatement(
-					"insert into endereco(cep,rua,numero,bairro,cidade,estado,complemento)"
-							+ "values ( ?,?,?,?,?,?,? )");
+			PreparedStatement stmt = this.connection
+					.prepareStatement("insert into endereco(cep,rua,numero,bairro,cidade,estado,complemento)"
+							+ "values ( ?,?,?,?,?,?,? )", Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setInt(1, endereco.getCep());
 			stmt.setString(2, endereco.getRua());
@@ -63,7 +68,13 @@ public class EnderecoDao {
 			stmt.setString(6, endereco.getEstado());
 			stmt.setString(7, endereco.getComplemento());
 
-			int ret = stmt.executeUpdate();
+			stmt.executeUpdate();
+			int ret = 0;
+
+			ResultSet rs = stmt.getGeneratedKeys();
+			if (rs.next()) {
+				ret = rs.getInt(1);
+			}
 
 			stmt.close();
 
@@ -89,7 +100,7 @@ public class EnderecoDao {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public int alterarEndereco(Endereco endereco) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(
@@ -102,7 +113,7 @@ public class EnderecoDao {
 			stmt.setString(5, endereco.getCidade());
 			stmt.setString(6, endereco.getEstado());
 			stmt.setString(7, endereco.getComplemento());
-					
+
 			int ret = stmt.executeUpdate();
 
 			stmt.close();

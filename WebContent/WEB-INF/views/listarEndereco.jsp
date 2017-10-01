@@ -2,9 +2,12 @@
 
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <title>Lista Endereços</title>
 </head>
@@ -23,7 +26,7 @@
 			<th>Ação</th>
 			<th></th>
 		</tr>
-		<c:forEach var="endereco" items="${dao.enderecos}">
+		<c:forEach var="endereco" items="${dao.getEnderecos(usuarioLogado.cod_login)}">
 			<tr>
 				<td>${endereco.cep}</td>
 				<td>${endereco.rua}</td>
@@ -34,11 +37,10 @@
 				<td>${endereco.complemento}</td>
 				<td><button type="button" class="btn btn-primary">Editar</button></td>
 				<td><form action="/FarmaWeb/excluirEndereco" method="POST">
-					<input type="hidden" name="cod_endereco"
+						<input type="hidden" name="cod_endereco"
 							value="${endereco.cod_endereco}" />
 						<button type="submit" class="btn btn-primary">Excluir</button>
-					</form>
-				</td>
+					</form></td>
 			</tr>
 		</c:forEach>
 
@@ -58,15 +60,27 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Forma de pagamento</h4>
+					<h4 class="modal-title">Incluir Endereço</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-signin"
-						action="/FarmaWeb/incluirFormaDePagamento" method="POST">
+					<form class="form-signin" action="/FarmaWeb/incluirEndereco"
+						method="POST">
 						<div class="form-group">
 
-							<label for="tipo_pagamento">Tipo De Pagamento:</label> <input
-								type="text" name="tipo_pagamento" style="border-radius: 5px;">
+							<label for="cep">Cep:</label> <input id="cep"
+								type="text" name="cep" style="border-radius: 5px;" required>
+							<label for="rua">Rua:</label> <input id="rua" 
+								type="text" name="rua" style="border-radius: 5px;" disabled required>
+							<label for="numero">Número:</label> <input
+								type="text" name="numero" style="border-radius: 5px;" required>
+							<label for="bairro">Bairro:</label> <input id="bairro"
+								type="text" name="bairro" style="border-radius: 5px;" disabled required>
+							<label for="cidade">Cidade:</label> <input id="cidade"
+								type="text" name="cidade" style="border-radius: 5px;" disabled required>
+								<label for="estado">Estado:</label> <input id="estado"
+								type="text" name="estado" style="border-radius: 5px;" disabled required>
+								<label for="complemento">Complemento:</label> <input
+								type="text" name="complemento" style="border-radius: 5px;">	
 						</div>
 						<div class="modal-footer">
 							<button class="btn btn-default" type="submit">Salvar</button>
@@ -76,5 +90,21 @@
 			</div>
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+		$("#cep").focusout(function(){
+			$.ajax({
+				url: 'https://viacep.com.br/ws/'+$(this).val()+'/json/unicode/',
+				dataType: 'json',
+				success: function(resposta){
+					$("#rua").val(resposta.logradouro);
+					$("#bairro").val(resposta.bairro);
+					$("#cidade").val(resposta.localidade);
+					$("#estado").val(resposta.uf);
+				}
+			});
+		});
+	</script>
 </body>
 </html>
+
