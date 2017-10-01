@@ -8,16 +8,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.farmaweb.daos.LoginDao;
+import br.com.farmaweb.models.Login;
 
 @WebServlet("/login")
-public class Login extends HttpServlet {
+public class EfetuaLogin extends HttpServlet {
 
 	private static final long serialVersionUID = 412773056278474514L;
 
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		String login = req.getParameter("usuario");
 		String senha = req.getParameter("senha");
@@ -30,9 +32,13 @@ public class Login extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		Boolean resultadoDaBusca = loginDao.buscaUsuario(login, senha);
+		Login usuario = loginDao.buscaUsuario(login, senha);
 
-		if (resultadoDaBusca == true) {
+		if (usuario != null) {
+
+			HttpSession session = req.getSession();
+			session.setAttribute("usuario.logado", usuario);
+
 			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
 			rd.forward(req, res);
 		} else {
@@ -40,4 +46,5 @@ public class Login extends HttpServlet {
 			rd.forward(req, res);
 		}
 	}
+
 }

@@ -11,7 +11,7 @@
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
 				<h1 class="text-center login-title">FarmaWeb</h1>
 				<div class="account-wall">
-					<form class="form-signin" action="/FarmaWeb/login">
+					<form class="form-signin" action="/FarmaWeb/login" method="POST">
 						<input type="text" class="form-control" placeholder="Usuario" name="usuario" required autofocus> 
 						<input type="password" class="form-control" placeholder="Senha" name="senha" required>
 						<button class="btn btn-lg btn-primary btn-block" type="submit">
