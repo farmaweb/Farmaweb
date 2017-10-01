@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <html>
 <head>
 
@@ -308,14 +310,46 @@ body {
 -webkit-transform
 
 
+
+
+
+
+
+
+
+
 :rotate(359deg)
+
+
+
+
+
+
+
+
 
 
 ;
 transform
 
 
+
+
+
+
+
+
+
+
 :rotate(359deg)
+
+
+
+
+
+
+
+
 
 
 }
@@ -330,14 +364,46 @@ keyframes fa-spin { 0%{
 -webkit-transform
 
 
+
+
+
+
+
+
+
+
 :rotate(359deg)
+
+
+
+
+
+
+
+
 
 
 ;
 transform
 
 
+
+
+
+
+
+
+
+
 :rotate(359deg)
+
+
+
+
+
+
+
+
 
 
 }
@@ -2982,25 +3048,34 @@ transform
 					<li><a href="#"> <span class="sidebar-icon"><i
 								class="fa fa-dashboard"></i></span> <span class="sidebar-title">FarmaWeb</span>
 					</a></li>
-					<li><a href="/FarmaWeb/listaFormaDePagamento"> <span
-							class="sidebar-title">Forma de pagamento</span>
+					<c:if test="${usuarioLogado.tipo == 2}">
+						<li><a href="/FarmaWeb/listaFormaDePagamento"> <span
+								class="sidebar-title">Forma de pagamento</span>
+						</a></li>
+					</c:if>
+					<li><a href="/FarmaWeb/listaClientes"> <span
+							class="sidebar-title">Cliente</span>
 					</a></li>
-					<li><a href="/FarmaWeb/listaFuncionario"> <span
-							class="sidebar-title">Funcionários</span>
+					<li><a href="/FarmaWeb/listarEndereco"> <span
+							class="sidebar-title">Endereço</span>
 					</a></li>
+					<c:if test="${usuarioLogado.tipo == 2}">
+						<li><a href="/FarmaWeb/listaFuncionario"> <span
+								class="sidebar-title">Funcionários</span>
+						</a></li>
+					</c:if>
 					<li><a href="/FarmaWeb/listaPedido"> <span
 							class="sidebar-title">Pedido</span>
 					</a></li>
 					<li><a href="/FarmaWeb/listaProduto"> <span
 							class="sidebar-title">Produto</span>
 					</a></li>
-					<li><a href="/FarmaWeb/relatorio"> <span
-							class="sidebar-title">Relatório</span>
-					</a></li>
+					<c:if test="${usuarioLogado.tipo == 2}">
+						<li><a href="/FarmaWeb/relatorio"> <span
+								class="sidebar-title">Relatório</span>
+						</a></li>
+					</c:if>
 				</ul>
-				<form action="logout" method="post">
-					<input type="submit" value="logout" />
-				</form>
 			</aside>
 		</div>
 		<main id="page-content-wrapper" role="main">

@@ -37,7 +37,7 @@ public class EfetuaLogin extends HttpServlet {
 		if (usuario != null) {
 
 			HttpSession session = req.getSession();
-			session.setAttribute("usuario.logado", usuario);
+			session.setAttribute("usuarioLogado", usuario);
 
 			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
 			rd.forward(req, res);
