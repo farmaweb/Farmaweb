@@ -18,7 +18,7 @@ public class LoginDao {
 	
 	
 	
-	public boolean buscaUsuario(String loginUsuario,String senhaUsuario) {
+	public Login buscaUsuario(String loginUsuario,String senhaUsuario) {
 	     try {
 	    	 
 	         PreparedStatement stmt = this.connection.prepareStatement("select * from login where usuario='"+
@@ -30,15 +30,16 @@ public class LoginDao {
 	 		 while (rs.next()) {
 	             login.setUsuario(rs.getString("usuario"));
 	             login.setSenha(rs.getString("senha"));
+	             login.setTipo(rs.getInt("tipo"));
 	         }
 	         
 	         rs.close();
 	         stmt.close();
 	         
 	         if(login.getUsuario() != null && login.getSenha() != null) {
-	        	 return true;
+	        	 return login;
 	         }else {
-	        	 return false;
+	        	 return null;
 	         }
 	        
 	     } catch (SQLException e) {

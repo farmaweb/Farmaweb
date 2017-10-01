@@ -7,6 +7,7 @@ public class Login {
 	private String senha;
 	private int tipo;
 	
+	
 	public int getCod_login() {
 		return cod_login;
 	}
