@@ -2,37 +2,43 @@
 
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<title>Formas de pagamento</title>
+<title>Lista Endereços</title>
 </head>
 
 <body class="container">
-	<jsp:useBean id="dao" class="br.com.farmaweb.daos.FormaDePagamentoDao" />
+	<jsp:useBean id="dao" class="br.com.farmaweb.daos.EnderecoDao" />
 	<table class="table table-striped">
 		<tr>
-			<th>Tipo De Pagamento</th>
+			<th>Cep</th>
+			<th>Rua</th>
+			<th>Número</th>
+			<th>Bairro</th>
+			<th>Cidade</th>
+			<th>Estado</th>
+			<th>Complemento</th>
 			<th>Ação</th>
 			<th></th>
 		</tr>
-		<c:forEach var="forma" items="${dao.pagamentos}">
+		<c:forEach var="endereco" items="${dao.enderecos}">
 			<tr>
-				<td>${forma.tipo_pagamento}</td>
+				<td>${endereco.cep}</td>
+				<td>${endereco.rua}</td>
+				<td>${endereco.numero}</td>
+				<td>${endereco.bairro}</td>
+				<td>${endereco.cidade}</td>
+				<td>${endereco.estado}</td>
+				<td>${endereco.complemento}</td>
 				<td><button type="button" class="btn btn-primary">Editar</button></td>
-				<td><form action="/FarmaWeb/excluirFormaDePagamento"
-						method="POST">
-						<input type="hidden" name="cod_pagamento"
-							value="${forma.cod_pagamento}" />
+				<td><form action="/FarmaWeb/excluirEndereco" method="POST">
+					<input type="hidden" name="cod_endereco"
+							value="${endereco.cod_endereco}" />
 						<button type="submit" class="btn btn-primary">Excluir</button>
-					</form></td>
+					</form>
+				</td>
 			</tr>
 		</c:forEach>
 
@@ -44,7 +50,6 @@
 		<button type="button" class="btn btn-primary" data-toggle="modal"
 			data-target="#myModal">Incluir</button>
 	</form>
-
 
 	<div id="myModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
@@ -71,6 +76,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

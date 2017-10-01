@@ -9,15 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/listarEndereco")
-public class ListarEndereco extends HttpServlet {
-
-	private static final long serialVersionUID = -8281046571361510390L;
-
-	@Override
+@WebServlet("/voltar")
+public class Voltar extends HttpServlet {
+	
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/listarEndereco.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
 		rd.forward(req, res);
 	}
 
