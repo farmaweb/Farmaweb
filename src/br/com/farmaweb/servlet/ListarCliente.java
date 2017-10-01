@@ -17,7 +17,7 @@ public class ListarCliente extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		RequestDispatcher rd = req.getRequestDispatcher("views/listarCliente.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/listarCliente.jsp");
 		rd.forward(req, res);
 	}
 }

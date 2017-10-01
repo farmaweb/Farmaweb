@@ -56,7 +56,7 @@ public class AlterarEndereco extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		RequestDispatcher rd = req.getRequestDispatcher("views/listarEndereco.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/listarEndereco.jsp");
 		rd.forward(req, res);
 	}
 }

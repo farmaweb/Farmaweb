@@ -2,6 +2,7 @@ package br.com.farmaweb.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,28 +17,27 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 412773056278474514L;
 
 	@Override
-    protected void service(HttpServletRequest req, HttpServletResponse res)
-              throws ServletException, IOException {
-		
-   	    String login = req.getParameter("usuario");
-	    String senha = req.getParameter("senha");
-	    
-	    LoginDao loginDao = null;
-	    
+	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+		String login = req.getParameter("usuario");
+		String senha = req.getParameter("senha");
+
+		LoginDao loginDao = null;
+
 		try {
 			loginDao = new LoginDao();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-	    
-	    Boolean resultadoDaBusca = loginDao.buscaUsuario(login, senha);
-	    
-	    if(resultadoDaBusca == true) {
-	    	res.sendRedirect("views/home.jsp");
-	    }else {
-	    	
-	    	res.sendRedirect("views/acessonegado.jsp");
-	    }
-    }
-	
+
+		Boolean resultadoDaBusca = loginDao.buscaUsuario(login, senha);
+
+		if (resultadoDaBusca == true) {
+			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
+			rd.forward(req, res);
+		} else {
+			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/acessonegado.jsp");
+			rd.forward(req, res);
+		}
+	}
 }
