@@ -29,7 +29,12 @@
 				<td>${funcionario.tel_funcionario}</td>
 				<td>${funcionario.funcao}</td>
 				<td><button type="button" class="btn btn-primary">Editar</button></td>
-				<td><button type="button" class="btn btn-primary">Excluir</button></td>
+				<td><form action="/FarmaWeb/excluirFuncionario"
+						method="POST">
+						<input type="hidden" name="cod_funcionario"
+							value="${funcionario.cod_funcionario}" />
+						<button type="submit" class="btn btn-primary">Excluir</button>
+					</form></td>
 			</tr>
 		</c:forEach>
 
