@@ -3,13 +3,16 @@ package br.com.farmaweb.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.farmaweb.daos.EnderecoDao;
 import br.com.farmaweb.daos.FarmaciaDao;
+import br.com.farmaweb.models.Endereco;
 import br.com.farmaweb.models.Farmacia;
 
 
@@ -21,6 +24,24 @@ public class IncluirFarmacia extends HttpServlet {
 	@Override
     protected void service(HttpServletRequest req, HttpServletResponse res)
               throws ServletException, IOException {
+			
+		//incluir endereço farmácia
+		int cep = Integer.parseInt(req.getParameter("cep"));
+		String rua = req.getParameter("rua");
+		String numero = req.getParameter("numero");
+		String bairro = req.getParameter("bairro");
+		String cidade = req.getParameter("cidade");
+		String estado = req.getParameter("estado");
+		String complemento = req.getParameter("complemento");
+		
+		Endereco endereco = new Endereco();
+		endereco.setCep(cep);
+		endereco.setRua(rua);
+		endereco.setNumero(numero);
+		endereco.setBairro(bairro);
+		endereco.setCidade(cidade);
+		endereco.setEstado(estado);
+		endereco.setComplemento(complemento);
 		
 		String nome_fantasia = req.getParameter("nome_fantasia");
 		String razao_social = req.getParameter("razao_social");
@@ -37,20 +58,26 @@ public class IncluirFarmacia extends HttpServlet {
 		farmacia.setObservacao(observacao);
 		
 		FarmaciaDao farmaciaDao = null;
+		EnderecoDao enderecoDao = null;
 		
 		try {
+			enderecoDao = new EnderecoDao();
+			int cod_endereco = enderecoDao.incluirEndereco(endereco);
+			
 			farmaciaDao = new FarmaciaDao();
+			int cod_farm_func = farmaciaDao.incluirFarmacia(farmacia,cod_endereco);
+			req.setAttribute("cod_farm_func",cod_farm_func);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}
-		
-		try {
-			farmaciaDao.incluirFarmacia(farmacia);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		res.sendRedirect("/WEB-INF/views/sucesso.jsp");
+		
+		req.setAttribute("incluirClienteFarmacia",1);
+		
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/login.jsp");
+		rd.forward(req, res);
 	    		
 	}
 }

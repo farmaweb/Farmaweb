@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import br.com.farmaweb.models.Farmacia;
@@ -49,20 +50,27 @@ public class FarmaciaDao {
 		}
 	}
 
-	public int incluirFarmacia(Farmacia farmacia) throws SQLException {
+	public int incluirFarmacia(Farmacia farmacia, int cod_endereco) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(
 					"insert into farmacia(nome_fantasia,razao_social,cnpj,tel_farmacia,observacao,cod_end_farm)"
-							+ "values ( ?,?,?,?,?,1 )");
+							+ "values ( ?,?,?,?,?,? )", Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setString(1, farmacia.getNome_fantasia());
 			stmt.setString(2, farmacia.getRazao_social());
 			stmt.setLong(3, farmacia.getCnpj());
 			stmt.setLong(4, farmacia.getTel_farmacia());
 			stmt.setString(5, farmacia.getObservacao());
-
-			int ret = stmt.executeUpdate();
-
+			stmt.setInt(6, cod_endereco);
+			
+			stmt.executeUpdate();
+			int ret = 0;
+			
+			ResultSet rs = stmt.getGeneratedKeys();
+			if (rs.next()) {
+				ret = rs.getInt(1);
+			}
+			
 			stmt.close();
 
 			return ret;

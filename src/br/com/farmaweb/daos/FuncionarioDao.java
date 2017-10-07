@@ -51,13 +51,14 @@ public class FuncionarioDao {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(
 					"insert into funcionario(cod_funcionario,matricula_funcionario,nome_funcionario,tel_funcionario,funcao,cod_farm_func)"
-							+ "values ( ?,?,?,?,?,1 )");
+							+ "values ( ?,?,?,?,?,? )");
 
 			stmt.setInt(1, funcionario.getCod_funcionario());
 			stmt.setLong(2, funcionario.getMatricula_funcionario());
 			stmt.setString(3, funcionario.getNome_funcionario());
 			stmt.setLong(4, funcionario.getTel_funcionario());
-			stmt.setInt(5, funcionario.getCod_farm_func());
+			stmt.setString(5, funcionario.getFuncao());
+			stmt.setInt(6, funcionario.getCod_farm_func());
 
 			int ret = stmt.executeUpdate();
 
