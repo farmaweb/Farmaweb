@@ -11,7 +11,7 @@
 
 <body class="container">
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.FarmaciaDao" />
-	<table class="table table-striped">
+	<table class="table table-bordered">
 
 		<tr>
 

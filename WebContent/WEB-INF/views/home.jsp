@@ -10,7 +10,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 #map {
-	width: 120%;
+	width: 100%;
 	height: 661px;
 	text-align: center;
 }
@@ -20,10 +20,10 @@ body {
 }
 
 .table {
-    border-radius: 10px;
-    width: 70%;
-    margin: 0px auto;
-    float: none;
+	border-radius: 10px;
+	width: 70%;
+	margin: 0px auto;
+	float: none;
 }
 
 /* Toggle Styles */
@@ -336,7 +336,11 @@ body {
 
 
 
+
+
 :rotate(359deg)
+
+
 
 
 
@@ -371,7 +375,11 @@ transform
 
 
 
+
+
 :rotate(359deg)
+
+
 
 
 
@@ -414,7 +422,11 @@ keyframes fa-spin { 0%{
 
 
 
+
+
 :rotate(359deg)
+
+
 
 
 
@@ -449,7 +461,11 @@ transform
 
 
 
+
+
 :rotate(359deg)
+
+
 
 
 
@@ -3136,19 +3152,19 @@ transform
 						</a></li>
 					</c:if>
 					<c:if test="${usuarioLogado.tipo == 2}">
-					<li><a href="/FarmaWeb/listaPedido"> <span
-							class="sidebar-title">Pedido</span>
-					</a></li>
+						<li><a href="/FarmaWeb/listaPedido"> <span
+								class="sidebar-title">Pedido</span>
+						</a></li>
 					</c:if>
 					<c:if test="${usuarioLogado.tipo == 1}">
-					<li><a href="/FarmaWeb/listaPedido"> <span
-							class="sidebar-title">Realizar pedido</span>
-					</a></li>
+						<li><a href="/FarmaWeb/listaPedido"> <span
+								class="sidebar-title">Realizar pedido</span>
+						</a></li>
 					</c:if>
 					<c:if test="${usuarioLogado.tipo == 2}">
-					<li><a href="/FarmaWeb/listaProduto"> <span
-							class="sidebar-title">Produto</span>
-					</a></li>
+						<li><a href="/FarmaWeb/listaProduto"> <span
+								class="sidebar-title">Produto</span>
+						</a></li>
 					</c:if>
 				</ul>
 				<button type="button" class="btn btn-info btn-lg"
@@ -3157,8 +3173,8 @@ transform
 
 		</div>
 	</div>
-	
-	 <c:if test="${usuarioLogado.tipo == 2}">
+
+	<c:if test="${usuarioLogado.tipo == 2}">
 		<jsp:useBean id="dao" class="br.com.farmaweb.daos.PedidoDao" />
 		<div class="container-fluid">
 			<table class="table table-hover text-centered">
@@ -3183,9 +3199,9 @@ transform
 
 
 
-		<c:if test="${usuarioLogado.tipo == 1}">
-			<div id="map"></div>
-		</c:if>
+	<c:if test="${usuarioLogado.tipo == 1}">
+		<div id="map"></div>
+	</c:if>
 
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog modal-sm">
@@ -3202,26 +3218,57 @@ transform
 			</div>
 		</div>
 	</div>
-</body>
-</html>
 
-<script>
-	function initMap() {
-		var uluru = {
-			lat : -22.878128,
-			lng : -43.271966
-		};
-		var map = new google.maps.Map(document.getElementById('map'), {
-			zoom : 16,
-			center : uluru
-		});
-		var marker = new google.maps.Marker({
-			position : uluru,
-			map : map
-		});
+	<script>
+	$(window).on('load',function() {
+	    getData();
+	});
+	
+	function getData() {
+		$.ajax({
+		         type: 'GET',    
+		         url:'/FarmaWeb/listaLatLong',
+		         success: function(data){
+		        	 var lista = [];
+		        	 $.each(data, function(key, value) {
+		        		 if(value.latitude != undefined && value.longitude != undefined){
+		        			 lista.push({lat: parseFloat(value.latitude), lng: parseFloat(value.longitude)});
+		        		 }
+		        	 })
+		        	 initMap(lista); 
+		         }
+		     });
 	}
+	
+	function initMap(lista) {
+		
+		var map = new google.maps.Map(document.getElementById('map'), {
+	          zoom: 13,
+	          center: {lat: lista[0].lat, lng: lista[0].lng}
+        });
+				
+		var markers = lista.map(function(location) {
+	          return new google.maps.Marker({
+	              position: location
+	          });
+       	});
+		
+		var markerCluster = new MarkerClusterer(map, markers,{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    }
+		
+		
+</script>
+<script
+		src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
 </script>
 <script async defer
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIOUquPXPAq0yXYC8JYcNjUCrCz1OGukc&callback=initMap">
-	
 </script>
+
+
+</body>
+</html>
+
+
+
+

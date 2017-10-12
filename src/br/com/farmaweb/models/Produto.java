@@ -5,7 +5,7 @@ public class Produto {
 	private String nome_produto;
 	private String descricao_produto;
 	private int quantidade_produto;
-	private float preco_unitario;
+	private Double preco_unitario;
 	private int cod_farm_prod;
 
 	public int getCod_produto() {
@@ -40,13 +40,7 @@ public class Produto {
 		this.quantidade_produto = quantidade_produto;
 	}
 
-	public float getPreco_unitario() {
-		return preco_unitario;
-	}
 
-	public void setPreco_unitario(float preco_unitario) {
-		this.preco_unitario = preco_unitario;
-	}
 
 	public int getCod_farm_prod() {
 		return cod_farm_prod;
@@ -54,6 +48,14 @@ public class Produto {
 
 	public void setCod_farm_prod(int cod_farm_prod) {
 		this.cod_farm_prod = cod_farm_prod;
+	}
+
+	public Double getPreco_unitario() {
+		return preco_unitario;
+	}
+
+	public void setPreco_unitario(Double preco_unitario) {
+		this.preco_unitario = preco_unitario;
 	}
 
 }

@@ -11,7 +11,7 @@
 
 <body class="container">
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.PedidoDao" />
-	<table class="table table-striped">
+	<table class="table table-bordered">
 		<tr>
 			<th>Status</th>
 			<th>Valor Total</th>
@@ -30,8 +30,6 @@
 	</table>
 	<form action="/FarmaWeb/voltar" method="POST">
 		<button type="submit" class="btn btn-primary">Voltar</button>
-		<button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#myModal">Incluir</button>
 	</form>
 	
 	<div id="myModal" class="modal fade" role="dialog">
