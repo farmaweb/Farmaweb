@@ -20,7 +20,8 @@ import br.com.farmaweb.utils.ConexaoBanco;
 
 public class EnderecoDao {
 	private Connection connection;
-	private GeoApiContext context = new GeoApiContext.Builder().apiKey("AIzaSyCmwRyVP35MdWUXJ3v6reS_1UhCMuN7nmg").build();
+	private GeoApiContext context = new GeoApiContext.Builder().apiKey("AIzaSyCmwRyVP35MdWUXJ3v6reS_1UhCMuN7nmg")
+			.build();
 
 	public EnderecoDao() throws ClassNotFoundException {
 		new ConexaoBanco();
@@ -70,12 +71,12 @@ public class EnderecoDao {
 					"insert into endereco(cep,rua,numero,bairro,cidade,estado,complemento, latitude, longitude)"
 							+ "values ( ?,?,?,?,?,?,?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
-			
+
 			StringBuilder sb = new StringBuilder();
-			sb.append(endereco.getNumero()+" ");
-			sb.append(endereco.getRua()+" ,");
+			sb.append(endereco.getNumero() + " ");
+			sb.append(endereco.getRua() + " ,");
 			sb.append(" " + endereco.getEstado());
-			
+
 			GeocodingResult[] results = GeocodingApi.geocode(context, sb.toString()).await();
 
 			stmt.setInt(1, endereco.getCep());
@@ -139,6 +140,33 @@ public class EnderecoDao {
 			stmt.close();
 
 			return ret;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public ArrayList<Endereco> getLatLong() {
+
+		try {
+			PreparedStatement stmt = this.connection.prepareStatement(
+					"select latitude, longitude from endereco");
+			ResultSet rs = stmt.executeQuery();
+
+			ArrayList<Endereco> enderecos = new ArrayList<Endereco>();
+
+			while (rs.next()) {
+				Endereco endereco = new Endereco();
+
+				endereco.setLatitude(rs.getString("latitude"));
+				endereco.setLongitude(rs.getString("longitude"));
+
+				enderecos.add(endereco);
+			}
+
+			rs.close();
+			stmt.close();
+
+			return enderecos;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

@@ -14,7 +14,7 @@
 
 <body class="container">
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.EnderecoDao" />
-	<table class="table table-striped">
+	<table class="table table-bordered">
 		<tr>
 			<th>Cep</th>
 			<th>Rua</th>

@@ -17,7 +17,7 @@
 
 <body class="container">
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.FormaDePagamentoDao" />
-	<table class="table table-striped">
+	<table class="table table-bordered">
 		<tr>
 			<th>Tipo De Pagamento</th>
 			<th>Ação</th>
@@ -32,7 +32,8 @@
 						<input type="hidden" name="cod_pagamento"
 							value="${forma.cod_pagamento}" />
 						<button type="submit" class="btn btn-primary">Excluir</button>
-					</form></td>
+					</form>
+				</td>
 			</tr>
 		</c:forEach>
 
