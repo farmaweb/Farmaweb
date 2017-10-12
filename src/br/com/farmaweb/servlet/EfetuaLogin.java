@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.farmaweb.daos.FuncionarioDao;
 import br.com.farmaweb.daos.LoginDao;
 import br.com.farmaweb.models.Login;
 
@@ -33,9 +34,8 @@ public class EfetuaLogin extends HttpServlet {
 		}
 
 		Login usuario = loginDao.buscaUsuario(login, senha);
-
-		if (usuario != null) {
-
+		
+		if (usuario != null) {		
 			HttpSession session = req.getSession();
 			session.setAttribute("usuarioLogado", usuario);
 

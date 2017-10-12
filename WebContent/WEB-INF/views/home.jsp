@@ -19,6 +19,13 @@ body {
 	overflow-x: hidden;
 }
 
+.table {
+    border-radius: 10px;
+    width: 70%;
+    margin: 0px auto;
+    float: none;
+}
+
 /* Toggle Styles */
 #wrapper {
 	-webkit-transition: all 0.6s ease;
@@ -3118,24 +3125,30 @@ transform
 								class="sidebar-title">Cliente</span>
 						</a></li>
 					</c:if>
-					<li><a href="/FarmaWeb/listarEndereco"> <span
-							class="sidebar-title">Endereço</span>
-					</a></li>
+					<c:if test="${usuarioLogado.tipo == 1}">
+						<li><a href="/FarmaWeb/listarEndereco"> <span
+								class="sidebar-title">Endereço</span>
+						</a></li>
+					</c:if>
 					<c:if test="${usuarioLogado.tipo == 2}">
 						<li><a href="/FarmaWeb/listaFuncionario"> <span
 								class="sidebar-title">Funcionários</span>
 						</a></li>
 					</c:if>
+					<c:if test="${usuarioLogado.tipo == 2}">
 					<li><a href="/FarmaWeb/listaPedido"> <span
 							class="sidebar-title">Pedido</span>
 					</a></li>
+					</c:if>
+					<c:if test="${usuarioLogado.tipo == 1}">
+					<li><a href="/FarmaWeb/listaPedido"> <span
+							class="sidebar-title">Realizar pedido</span>
+					</a></li>
+					</c:if>
+					<c:if test="${usuarioLogado.tipo == 2}">
 					<li><a href="/FarmaWeb/listaProduto"> <span
 							class="sidebar-title">Produto</span>
 					</a></li>
-					<c:if test="${usuarioLogado.tipo == 2}">
-						<li><a href="/FarmaWeb/relatorio"> <span
-								class="sidebar-title">Relatório</span>
-						</a></li>
 					</c:if>
 				</ul>
 				<button type="button" class="btn btn-info btn-lg"
@@ -3144,12 +3157,35 @@ transform
 
 		</div>
 	</div>
-
-
-
-
-		<div id="map"></div>
 	
+	 <c:if test="${usuarioLogado.tipo == 2}">
+		<jsp:useBean id="dao" class="br.com.farmaweb.daos.PedidoDao" />
+		<div class="container-fluid">
+			<table class="table table-hover text-centered">
+				<tr>
+					<th>Status</th>
+					<th>Valor Total</th>
+					<th>Valor Desconto</th>
+					<th>Data Pedido</th>
+					<th></th>
+				</tr>
+				<c:forEach var="pedido" items="${dao.pedidos}">
+					<tr>
+						<td>${pedido.status}</td>
+						<td>${pedido.valor_total}</td>
+						<td>${pedido.valor_desconto}</td>
+						<td>${pedido.data_pedido}</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+	</c:if>
+
+
+
+		<c:if test="${usuarioLogado.tipo == 1}">
+			<div id="map"></div>
+		</c:if>
 
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog modal-sm">

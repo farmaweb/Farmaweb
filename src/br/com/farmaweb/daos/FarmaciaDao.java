@@ -19,6 +19,25 @@ public class FarmaciaDao {
 		this.connection = ConexaoBanco.getConnection();
 	}
 
+	public int retornaCodFarm(int codLogin) {
+		int cod_farmacia = 0;
+
+		try {
+			PreparedStatement stmt = this.connection.prepareStatement(
+					"select far.cod_farmacia from farmacia as far inner join funcionario as fun on fun.cod_farm_func = far.cod_farmacia inner join login as log on fun.cod_funcionario = ?");
+			stmt.setInt(1, codLogin);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				cod_farmacia = rs.getInt("cod_farmacia");
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return cod_farmacia;
+	}
+
 	public ArrayList<Farmacia> getFarmacias() {
 		try {
 
@@ -54,7 +73,8 @@ public class FarmaciaDao {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(
 					"insert into farmacia(nome_fantasia,razao_social,cnpj,tel_farmacia,observacao,cod_end_farm)"
-							+ "values ( ?,?,?,?,?,? )", Statement.RETURN_GENERATED_KEYS);
+							+ "values ( ?,?,?,?,?,? )",
+					Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setString(1, farmacia.getNome_fantasia());
 			stmt.setString(2, farmacia.getRazao_social());
@@ -62,15 +82,15 @@ public class FarmaciaDao {
 			stmt.setLong(4, farmacia.getTel_farmacia());
 			stmt.setString(5, farmacia.getObservacao());
 			stmt.setInt(6, cod_endereco);
-			
+
 			stmt.executeUpdate();
 			int ret = 0;
-			
+
 			ResultSet rs = stmt.getGeneratedKeys();
 			if (rs.next()) {
 				ret = rs.getInt(1);
 			}
-			
+
 			stmt.close();
 
 			return ret;
@@ -84,7 +104,6 @@ public class FarmaciaDao {
 			PreparedStatement stmt = this.connection.prepareStatement("delete from farmacia where cod_farmacia = ?");
 
 			stmt.setInt(1, farmacia.getCod_farmacia());
-			;
 
 			int ret = stmt.executeUpdate();
 

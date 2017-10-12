@@ -10,6 +10,8 @@ public class Endereco {
 	private String cidade;
 	private String estado;
 	private String complemento;
+	private String latitude;
+	private String longitude;
 	
 	public int getCod_endereco() {
 		return cod_endereco;
@@ -58,6 +60,19 @@ public class Endereco {
 	}
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+	public String getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 
 	

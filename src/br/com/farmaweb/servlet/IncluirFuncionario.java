@@ -9,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.farmaweb.daos.ClienteDao;
+import br.com.farmaweb.daos.FarmaciaDao;
 import br.com.farmaweb.daos.FuncionarioDao;
 import br.com.farmaweb.daos.LoginDao;
 import br.com.farmaweb.models.Cliente;
@@ -33,6 +35,17 @@ public class IncluirFuncionario extends HttpServlet {
 		Long tel_funcionario = Long.parseLong(req.getParameter("tel_funcionario"));
 		String funcao = req.getParameter("funcao");
 		Integer cod_farm_func = Integer.parseInt(req.getParameter("cod_farm_func"));
+		
+		if(cod_farm_func == 0) {
+			try {
+				FarmaciaDao farmaciadao = new FarmaciaDao();
+				HttpSession session = req.getSession();
+				Login usuarioLogado = (Login) session.getAttribute("usuarioLogado");
+				cod_farm_func = farmaciadao.retornaCodFarm(usuarioLogado.getCod_login());
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		Login login = new Login();
 		login.setUsuario(usuario);

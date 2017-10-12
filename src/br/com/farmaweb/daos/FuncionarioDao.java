@@ -16,13 +16,19 @@ public class FuncionarioDao {
 		new ConexaoBanco();
 		this.connection = ConexaoBanco.getConnection();
 	}
+	
 
-	public ArrayList<Funcionario> getFuncionarios() {
+	public ArrayList<Funcionario> getFuncionarios(int cod_login) {
 		try {
-
-			PreparedStatement stmt = this.connection.prepareStatement("select * from funcionario");
+			
+			FarmaciaDao farmaciaDao = new FarmaciaDao();
+			int cod_farm = farmaciaDao.retornaCodFarm(cod_login);
+			
+			PreparedStatement stmt = this.connection.prepareStatement("select * from funcionario where cod_farm_func = ?");
+			stmt.setInt(1, cod_farm);
+			
 			ResultSet rs = stmt.executeQuery();
-
+			
 			ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
 
 			while (rs.next()) {
@@ -42,7 +48,7 @@ public class FuncionarioDao {
 			stmt.close();
 
 			return funcionarios;
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
 	}

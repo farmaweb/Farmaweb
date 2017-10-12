@@ -21,7 +21,7 @@
 			<th></th>
 
 		</tr>
-		<c:forEach var="funcionario" items="${dao.funcionarios}">
+		<c:forEach var="funcionario" items="${dao.getFuncionarios(usuarioLogado.cod_login)}">
 			<tr>
 				<td>${funcionario.matricula_funcionario}</td>
 				<td>${funcionario.nome_funcionario}</td>
@@ -43,26 +43,43 @@
 	<form action="/FarmaWeb/voltar" method="POST">
 		<button type="submit" class="btn btn-primary">Voltar</button>
 		<button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#myModal">Incluir</button>
+			data-target="#funcionario">Incluir</button>
 	</form>
 
-	<div id="myModal" class="modal fade" role="dialog">
+	<div id="funcionario" role="dialog" class="modal fade">
 		<div class="modal-dialog">
-
+	
 			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Forma de pagamento</h4>
-				</div>
-				<div class="modal-body">
-					<form class="form-signin"
-						action="/FarmaWeb/incluirFormaDePagamento" method="POST">
-						<div class="form-group">
-
-							<label for="tipo_pagamento">Tipo De Pagamento:</label> <input
-								type="text" name="tipo_pagamento" style="border-radius: 5px;">
-						</div>
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Cadastro de funcionário</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-signin" action="/FarmaWeb/incluirFuncionario"
+					method="POST">
+					<div class="form-group">
+	
+						<label for="Usuario">Usuario:</label>
+						<input type="text" minlength="3" maxlength="20" name="usuario" style="border-radius: 5px;" required>
+						</br>
+						<label for="Senha">Senha:</label>
+						<input type="password" minlength="6" maxlength="30" name="senha" style="border-radius: 5px;" required>
+						</br> 
+						<label for="Nome">Nome do funcionario:</label>
+						<input type="text" name="nome_funcionario" style="border-radius: 5px;" required> 
+						</br> 
+						<label for="Matricula">Matricula:</label> 
+						<input type="text" name="matricula_funcionario" style="border-radius: 5px;" required>
+						</br>
+						<label for="Telefone">Telefone:</label> 
+						<input type="text" name="tel_funcionario" style="border-radius: 5px;" required>
+						</br> 
+						<label for="Função">Função:</label> 
+						<input type="text" name="funcao" style="border-radius: 5px;" required> 
+							<input type="hidden" name="tipo" value="2" />
+							<input type="hidden" name="cod_farm_func" value="0"/>
+					</div>
 						<div class="modal-footer">
 							<button class="btn btn-default" type="submit">Salvar</button>
 						</div>

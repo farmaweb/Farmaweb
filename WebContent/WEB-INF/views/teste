@@ -1,0 +1,65 @@
+<div id="wrapper">
+		<div id="sidebar-wrapper">
+			<aside id="sidebar">
+				<ul id="sidemenu" class="sidebar-nav">
+					<li><a href="#"> <span class="sidebar-icon"><i
+								class="fa fa-dashboard"></i></span> <span class="sidebar-title">FarmaWeb</span>
+					</a></li>
+					<c:if test="${usuarioLogado.tipo == 2}">
+						<li><a href="/FarmaWeb/listaFormaDePagamento"> <span
+								class="sidebar-title">Forma de pagamento</span>
+						</a></li>
+					</c:if>
+					<c:if test="${usuarioLogado.tipo == 3}">
+						<li><a href="/FarmaWeb/listaClientes"> <span
+								class="sidebar-title">Cliente</span>
+						</a></li>
+					</c:if>
+					<li><a href="/FarmaWeb/listarEndereco"> <span
+							class="sidebar-title">Endereço</span>
+					</a></li>
+					<c:if test="${usuarioLogado.tipo == 2}">
+						<li><a href="/FarmaWeb/listaFuncionario"> <span
+								class="sidebar-title">Funcionários</span>
+						</a></li>
+					</c:if>
+					<li><a href="/FarmaWeb/listaPedido"> <span
+							class="sidebar-title">Pedido</span>
+					</a></li>
+					<li><a href="/FarmaWeb/listaProduto"> <span
+							class="sidebar-title">Produto</span>
+					</a></li>
+					<c:if test="${usuarioLogado.tipo == 2}">
+						<li><a href="/FarmaWeb/relatorio"> <span
+								class="sidebar-title">Relatório</span>
+						</a></li>
+					</c:if>
+				</ul>
+				<button type="button" class="btn btn-info btn-lg"
+					data-toggle="modal" data-target="#myModal">Sair</button>
+			</aside>
+
+		</div>
+	</div>
+
+
+
+
+		<div id="map"></div>
+	
+
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Deseja realmente sair ?</h4>
+				</div>
+				<div class="modal-footer">
+					<form class="bottom-left" action="/FarmaWeb/logout" method="POST">
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Sim</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
