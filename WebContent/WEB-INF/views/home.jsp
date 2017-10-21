@@ -3232,7 +3232,7 @@ transform
 		        	 var lista = [];
 		        	 $.each(data, function(key, value) {
 		        		 if(value.latitude != undefined && value.longitude != undefined){
-		        			 lista.push({lat: parseFloat(value.latitude), lng: parseFloat(value.longitude)});
+		        			 lista.push({bairro: value.bairro,cep: value.cep,cidade: value.cidade,complemento: value.complemento,estado: value.estado,numero: value.numero,rua: value.rua, lat: parseFloat(value.latitude), lng: parseFloat(value.longitude),cod_farmacia: data[key+1].cod_farmacia});
 		        		 }
 		        	 })
 		        	 initMap(lista); 
@@ -3242,17 +3242,67 @@ transform
 	
 	function initMap(lista) {
 		
+		var listaLatLongCodFarmacia = lista;
+		var listaFarmacias = [];
+		var contentString = '';
+		
 		var map = new google.maps.Map(document.getElementById('map'), {
 	          zoom: 13,
 	          center: {lat: lista[0].lat, lng: lista[0].lng}
         });
-				
+		    
 		var markers = lista.map(function(location) {
 	          return new google.maps.Marker({
 	              position: location
-	          });
+	          });      
        	});
+				
+		 markers.forEach(function (marker){
+			 marker.addListener('mouseover', function() {
+	
+				 $.ajax({
+			         type: 'GET',    
+			         url:'/FarmaWeb/listarFarmaciasMapa',
+			         success: function(data){
+			        	 listaFarmacias = data;
+			         }
+			     });
+				 
+				 listaLatLongCodFarmacia.forEach(function (endereco){
+					 listaFarmacias.forEach(function (farmacia){
+					 	if(endereco.cod_farmacia == farmacia.cod_farmacia){
+
+					 		contentString = '<div id="content">'+
+						      '<div id="siteNotice">'+
+						      '</div>'+
+						      '<h1 id="firstHeading" class="firstHeading">'+ farmacia.nome_fantasia +'</h1>'+
+						      '<div id="bodyContent">'+
+						      '<p>' + endereco.rua + ', ' + endereco.numero + ' ' + endereco.complemento +'</p>'+
+						      '<p>' + endereco.bairro +'</p>'+
+						      '<p>' + endereco.cidade + ' - ' + endereco.estado +'</p>'+
+						      '<p>' + endereco.cep +'</p>'+
+						      '<p> Telefone: '+ farmacia.tel_farmacia +'</p>'
+						      '</div>'+
+						      '</div>';
+					 	}
+					 });
+				 });
+				 
+			      var infowindow = new google.maps.InfoWindow({
+			    	    content: contentString
+			   	  });
+				 
+				 infowindow.open(map, marker);
+				 
+				 marker.addListener('mouseout', function() {
+				      infowindow.close(map, marker);
+				  });
+			  });
+			 
 		
+		 });
+		
+	
 		var markerCluster = new MarkerClusterer(map, markers,{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
     }
 		

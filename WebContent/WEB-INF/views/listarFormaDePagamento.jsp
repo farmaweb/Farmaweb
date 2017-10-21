@@ -21,12 +21,10 @@
 		<tr>
 			<th>Tipo De Pagamento</th>
 			<th>Ação</th>
-			<th></th>
 		</tr>
-		<c:forEach var="forma" items="${dao.pagamentos}">
+		<c:forEach var="forma" items="${dao.getPagamentos(usuarioLogado.cod_login)}">
 			<tr>
 				<td>${forma.tipo_pagamento}</td>
-				<td><button type="button" class="btn btn-primary">Editar</button></td>
 				<td><form action="/FarmaWeb/excluirFormaDePagamento"
 						method="POST">
 						<input type="hidden" name="cod_pagamento"
@@ -42,7 +40,7 @@
 	</table>
 	<form action="/FarmaWeb/voltar" method="POST">
 		<button type="submit" class="btn btn-primary">Voltar</button>
-		<button type="button" class="btn btn-primary" data-toggle="modal"
+	<button type="button" class="btn btn-primary" data-toggle="modal"
 			data-target="#myModal">Incluir</button>
 	</form>
 
@@ -61,8 +59,18 @@
 						action="/FarmaWeb/incluirFormaDePagamento" method="POST">
 						<div class="form-group">
 
-							<label for="tipo_pagamento">Tipo De Pagamento:</label> <input
-								type="text" name="tipo_pagamento" style="border-radius: 5px;">
+							<label for="tipo_pagamento">Tipo De Pagamento:</label>
+								
+							<select name="cod_pagamento" class="selectpicker" >
+							    <c:forEach var="forma" items="${dao.getAllPagamentos()}">
+							        <option  value="${forma.cod_pagamento}">
+							            ${forma.tipo_pagamento}
+							        </option>
+							     </c:forEach> 
+							</select>
+							<input type="hidden" name="cod_login" value="${usuarioLogado.cod_login}" />
+							
+							
 						</div>
 						<div class="modal-footer">
 							<button class="btn btn-default" type="submit">Salvar</button>

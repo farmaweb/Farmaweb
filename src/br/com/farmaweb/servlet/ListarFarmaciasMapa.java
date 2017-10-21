@@ -10,28 +10,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import br.com.farmaweb.daos.FarmaciaDao;
 import br.com.farmaweb.models.Farmacia;
 
-@WebServlet("/listarFarmacia")
-public class ListarFarmacia extends HttpServlet {
-
-	private static final long serialVersionUID = 5205179580315633881L;
-
+@WebServlet("/listarFarmaciasMapa")
+public class ListarFarmaciasMapa extends HttpServlet{
+	
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
+		List<Farmacia> farmacias = null;
 		try {
 			FarmaciaDao farmaciaDao = new FarmaciaDao();
-			List<Farmacia> farmacias = farmaciaDao.getFarmacias();
-			req.setAttribute("farmacias", farmacias);
+			farmacias = farmaciaDao.getFarmacias();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}	
 		
-		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/listarFarmacia.jsp");
-		rd.forward(req, res);
-
+		String json = new Gson().toJson(farmacias);
+		
+		res.setContentType("application/json"); 
+		res.setCharacterEncoding("UTF-8"); 
+		res.getWriter().write(json); 	
 	}
-
 }

@@ -31,6 +31,7 @@ public class CadastroDeUsuario extends HttpServlet {
 		String email_cliente = req.getParameter("email_cliente");
 		Long tel_cliente = Long.parseLong(req.getParameter("tel_cliente"));
 		
+		
 		Login login = new Login();
 		login.setUsuario(usuario);
 		login.setSenha(senha);
@@ -38,6 +39,9 @@ public class CadastroDeUsuario extends HttpServlet {
 		
 		try {
 			LoginDao logindao = new LoginDao();
+			
+			if(logindao.verificaLogin(usuario) == true) return;
+			
 			int cod_login = logindao.incluirUsuario(login);
 			
 			Cliente cliente = new Cliente();

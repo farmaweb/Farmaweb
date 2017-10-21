@@ -54,6 +54,9 @@ public class IncluirFuncionario extends HttpServlet {
 		
 		try {
 			LoginDao logindao = new LoginDao();
+			
+			if(logindao.verificaLogin(usuario) == true) return;
+			
 			int cod_login = logindao.incluirUsuario(login);
 			
 			Funcionario funcionario = new Funcionario();

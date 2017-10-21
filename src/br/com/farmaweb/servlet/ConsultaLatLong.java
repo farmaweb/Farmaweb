@@ -21,7 +21,7 @@ public class ConsultaLatLong extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<Endereco> listaLatLong = null;
+		List<Object> listaLatLong = null;
 		 	
 		try {
 			EnderecoDao enderecoDao = new EnderecoDao();

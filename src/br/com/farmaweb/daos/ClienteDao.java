@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import br.com.farmaweb.models.Cliente;
+import br.com.farmaweb.models.Login;
 import br.com.farmaweb.utils.ConexaoBanco;
 
 public class ClienteDao {
@@ -46,7 +47,7 @@ public class ClienteDao {
 			throw new RuntimeException(e);
 		}
 	}
-
+	
 	public int incluirCliente(Cliente cliente) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(

@@ -21,17 +21,14 @@ public class IncluirFormaDePagamento extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		String tipo_pagamento = req.getParameter("tipo_pagamento");
-
-		FormaDePagamento formadepagamento = new FormaDePagamento();
-
-		formadepagamento.setTipo_pagamento(tipo_pagamento);
-
+		int cod_pagamento = Integer.parseInt(req.getParameter("cod_pagamento"));
+		int cod_login = Integer.parseInt(req.getParameter("cod_login"));
+		
 		FormaDePagamentoDao formadepagamentoDao = null;
 
 		try {
 			formadepagamentoDao = new FormaDePagamentoDao();
-			formadepagamentoDao.incluirFormaDePagamento(formadepagamento);
+			formadepagamentoDao.incluirFormaDePagamento(cod_pagamento,cod_login);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

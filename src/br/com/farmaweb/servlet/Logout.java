@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/logout")
 public class Logout extends HttpServlet{
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.getSession().invalidate();
-		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/login.jsp");
-		rd.forward(req, resp);
+		RequestDispatcher rd = req.getRequestDispatcher("/");
+		rd.forward(req, res);
 	}
 }

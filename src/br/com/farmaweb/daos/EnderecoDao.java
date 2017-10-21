@@ -16,6 +16,7 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
 
 import br.com.farmaweb.models.Endereco;
+import br.com.farmaweb.models.Farmacia;
 import br.com.farmaweb.utils.ConexaoBanco;
 
 public class EnderecoDao {
@@ -145,28 +146,38 @@ public class EnderecoDao {
 		}
 	}
 
-	public ArrayList<Endereco> getLatLong() {
+	public ArrayList<Object> getLatLong() {
 
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"select latitude, longitude from endereco");
+					"select e.cod_endereco, e.cep, e.rua, e.numero, e.bairro, e.cidade, e.estado, e.complemento, e.latitude, e.longitude, f.cod_farmacia  from endereco as e inner join farmacia as f on f.cod_end_farm = e.cod_endereco;");
 			ResultSet rs = stmt.executeQuery();
 
-			ArrayList<Endereco> enderecos = new ArrayList<Endereco>();
+			ArrayList<Object> latLongs = new ArrayList<Object>();
 
 			while (rs.next()) {
 				Endereco endereco = new Endereco();
-
+				Farmacia farmacia = new Farmacia();
+				
+				endereco.setCep(rs.getInt("cep"));
+				endereco.setRua(rs.getString("rua"));
+				endereco.setNumero(rs.getString("numero"));
+				endereco.setBairro(rs.getString("bairro"));
+				endereco.setCidade(rs.getString("cidade"));
+				endereco.setEstado(rs.getString("estado"));
+				endereco.setComplemento(rs.getString("complemento"));
 				endereco.setLatitude(rs.getString("latitude"));
 				endereco.setLongitude(rs.getString("longitude"));
-
-				enderecos.add(endereco);
+				farmacia.setCod_farmacia(rs.getInt("cod_farmacia"));
+				
+				latLongs.add(endereco);
+				latLongs.add(farmacia);
 			}
 
 			rs.close();
 			stmt.close();
 
-			return enderecos;
+			return latLongs;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
