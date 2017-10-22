@@ -8,20 +8,33 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	
+
 <style>
 .modal-dialog {
 	position: absolute;
-    right: 0px;
-    width: 300px;
-    padding: 10px;
+	right: 0px;
+	width: 300px;
+	padding: 10px;
 }
+
 .modal-header {
 	background: #337ab7;
 	color: white;
 }
 
-</style>	
+#numero {
+	width: 70%;
+}
+th {
+	width: 15%;
+    text-align: center;
+}
+.bottom-left {
+	position: fixed;
+	bottom: 0;
+	left: 25;
+}
+</style>
 
 <title>Lista de Produtos</title>
 
@@ -29,7 +42,7 @@
 
 <body class="container">
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.ProdutoDao" />
-	
+
 	<div class="row">
 		<div class="col-xs-6">
 			<table class="table table-bordered">
@@ -43,33 +56,37 @@
 					items="${dao.listaProdutoFarmacia(cod_farmacia)}">
 					<tr>
 						<td></td>
-						<td>${produto.nome_produto} <br>
+						<td>${produto.nome_produto}<br>
 							${produto.descricao_produto}
 						</td>
 						<td>${produto.preco_unitario}</td>
-						<td><input type="number" class="form-control text-center" value="1"></td>
-						<td>Adicionar ao carrinho</td>
+						<td><input id="numero" type="number"
+							class="form-control text-center" value="1"></td>
+						<td><a id="adicionar">Adicionar ao carrinho</a></td>
 					</tr>
 				</c:forEach>
 			</table>
 		</div>
-		
+
 		<div class="col-xs-6">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title"><span class="glyphicon glyphicon-shopping-cart"></span> Carrinho </h4>
+						<h4 class="modal-title">
+							<span class="glyphicon glyphicon-shopping-cart"></span> Carrinho
+						</h4>
 					</div>
-					<div class="form-group">
-					</div>
+					<div class="form-group"></div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<form action="/FarmaWeb/voltar" method="POST">
-		<button type="submit" class="btn btn-primary">Voltar</button>
-	</form>
+	
+	<div class="bottom-left">
+		<form action="/FarmaWeb/voltar" method="POST">
+			<button type="submit" class="btn btn-primary">Voltar</button>
+		</form>
+	</div>
 
 </body>
 </html>

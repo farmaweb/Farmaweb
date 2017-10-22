@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Voltar extends HttpServlet {
 	
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+		
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
 		rd.forward(req, res);
 	}
