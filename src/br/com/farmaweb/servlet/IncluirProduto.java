@@ -22,10 +22,14 @@ public class IncluirProduto extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String nome_produto = req.getParameter("nome_produto");
+		String marca_fabricante = req.getParameter("marca_fabricante");
+		String caracteristica = req.getParameter("caracteristica");
 		String descricao_produto = req.getParameter("descricao_produto");
 		int quantidade_produto = Integer.parseInt(req.getParameter("quantidade_produto"));
+		int receita = Integer.parseInt(req.getParameter("receita"));
 		Double preco_unitario = Double.parseDouble(req.getParameter("preco_unitario"));
-
+		int desconto = Integer.parseInt(req.getParameter("desconto"));
+		
 		Integer cod_farm_prod = 0;
 
 		try {
@@ -39,9 +43,14 @@ public class IncluirProduto extends HttpServlet {
 
 		Produto produto = new Produto();
 		produto.setNome_produto(nome_produto);
+		produto.setMarca_fabricante(marca_fabricante);
+		produto.setCaracteristica(caracteristica);
 		produto.setDescricao_produto(descricao_produto);
 		produto.setQuantidade_produto(quantidade_produto);
+		produto.setReceita(receita);
 		produto.setPreco_unitario(preco_unitario);
+		produto.setDesconto(desconto);
+		
 		produto.setCod_farm_prod(cod_farm_prod);
 
 		try {

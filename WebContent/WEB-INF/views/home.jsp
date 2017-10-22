@@ -3153,12 +3153,12 @@ transform
 					</c:if>
 					<c:if test="${usuarioLogado.tipo == 2}">
 						<li><a href="/FarmaWeb/listaPedido"> <span
-								class="sidebar-title">Pedido</span>
+								class="sidebar-title">Pedidos</span>
 						</a></li>
 					</c:if>
 					<c:if test="${usuarioLogado.tipo == 1}">
 						<li><a href="/FarmaWeb/listaPedido"> <span
-								class="sidebar-title">Realizar pedido</span>
+								class="sidebar-title">Meus Pedidos</span>
 						</a></li>
 					</c:if>
 					<c:if test="${usuarioLogado.tipo == 2}">
@@ -3253,25 +3253,24 @@ transform
 		    
 		var markers = lista.map(function(location) {
 	          return new google.maps.Marker({
-	              position: location
+	              position: location,
+	              title: location.cod_farmacia.toString()
 	          });      
        	});
 				
 		 markers.forEach(function (marker){
-			 marker.addListener('mouseover', function() {
-	
-				 $.ajax({
+			$.ajax({
 			         type: 'GET',    
 			         url:'/FarmaWeb/listarFarmaciasMapa',
 			         success: function(data){
 			        	 listaFarmacias = data;
 			         }
-			     });
-				 
+			 });
+			
+			marker.addListener('mouseover', function() {			 
 				 listaLatLongCodFarmacia.forEach(function (endereco){
 					 listaFarmacias.forEach(function (farmacia){
-					 	if(endereco.cod_farmacia == farmacia.cod_farmacia){
-
+					 	if(parseInt(marker.title) == farmacia.cod_farmacia){
 					 		contentString = '<div id="content">'+
 						      '<div id="siteNotice">'+
 						      '</div>'+
@@ -3281,7 +3280,11 @@ transform
 						      '<p>' + endereco.bairro +'</p>'+
 						      '<p>' + endereco.cidade + ' - ' + endereco.estado +'</p>'+
 						      '<p>' + endereco.cep +'</p>'+
-						      '<p> Telefone: '+ farmacia.tel_farmacia +'</p>'
+						      '<p> Telefone: '+ farmacia.tel_farmacia +'</p>'+
+						      '<form class="form-signin" action="/FarmaWeb/pedidoCliente" method="POST">'+
+						      '<input type="hidden" name="cod_farmacia" value="'+marker.title+'" />'+		  
+						      '<button class="btn btn-default" type="submit">Entre na Farmácia</button>'+
+						      '</form>'+		  
 						      '</div>'+
 						      '</div>';
 					 	}
@@ -3294,9 +3297,12 @@ transform
 				 
 				 infowindow.open(map, marker);
 				 
+				 var closeInfoWindowWithTimeout;
 				 marker.addListener('mouseout', function() {
-				      infowindow.close(map, marker);
-				  });
+					  closeInfoWindowWithTimeout = setTimeout(() => infowindow.close(map, marker), 1500);
+				 },false);
+			
+				 
 			  });
 			 
 		

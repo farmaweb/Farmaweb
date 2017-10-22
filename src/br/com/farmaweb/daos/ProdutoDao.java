@@ -35,14 +35,18 @@ public class ProdutoDao {
 
 				produto.setCod_produto(rs.getInt("cod_produto"));
 				produto.setNome_produto(rs.getString("nome_produto"));
+				produto.setMarca_fabricante(rs.getString("marca_fabricante"));
+				produto.setCaracteristica(rs.getString("caracteristica"));
 				produto.setDescricao_produto(rs.getString("descricao_produto"));
 				produto.setQuantidade_produto(rs.getInt("quantidade_produto"));
+				produto.setReceita(rs.getInt("receita"));
 				produto.setPreco_unitario(rs.getDouble("preco_unitario"));
+				produto.setDesconto(rs.getInt("desconto"));
 				produto.setCod_farm_prod(rs.getInt("cod_farm_prod"));
 				
 				produtos.add(produto);
 			}
-
+			
 			rs.close();
 			stmt.close();
 
@@ -51,18 +55,58 @@ public class ProdutoDao {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public ArrayList<Produto> listaProdutoFarmacia(int cod_farmacia) {
+		try {
+			
+			PreparedStatement stmt = this.connection.prepareStatement("select * from produto where cod_farm_prod = ? ");
+			stmt.setInt(1, cod_farmacia);
+			
+			ResultSet rs = stmt.executeQuery();
+
+			ArrayList<Produto> produtos = new ArrayList<Produto>();
+
+			while (rs.next()) {
+				Produto produto = new Produto();
+
+				produto.setCod_produto(rs.getInt("cod_produto"));
+				produto.setNome_produto(rs.getString("nome_produto"));
+				produto.setMarca_fabricante(rs.getString("marca_fabricante"));
+				produto.setCaracteristica(rs.getString("caracteristica"));
+				produto.setDescricao_produto(rs.getString("descricao_produto"));
+				produto.setQuantidade_produto(rs.getInt("quantidade_produto"));
+				produto.setReceita(rs.getInt("receita"));
+				produto.setPreco_unitario(rs.getDouble("preco_unitario"));
+				produto.setDesconto(rs.getInt("desconto"));
+
+				produtos.add(produto);
+			}
+
+			rs.close();
+			stmt.close();
+
+			return produtos;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 
 	public int incluirProduto(Produto produto) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"insert into produto(nome_produto,descricao_produto,quantidade_produto,preco_unitario,cod_farm_prod)"
-							+ "values ( ?,?,?,?,? )");
+					"insert into produto(nome_produto, marca_fabricante, caracteristica, descricao_produto, quantidade_produto, receita, preco_unitario, desconto, cod_farm_prod)"
+							+ "values ( ?,?,?,?,?,?,?,?,? )");
 
 			stmt.setString(1, produto.getNome_produto());
-			stmt.setString(2, produto.getDescricao_produto());
-			stmt.setInt(3, produto.getQuantidade_produto());
-			stmt.setDouble(4, produto.getPreco_unitario());
-			stmt.setInt(5, produto.getCod_farm_prod());
+			stmt.setString(2, produto.getMarca_fabricante());
+			stmt.setString(3, produto.getCaracteristica());
+			stmt.setString(4, produto.getDescricao_produto());
+			stmt.setInt(5, produto.getQuantidade_produto());
+			stmt.setInt(6, produto.getReceita());
+			stmt.setDouble(7, produto.getPreco_unitario());
+			stmt.setInt(8, produto.getDesconto());
+			stmt.setInt(9, produto.getCod_farm_prod());
 
 			int ret = stmt.executeUpdate();
 

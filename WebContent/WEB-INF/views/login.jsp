@@ -17,6 +17,12 @@ img {
 	bottom: 0;
 	left: 0;
 }
+
+#menu {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+}
 </style>
 
 </head>
@@ -27,6 +33,12 @@ img {
 				src="https://www.afterhourshomedoctorwa.com.au/wp-content/uploads/2017/04/Home_Doctor_Perth_Bunbury-228x300.png"></img>
 		</div>
 		<div class="row">
+			<nav id="menu">
+				<button type="button" class="btn btn-default" data-toggle="modal"
+					data-target="#clienteModal">Cliente não cadastrado ?</button>
+				<button type="button" class="btn btn-default" data-toggle="modal"
+					data-target="#farmaciaModal">Farmácia não cadastrada  ?</button>
+			</nav>
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
 				<h1 class="text-center login-title"
 					style="color: DodgerBlue; font-size: 80px;">FarmaWeb</h1>
@@ -46,10 +58,6 @@ img {
 
 				</div>
 
-				<button type="button" class="btn btn-default" data-toggle="modal"
-					data-target="#clienteModal">Cliente não cadastrado ?</button>
-				<button type="button" class="btn btn-default" data-toggle="modal"
-					data-target="#farmaciaModal">Farmácia não cadastrada  ?</button>
 			</div>
 		</div>
 	</div>
