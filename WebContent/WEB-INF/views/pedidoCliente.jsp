@@ -68,7 +68,7 @@ footer {
 		
 		<footer>
 			<div class="alert  alert-info" style="display:none;">
-	  			<strong>Atenção!</strong> Produto já adicionado.
+	  			<strong>Atenção!</strong> Produto já adicionado no carrinho.
 			</div>
 		</footer>
 
