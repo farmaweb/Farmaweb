@@ -18,6 +18,11 @@ import br.com.farmaweb.models.Farmacia;
 @WebServlet("/listarFarmaciasMapa")
 public class ListarFarmaciasMapa extends HttpServlet{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1145064519346949888L;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		

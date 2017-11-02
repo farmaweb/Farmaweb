@@ -64,7 +64,7 @@ footer {
 		
 		
 		<footer>
-			<div class="alert  alert-info" style="display:none;">
+			<div class="alert  alert-danger" style="display:none;">
 	  			<strong>Atenção!</strong> Produto já adicionado no carrinho.
 			</div>
 		</footer>
@@ -75,9 +75,12 @@ footer {
 					<div class="modal-header">
 						<h4 class="modal-title"><span class="glyphicon glyphicon-shopping-cart"></span> Carrinho </h4>
 					</div>
-					<div class="form-group">
-							<ul class="lista">
-							</ul>
+					 <div class="modal-body">
+	       				<ul class="lista">
+						</ul>
+      				</div>
+      				<div class="modal-footer">
+      					<label>Valor Total: <strong class="valorTotal"></strong></label>
 						<div><button class="btn btn-default" type="submit">Finalizar Pedido</button></div>
 					</div>
 				</div>
@@ -89,11 +92,14 @@ footer {
 	</div>
 
 	<script type="text/javascript">
+		
+		var total = 0;
 		$(".adicionar").on('click', function(){
-			var id = $(this).data('id');
 			
+			var id = $(this).data('id');
 			var nome = $('#nome_produto' + id).text();
 			var preco = $('#preco_unitario' + id).text();
+			
 			if(document.getElementById(id) != null){
 				if(id === parseInt(document.getElementById(id).getAttribute("id"))){
 					$('.alert').fadeIn();
@@ -103,15 +109,29 @@ footer {
 				}
 			}
 			
-			var $lista = document.querySelector('.lista'),
-			HTMLTemporario = $lista.innerHTML,
-			HTMLNovo = '<li id='+ id +'><div  name=' + nome + ' >' + nome + '</div> <div value='+ preco +'>' + preco + '</div> <div >'  + '<input id="quantidade" type="number" class="form-control text-center" value="1" min="1" max="99">' + '</div></li>';
+			$( ".lista" ).append(
+				'<div id='+ id +'><li  name=' + nome + ' >' 
+				+ nome + '</li> <li class="valor" value='+ preco +'>' + preco + '</li>' 
+				+ '<input type="number" class="form-control text-center" onKeyPress="if(this.value.length==2) return false;" value="1" min="1" max="99">' 
+				+ '<span class="glyphicon glyphicon-trash"></span> <input type="hidden" class="valorUnitario" value='+preco+' > </div>');
 			
-		
-			HTMLTemporario = HTMLTemporario + HTMLNovo;
+			$('input[type="number"]').bind('click keyup', function (){
+				var quantidade = $(this).val();
+				var valorUnitario = $(this).siblings(".valorUnitario").val();
+				var subTotal = parseFloat(valorUnitario) * quantidade;
+				$(this).siblings('.valor').text(subTotal).val(subTotal);
+			});
 			
-			$lista.innerHTML = HTMLTemporario;
+			$('input[type="number"]').bind('click keyup', function (){
+				total += parseFloat($(this).siblings('.valor').text());
+				$('.valorTotal').text(total);	
+			});
 			
+			$('.glyphicon-trash').click(function (){
+				$(this).parent().remove();			
+			});
+			
+	
 		});
 	</script>
 

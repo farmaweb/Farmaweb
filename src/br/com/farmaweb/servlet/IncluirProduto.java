@@ -18,6 +18,11 @@ import br.com.farmaweb.models.Produto;
 
 @WebServlet("/incluirProduto")
 public class IncluirProduto extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5488520725052135988L;
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
