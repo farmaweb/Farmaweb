@@ -13,6 +13,7 @@
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.ProdutoDao" />
 	<table class="table table-bordered">
 		<tr>
+			<th>Foto</th>
 			<th>Produto</th>
 			<th>Marca/Fabricante</th>
 			<th>Característica</th>
@@ -25,6 +26,7 @@
 		</tr>
 		<c:forEach var="produto" items="${dao.getProdutos(usuarioLogado.cod_login)}">
 			<tr>
+				<td><img src="${pageContext.servletContext.contextPath }/photoServlet?id=${row.id}" /></td>
 				<td>${produto.nome_produto}</td>
 				<td>${produto.marca_fabricante}</td>
 				<td>${produto.caracteristica}</td>
@@ -71,7 +73,7 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-signin" action="/FarmaWeb/incluirProduto"
-					method="POST">
+					method="POST" enctype="multipart/form-data">
 					<div class="form-group">
 	
 						<label for="Nome_Produto">Nome do Produto:</label>
@@ -99,6 +101,7 @@
 						<label for="desconto">Desconto:</label> 
 						<input type="text" name="desconto" style="border-radius: 5px;" required>
 						</br>
+						<input type="file" name="foto_produto"/>
 					</div>
 						<div class="modal-footer">
 							<button class="btn btn-default" type="submit">Salvar</button>
