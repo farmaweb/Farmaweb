@@ -22,7 +22,7 @@ import br.com.farmaweb.models.Login;
 @WebServlet("/incluirFuncionario")
 public class IncluirFuncionario extends HttpServlet {
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
 		//Login
 		String usuario = req.getParameter("usuario");
@@ -76,7 +76,7 @@ public class IncluirFuncionario extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher rd = req.getRequestDispatcher("/login");
-		rd.forward(req, resp);
+		RequestDispatcher rd = req.getRequestDispatcher("/listaFuncionario");
+		rd.forward(req, res);
 	}
 }

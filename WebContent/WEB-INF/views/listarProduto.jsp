@@ -24,9 +24,9 @@
 			<th>Desconto</th>
 			<th>Ação</th>
 		</tr>
+		
 		<c:forEach var="produto" items="${dao.getProdutos(usuarioLogado.cod_login)}">
 			<tr>
-				<td><img src="${pageContext.servletContext.contextPath }/photoServlet?id=${row.id}" /></td>
 				<td>${produto.nome_produto}</td>
 				<td>${produto.marca_fabricante}</td>
 				<td>${produto.caracteristica}</td>
@@ -72,8 +72,7 @@
 				<h4 class="modal-title">Cadastro de Produto</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-signin" action="/FarmaWeb/incluirProduto"
-					method="POST" enctype="multipart/form-data">
+				<form class="form-signin" action="/FarmaWeb/incluirProduto" method="POST"  enctype="multipart/form-data">
 					<div class="form-group">
 	
 						<label for="Nome_Produto">Nome do Produto:</label>

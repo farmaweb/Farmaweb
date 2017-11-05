@@ -78,7 +78,7 @@ public class ProdutoDao {
 				produto.setReceita(rs.getInt("receita"));
 				produto.setPreco_unitario(rs.getDouble("preco_unitario"));
 				produto.setDesconto(rs.getInt("desconto"));
-				produto.setFoto_produto(rs.getBlob("foto_porduto"));
+				//produto.setFoto_produto(rs.getBlob("foto_produto"));
 				
 				produtos.add(produto);
 			}
@@ -93,6 +93,30 @@ public class ProdutoDao {
 	}
 	
 
+	public byte[] recuperaImagem(int cod_farmacia, int cod_produto) {
+		try {			
+			PreparedStatement stmt = this.connection.prepareStatement("select foto_produto from produto where cod_farm_prod = ? and cod_produto = ?");
+			stmt.setInt(1, cod_farmacia);
+			stmt.setInt(2, cod_produto);
+			
+			ResultSet rs = stmt.executeQuery();
+
+			byte[] imagem = null;
+
+			while (rs.next()) {
+				imagem = rs.getBytes("foto_produto");
+			}
+
+			rs.close();
+			stmt.close();
+
+			return imagem;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	
 	public int incluirProduto(Produto produto) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(

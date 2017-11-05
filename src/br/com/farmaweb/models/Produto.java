@@ -13,7 +13,7 @@ public class Produto {
 	private int receita;
 	private Double preco_unitario;
 	private int desconto;
-	private Blob  foto_produto;
+	private InputStream  foto_produto;
 	private int cod_farm_prod;
 
 	public int getCod_produto() {
@@ -88,11 +88,11 @@ public class Produto {
 		this.desconto = desconto;
 	}
 
-	public Blob  getFoto_produto() {
+	public InputStream  getFoto_produto() {
 		return foto_produto;
 	}
 
-	public void setFoto_produto(Blob  foto_produto) {
+	public void setFoto_produto(InputStream  foto_produto) {
 		this.foto_produto = foto_produto;
 	}
 
