@@ -55,8 +55,10 @@ public class FarmaciaDao {
 				farmacia.setCnpj(rs.getLong("cnpj"));
 				farmacia.setTel_farmacia(rs.getLong("tel_farmacia"));
 				farmacia.setObservacao(rs.getString("observacao"));
+				farmacia.setTaxaEntrega(rs.getFloat("taxa_entrega"));
+				farmacia.setTempo_entrega(rs.getString("tempo_entrega"));
 				farmacia.setCod_end_farm(rs.getInt("cod_end_farm"));
-
+				
 				farmacias.add(farmacia);
 			}
 

@@ -18,8 +18,13 @@ public class PedidoCliente extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
 		String cod_farmacia = req.getParameter("cod_farmacia");
+		Float taxa_entrega = Float.parseFloat(req.getParameter("taxa_entrega"));
+		String tempo_entrega = req.getParameter("tempo_entrega");
 		
 		req.setAttribute("cod_farmacia", cod_farmacia);
+		req.setAttribute("taxa_entrega", taxa_entrega);	
+		req.setAttribute("tempo_entrega", tempo_entrega);
+		
 		
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/pedidoCliente.jsp");
 		rd.forward(req, res);

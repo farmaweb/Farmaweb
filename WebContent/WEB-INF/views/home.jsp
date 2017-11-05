@@ -3282,6 +3282,8 @@ transform
 						      '<p>' + endereco.cep +'</p>'+
 						      '<p> Telefone: '+ farmacia.tel_farmacia +'</p>'+
 						      '<form class="form-signin" action="/FarmaWeb/pedidoCliente" method="POST">'+
+						      '<input type="hidden" name="taxa_entrega" value="'+farmacia.taxa_entrega+'" />'+
+						      '<input type="hidden" name="tempo_entrega" value="'+farmacia.tempo_entrega+'" />'+
 						      '<input type="hidden" name="cod_farmacia" value="'+marker.title+'" />'+		  
 						      '<button class="btn btn-default" type="submit">Entre na Farmácia</button>'+
 						      '</form>'+		  
