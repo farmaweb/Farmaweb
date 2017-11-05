@@ -13,7 +13,7 @@
 .modal-carrinho {
 	position: absolute;
     right: 0px;
-    width: 300px;
+    width: 350px;
     padding: 10px;
 }
 .modal-header {
@@ -32,6 +32,23 @@ footer {
     bottom: 0;
     width: 80%;
     text-align: center;
+}
+
+.div-carrinho > li {
+  display: inline;  
+  list-style-type: none;
+  padding-right: 15px;
+  float: left;
+}
+
+.div-carrinho > .glyphicon-trash {
+	float: right;
+	padding-right: 20px;
+	top: -25px;
+}
+.div-carrinho {
+	margin-bottom: 20px;
+	margin-left: -40;
 }
 </style>	
 
@@ -80,7 +97,7 @@ footer {
 						</ul>
       				</div>
       				<div class="modal-footer">
-      					<label>Valor Total: <strong class="valorTotal"></strong></label>
+      					<label>Valor Total: R$<strong class="valorTotal">0</strong></label>
 						<div><button class="btn btn-default" type="submit">Finalizar Pedido</button></div>
 					</div>
 				</div>
@@ -93,13 +110,17 @@ footer {
 
 	<script type="text/javascript">
 		
-		var total = 0;
+		var valorTotal = 0.0;
+		
 		$(".adicionar").on('click', function(){
 			
 			var id = $(this).data('id');
 			var nome = $('#nome_produto' + id).text();
 			var preco = $('#preco_unitario' + id).text();
-			
+
+			valorTotal += parseFloat(preco);
+			$('.valorTotal').text(valorTotal.toFixed(2)).val(valorTotal.toFixed(2));
+						
 			if(document.getElementById(id) != null){
 				if(id === parseInt(document.getElementById(id).getAttribute("id"))){
 					$('.alert').fadeIn();
@@ -110,29 +131,36 @@ footer {
 			}
 			
 			$( ".lista" ).append(
-				'<div id='+ id +'><li  name=' + nome + ' >' 
-				+ nome + '</li> <li class="valor" value='+ preco +'>' + preco + '</li>' 
+				'<div class="div-carrinho" id='+ id +'><li  name=' + nome + ' >' 
+				+ nome + '</li> <li class="valor" value='+ preco +'>'+ preco +'</li>' 
 				+ '<input type="number" class="form-control text-center" onKeyPress="if(this.value.length==2) return false;" value="1" min="1" max="99">' 
 				+ '<span class="glyphicon glyphicon-trash"></span> <input type="hidden" class="valorUnitario" value='+preco+' > </div>');
 			
-			$('input[type="number"]').bind('click keyup', function (){
+			$('input[type="number"]').bind('click keyup', function (e){
 				var quantidade = $(this).val();
 				var valorUnitario = $(this).siblings(".valorUnitario").val();
-				var subTotal = parseFloat(valorUnitario) * quantidade;
+				var subTotal = (parseFloat(valorUnitario) * quantidade);
 				$(this).siblings('.valor').text(subTotal).val(subTotal);
+				
+				if(e.keyCode == 38) {
+					valorTotal += parseFloat($(this).siblings('.valor').text(subTotal));	
+				}else if(e.keyCode == 40) {
+					valorTotal -= parseFloat($(this).siblings('.valor').text());
+				}
+				
+				$('.valorTotal').text(valorTotal.toFixed(2)).val(valorTotal.toFixed(2));	
 			});
 			
-			$('input[type="number"]').bind('click keyup', function (){
-				total += parseFloat($(this).siblings('.valor').text());
-				$('.valorTotal').text(total);	
+			$('.glyphicon-trash').unbind("click").click(function (){
+				valorTotal -= parseFloat($(this).siblings('.valor').text());
+				$('.valorTotal').text(valorTotal.toFixed(2)).val(valorTotal.toFixed(2));
+				$(this).parent().remove();
 			});
-			
-			$('.glyphicon-trash').click(function (){
-				$(this).parent().remove();			
-			});
-			
+				
+		});			
 	
-		});
+		
+		
 	</script>
 
 	<form action="/FarmaWeb/voltar" method="POST">
