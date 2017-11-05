@@ -96,6 +96,10 @@ footer {
 						</ul>
       				</div>
       				<div class="modal-footer">
+      					<label>Desconto: R$0</label>
+      					<p>
+      					<label>Taxa de Entrega: R$0</label>
+      					<p>
       					<label>Valor Total: R$<strong class="valorTotal">0</strong></label>
 						<div><button class="btn btn-default" type="submit">Finalizar Pedido</button></div>
 					</div>
