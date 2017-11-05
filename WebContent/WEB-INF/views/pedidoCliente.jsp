@@ -38,7 +38,6 @@ footer {
   display: inline;  
   list-style-type: none;
   padding-right: 15px;
-  float: left;
 }
 
 .div-carrinho > .glyphicon-trash {
@@ -110,55 +109,61 @@ footer {
 
 	<script type="text/javascript">
 		
-		var valorTotal = 0.0;
-		
+		var valorMap = new Map();
 		$(".adicionar").on('click', function(){
 			
 			var id = $(this).data('id');
 			var nome = $('#nome_produto' + id).text();
 			var preco = $('#preco_unitario' + id).text();
-
-			valorTotal += parseFloat(preco);
-			$('.valorTotal').text(valorTotal.toFixed(2)).val(valorTotal.toFixed(2));
-						
+			
+			valorMap.set(nome, parseFloat(preco));
+			
+			somaValores(valorMap);
 			if(document.getElementById(id) != null){
 				if(id === parseInt(document.getElementById(id).getAttribute("id"))){
 					$('.alert').fadeIn();
 					$('.alert').fadeOut(5000);
-					
 					return;
 				}
 			}
 			
 			$( ".lista" ).append(
-				'<div class="div-carrinho" id='+ id +'><li  name=' + nome + ' >' 
-				+ nome + '</li> <li class="valor" value='+ preco +'>'+ preco +'</li>' 
-				+ '<input type="number" class="form-control text-center" onKeyPress="if(this.value.length==2) return false;" value="1" min="1" max="99">' 
+				'<div class="div-carrinho" id='+ id +'><input type="number" class="form-control text-center" onKeyPress="if(this.value.length==2) return false;" value="1" min="1" max="99">'
+				+ '<li class="nome" name=' + nome + ' >' + nome + '</li>'
+				+ '<li class="valor" value='+ preco +'>'+ preco +'</li>' 
 				+ '<span class="glyphicon glyphicon-trash"></span> <input type="hidden" class="valorUnitario" value='+preco+' > </div>');
 			
 			$('input[type="number"]').bind('click keyup', function (e){
 				var quantidade = $(this).val();
 				var valorUnitario = $(this).siblings(".valorUnitario").val();
 				var subTotal = (parseFloat(valorUnitario) * quantidade);
+				var nome = $(this).siblings(".nome").text();
 				$(this).siblings('.valor').text(subTotal).val(subTotal);
 				
-				if(e.keyCode == 38) {
-					valorTotal += parseFloat($(this).siblings('.valor').text(subTotal));	
-				}else if(e.keyCode == 40) {
-					valorTotal -= parseFloat($(this).siblings('.valor').text());
+
+				if(valorMap.has(nome)){
+					valorMap.set(nome, subTotal)
 				}
 				
-				$('.valorTotal').text(valorTotal.toFixed(2)).val(valorTotal.toFixed(2));	
+				somaValores(valorMap);
 			});
 			
 			$('.glyphicon-trash').unbind("click").click(function (){
-				valorTotal -= parseFloat($(this).siblings('.valor').text());
-				$('.valorTotal').text(valorTotal.toFixed(2)).val(valorTotal.toFixed(2));
+				var nome = $(this).siblings(".nome").text();
+				valorMap.delete(nome);
+				var valor = parseFloat($('.valorTotal').text()) -  parseFloat($(this).siblings(".valor").text());
+				$('.valorTotal').text(valor.toFixed(2));
 				$(this).parent().remove();
+			});		
+		});	
+		
+		function somaValores(valorTotal){
+			var valorCalculado = 0.0;
+			valorTotal.forEach(function (e) { 
+				valorCalculado += e; 
 			});
-				
-		});			
-	
+			$('.valorTotal').text(valorCalculado).val(valorCalculado);
+		}
 		
 		
 	</script>
