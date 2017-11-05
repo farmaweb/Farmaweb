@@ -45,7 +45,7 @@ footer {
 	top: 20px;
 }
 .div-carrinho {
-	margin-bottom: 20px;
+	margin-bottom: 5px;
 	margin-left: -40;
 }
 </style>	
