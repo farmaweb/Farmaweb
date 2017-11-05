@@ -34,19 +34,18 @@ footer {
     text-align: center;
 }
 
-.div-carrinho > li {
+.div-carrinho > input, li {
   display: inline;  
   list-style-type: none;
-  padding-right: 15px;
+  margin: 10px;
 }
 
 .div-carrinho > .glyphicon-trash {
 	float: right;
-	padding-right: 20px;
-	top: -25px;
+	top: 20px;
 }
 .div-carrinho {
-	margin-bottom: 20px;
+	margin-bottom: 5px;
 	margin-left: -40;
 }
 </style>	
