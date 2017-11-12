@@ -3251,7 +3251,7 @@ transform
 	    			</form>
 				</div>
 				<div class="modal-footer">
-						<button id="selecionar" class="btn btn-primary" type="submit">Selecionar</button>
+						<button id="selecionar" class="btn btn-primary" data-dismiss="modal" type="submit">Selecionar</button>
 				</div>
 			</div>
 		</div>
@@ -3263,7 +3263,7 @@ transform
 		
 		getData(); 
 		
-		$('.in').removeClass('in');
+		$('.fade in').removeClass('fade in');
 	});
 	
 	$(window).on('load',function() {
@@ -3301,7 +3301,7 @@ transform
 		}
 		
 		var map = new google.maps.Map(document.getElementById('map'), {
-	          zoom: 13,
+	          zoom: 16,
 	          center: {lat: parseFloat(latitude), lng: parseFloat(longitude)}
         });
 		    
