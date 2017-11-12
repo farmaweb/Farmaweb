@@ -3235,11 +3235,11 @@ transform
 				  					<div class="card-block">
 				    					<h4 class="card-title">Tipo de Endereço</h4>
 				    						<p class="card-text">
-													${endereco.rua}, ${endereco.numero} - ${endereco.complemento}
+													<input id="rua"  type="hidden" value="${endereco.rua}">${endereco.rua}, <input id="numero"  type="hidden" value="${endereco.numero}">${endereco.numero} - <input id="complemento"  type="hidden" value="${endereco.complemento}">${endereco.complemento}
 													<br>
-													${endereco.cep} - ${endereco.bairro}
+													<input id="cep"  type="hidden" value="${endereco.cep}">${endereco.cep} - <input id="bairro"  type="hidden" value="${endereco.bairro}">${endereco.bairro}
 													<br>
-													${endereco.cidade}/${endereco.estado}
+													<input id="cidade"  type="hidden" value="${endereco.cidade}">${endereco.cidade}/<input id="estado"  type="hidden" value="${endereco.estado}">${endereco.estado}
 													<br>
 													<input type="radio" name="enderecoSelecionado" value="${endereco.cod_endereco}">Selecionar endereço<br>
 													<input id="latitude"  type="hidden" value="${endereco.latitude}">
@@ -3338,7 +3338,7 @@ transform
 						      '<form class="form-signin" action="/FarmaWeb/pedidoCliente" method="POST">'+
 						      '<input type="hidden" name="taxa_entrega" value="'+farmacia.taxa_entrega+'" />'+
 						      '<input type="hidden" name="tempo_entrega" value="'+farmacia.tempo_entrega+'" />'+
-						      '<input type="hidden" name="cod_farmacia" value="'+marker.title+'" />'+		  
+						      '<input type="hidden" name="cod_farmacia" value="'+marker.title+'" />'+
 						      '<button class="btn btn-default" type="submit">Entre na Farmácia</button>'+
 						      '</form>'+		  
 						      '</div>'+
