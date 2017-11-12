@@ -3295,9 +3295,23 @@ transform
 		if($("#endereco input[type='radio']:checked").siblings("#latitude").val() != null && $("#endereco input[type='radio']:checked").siblings("#longitude").val() != null){
 			var latitude = $("#endereco input[type='radio']:checked").siblings("#latitude").val();
 			var longitude = $("#endereco input[type='radio']:checked").siblings("#longitude").val();
+			var rua_cliente = $("#endereco input[type='radio']:checked").siblings("#rua").val();
+			var numero_cliente = $("#endereco input[type='radio']:checked").siblings("#numero").val();
+			var complemento_cliente = $("#endereco input[type='radio']:checked").siblings("#complemento").val();
+			var cep_cliente = $("#endereco input[type='radio']:checked").siblings("#cep").val();
+			var bairro_cliente = $("#endereco input[type='radio']:checked").siblings("#bairro").val();
+			var cidade_cliente = $("#endereco input[type='radio']:checked").siblings("#cidade").val();
+			var estado_cliente = $("#endereco input[type='radio']:checked").siblings("#estado").val();
 		}else{
 			var latitude = $('#latitude').val();
 			var longitude = $('#longitude').val();
+			var rua_cliente = $("#rua").val();
+			var numero_cliente = $("#numero").val();
+			var complemento_cliente = $("#complemento").val();
+			var cep_cliente = $("#cep").val();
+			var bairro_cliente = $("#bairro").val();
+			var cidade_cliente = $("#cidade").val();
+			var estado_cliente = $("#estado").val();
 		}
 		
 		var map = new google.maps.Map(document.getElementById('map'), {
@@ -3338,6 +3352,13 @@ transform
 						      '<form class="form-signin" action="/FarmaWeb/pedidoCliente" method="POST">'+
 						      '<input type="hidden" name="taxa_entrega" value="'+farmacia.taxa_entrega+'" />'+
 						      '<input type="hidden" name="tempo_entrega" value="'+farmacia.tempo_entrega+'" />'+
+						      '<input type="hidden" name="rua_cliente" value="'+rua_cliente+'" />'+
+						      '<input type="hidden" name="numero_cliente" value="'+numero_cliente+'" />'+
+						      '<input type="hidden" name="complemento_cliente" value="'+complemento_cliente+'" />'+
+						      '<input type="hidden" name="cep_cliente" value="'+cep_cliente+'" />'+
+						      '<input type="hidden" name="bairro_cliente" value="'+bairro_cliente+'" />'+
+						      '<input type="hidden" name="cidade_cliente" value="'+cidade_cliente+'" />'+
+						      '<input type="hidden" name="estado_cliente" value="'+estado_cliente+'" />'+
 						      '<input type="hidden" name="cod_farmacia" value="'+marker.title+'" />'+
 						      '<button class="btn btn-default" type="submit">Entre na Farmácia</button>'+
 						      '</form>'+		  

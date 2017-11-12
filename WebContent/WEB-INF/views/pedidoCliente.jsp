@@ -285,7 +285,11 @@ footer {
 			$( "#resumo" ).append(
 				'<div>---------------------------------------------------------</div>' +
 				'<div>Endereço de Entrega</div>' +
-				'<div>BlaBlaBlaBlaBla</div>' +
+				'<input type=hidden value = ${rua_cliente}>${rua_cliente}, <input type=hidden value = ${numero_cliente}>${numero_cliente} - <input type=hidden value = ${complemento_cliente}>${complemento_cliente}' +
+				'<br>' +
+				'<input type=hidden value = ${cep_cliente}>${cep_cliente} - <input type=hidden value = ${bairro_cliente}>${bairro_cliente}' +
+				'<br>' +
+				'<input type=hidden value = ${cidade_cliente}>${cidade_cliente}/<input type=hidden value = ${estado_cliente}>${estado_cliente}' +
 				'<div>---------------------------------------------------------</div>' +
 				'<div>Informações Adicionais</div>' +
 				'<div value = ' + forma_pagamento + '>Forma de Pagamento: ' + forma_pagamento + '</div>' +
