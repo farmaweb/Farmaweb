@@ -3168,6 +3168,8 @@ transform
 					</c:if>
 				</ul>
 				<button type="button" class="btn btn-info btn-lg"
+					data-toggle="modal" data-target="#modalEnderecos">Escolha endereços</button>
+				<button type="button" class="btn btn-info btn-lg"
 					data-toggle="modal" data-target="#myModal">Sair</button>
 			</aside>
 
@@ -3219,7 +3221,51 @@ transform
 		</div>
 	</div>
 
+	<div id="modalEnderecos" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Endereços Cadastrados</h4>
+				</div>
+				<div class="modal-body">
+					<jsp:useBean id="daoEnderecos" class="br.com.farmaweb.daos.EnderecoDao" />
+					<form id="endereco">
+						<c:forEach var="endereco" items="${daoEnderecos.getEnderecos(usuarioLogado.cod_login)}">
+								<div class="card" style="width: 20rem;">
+				  					<div class="card-block">
+				    					<h4 class="card-title">Tipo de Endereço</h4>
+				    						<p class="card-text">
+													${endereco.rua}, ${endereco.numero} - ${endereco.complemento}
+													<br>
+													${endereco.cep} - ${endereco.bairro}
+													<br>
+													${endereco.cidade}/${endereco.estado}
+													<br>
+													<input type="radio" name="enderecoSelecionado" value="${endereco.cod_endereco}">Selecionar endereço<br>
+													<input id="latitude"  type="hidden" value="${endereco.latitude}">
+													<input id="longitude" type="hidden" value="${endereco.longitude}">
+											</p>
+				    				</div>
+			    				</div>
+		    			</c:forEach>
+	    			</form>
+				</div>
+				<div class="modal-footer">
+						<button id="selecionar" class="btn btn-primary" type="submit">Selecionar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script>
+	
+	$('#selecionar').click(function (){
+		
+		getData(); 
+		
+		$('.in').removeClass('in');
+	});
+	
 	$(window).on('load',function() {
 	    getData();
 	});
@@ -3246,9 +3292,17 @@ transform
 		var listaFarmacias = [];
 		var contentString = '';
 		
+		if($("#endereco input[type='radio']:checked").siblings("#latitude").val() != null && $("#endereco input[type='radio']:checked").siblings("#longitude").val() != null){
+			var latitude = $("#endereco input[type='radio']:checked").siblings("#latitude").val();
+			var longitude = $("#endereco input[type='radio']:checked").siblings("#longitude").val();
+		}else{
+			var latitude = $('#latitude').val();
+			var longitude = $('#longitude').val();
+		}
+		
 		var map = new google.maps.Map(document.getElementById('map'), {
 	          zoom: 13,
-	          center: {lat: lista[0].lat, lng: lista[0].lng}
+	          center: {lat: parseFloat(latitude), lng: parseFloat(longitude)}
         });
 		    
 		var markers = lista.map(function(location) {
@@ -3317,13 +3371,11 @@ transform
 		
 </script>
 <script
-		src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+	src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
 </script>
 <script async defer
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIOUquPXPAq0yXYC8JYcNjUCrCz1OGukc&callback=initMap">
 </script>
-
-
 </body>
 </html>
 

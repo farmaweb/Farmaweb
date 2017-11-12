@@ -68,9 +68,7 @@
 							        </option>
 							     </c:forEach> 
 							</select>
-							<input type="hidden" name="cod_login" value="${usuarioLogado.cod_login}" />
-							
-							
+							<input type="hidden" name="cod_login" value="${usuarioLogado.cod_login}" />							
 						</div>
 						<div class="modal-footer">
 							<button class="btn btn-default" type="submit">Salvar</button>

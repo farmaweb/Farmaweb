@@ -57,6 +57,7 @@ footer {
 
 <body class="container">
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.ProdutoDao" />
+	<jsp:useBean id="daoFormaDePagamento" class="br.com.farmaweb.daos.FormaDePagamentoDao" />
 	
 	<div class="row">
 		<div class="col-xs-6">
@@ -113,23 +114,75 @@ footer {
       					<p>
       					<label>Taxa de Entrega: R$<strong class="taxaEntrega">${taxa_entrega}</strong></label>
       					<p>				
-      					<label>Valor Total: R$<strong class="valorTotal">0</strong></label>
+      					<label>Valor Total: R$<strong class="valorTotal">${taxa_entrega}</strong></label>
       					<p>
-      					<label>Tempo Estimado: <strong class="tempoEntrega">${tempo_entrega}</strong></label>
-						<div><button class="btn btn-default" type="submit">Finalizar Pedido</button></div>
+      					<label>Tempo Estimado de Entrega: <strong class="tempoEntrega">${tempo_entrega}</strong></label>
+						<div><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPagamento">Enviar Pedido</button></div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+	</div>
 
-			
+
+	<div id="modalPagamento" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Selecione a forma de pagamento</h4>
+				</div>
+				<div class="modal-body">
+						<div class="form-group">
+
+							<label for="tipo_pagamento">Tipo De Pagamento:</label>
+								
+							<select id="cod_pagamento" class="selectpicker" >
+							    <c:forEach var="forma" items="${daoFormaDePagamento.getPagamentos(cod_farmacia)}">
+							        <option  value="${forma.cod_pagamento}">
+							            ${forma.tipo_pagamento}
+							        </option>
+							    </c:forEach> 
+							</select>
+							<input type="hidden" name="cod_login" value="${usuarioLogado.cod_login}" />
+						</div>
+						<div class="modal-footer">
+							<div><button type="button" id="botaoSelecionar" class="btn btn-primary" data-toggle="modal" data-target="#modalResumo">Selecionar</button></div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="modalResumo" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Resumo do pedido</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group" id="resumo">
+				
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-default" type="submit">Concluir</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<script type="text/javascript">
 		
+		var cod_pagamento = 0;
+		var forma_pagamento = '';
 		var valorMap = new Map();
 		var valorDesconto = new Map();
+		
 		$(".adicionar").on('click', function(){
 			
 			var id = $(this).data('id');
@@ -152,9 +205,10 @@ footer {
 			}
 			
 			$( ".lista" ).append(
-				'<div class="div-carrinho" id='+ id +'><input type="number" class="form-control text-center" onKeyPress="if(this.value.length==2) return false;" value="1" min="1" max="99">'
+				'<div class="div-carrinho" id='+ id +'><input type="number" id="quantidade" class="form-control text-center" onKeyPress="if(this.value.length==2) return false;" value="1" min="1" max="99">'
 				+ '<li class="nome" name=' + nome + ' >' + nome + '</li>'
 				+ '<li class="valor" value='+ preco +'>'+ preco +'</li>' 
+				+ '<li class="hidden" value='+ id +'>'+ id +'</li>'
 				+ '<span class="glyphicon glyphicon-trash"></span> <input type="hidden" class="valorUnitario" value='+preco+' > <input type="hidden" class="valorDesconto" value='+desconto+' ></div>');
 			
 			$('input[type="number"]').bind('click keyup', function (e){
@@ -205,8 +259,50 @@ footer {
 			});
 			$('.descontoTotal').text(valorCalculado.toFixed(2)).val(valorCalculado.toFixed(2));
 		}
+	
+		$('#botaoSelecionar').click(function (){
+			cod_pagamento = $("#cod_pagamento option:selected").val();
+			forma_pagamento = $("#cod_pagamento option:selected").text().trim();
+			
+			var resumo = [];
+			$('.lista div').each(function(){
+			   resumo.push({
+				   quantidade: $(this).children('#quantidade').val(),
+				   nome: $(this).children('.nome').text(),
+				   valor: $(this).children('.valor').text(),
+				   id_produto: $(this).children('.hidden').text()
+				});
+			});
+			
+			$( "#resumo" ).append(
+				'<div>Lista de Produtos</div>'
+			);
+			
+			resumo.forEach(function(produtos){
+			    $('#resumo').append('<div>'+ produtos.quantidade +' '+ produtos.nome +' '+ produtos.valor + '</div>');
+			});
+			
+			$( "#resumo" ).append(
+				'<div>---------------------------------------------------------</div>' +
+				'<div>Endereço de Entrega</div>' +
+				'<div>BlaBlaBlaBlaBla</div>' +
+				'<div>---------------------------------------------------------</div>' +
+				'<div>Informações Adicionais</div>' +
+				'<div value = ' + forma_pagamento + '>Forma de Pagamento: ' + forma_pagamento + '</div>' +
+				'<div value = ' + $('.descontoTotal').text() + '>Desconto Total: ' + $('.descontoTotal').text() + '</div>' +
+				'<div value = ' + $('.taxaEntrega').text() + '>Taxa de Entrega: ' + $('.taxaEntrega').text() + '</div>' +
+				'<div value = ' + $('.valorTotal').text() + '>Valor Total: ' + $('.valorTotal').text() + '</div>' +
+				'<div value = ' + $('.tempoEntrega').text() + '>Tempo Estimado de Entrega: ' + $('.tempoEntrega').text() + '</div>'
+			);
+					
+			$('#modalPagamento').hide();
+		});
 		
-	</script>
+	
+	
+		</script>
+		
+		
 
 	<form action="/FarmaWeb/voltar" method="POST">
 		<button type="submit" class="btn btn-primary">Voltar</button>
