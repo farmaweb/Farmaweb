@@ -3335,10 +3335,11 @@ transform
 			         }
 			 });
 			
-			marker.addListener('mouseover', function() {			 
-				 listaLatLongCodFarmacia.forEach(function (endereco){
-					 listaFarmacias.forEach(function (farmacia){
-					 	if(parseInt(marker.title) == farmacia.cod_farmacia){
+			marker.addListener('mouseover', function() {		
+				 listaFarmacias.forEach(function (farmacia){
+				 	listaLatLongCodFarmacia.forEach(function (endereco){
+				 	  if(farmacia.cod_farmacia == endereco.cod_farmacia){	
+					 	if(parseInt(marker.title) == endereco.cod_farmacia){
 					 		contentString = '<div id="content">'+
 						      '<div id="siteNotice">'+
 						      '</div>'+
@@ -3360,11 +3361,13 @@ transform
 						      '<input type="hidden" name="cidade_cliente" value="'+cidade_cliente+'" />'+
 						      '<input type="hidden" name="estado_cliente" value="'+estado_cliente+'" />'+
 						      '<input type="hidden" name="cod_farmacia" value="'+marker.title+'" />'+
+						      '<input type="hidden" name="cod_cliente" value="'+${usuarioLogado.cod_login}+'" />'+
 						      '<button class="btn btn-default" type="submit">Entre na Farmácia</button>'+
 						      '</form>'+		  
 						      '</div>'+
 						      '</div>';
-					 	}
+					 		}
+				 		}
 					 });
 				 });
 				 

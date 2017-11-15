@@ -98,6 +98,12 @@ footer {
 	  			<strong>Atenção!</strong> Produto já adicionado no carrinho.
 			</div>
 		</footer>
+		
+		<footer>
+			<div id="alerta-quantidade" class="alert  alert-danger" style="display:none;">
+	  			<strong>Atenção!</strong> 
+			</div>
+		</footer>
 
 		<div id="ModalTeste" class="col-xs-6">
 			<div class="modal-carrinho">
@@ -105,20 +111,24 @@ footer {
 					<div class="modal-header">
 						<h4 class="modal-title"><span class="glyphicon glyphicon-shopping-cart"></span> Carrinho </h4>
 					</div>
-					 <div class="modal-body">
+<!-- 					<form action="/FarmaWeb/verificarQuantidade" method="POST"> -->
+					 <div class="modal-body">	 	
 	       				<ul class="lista">
 						</ul>
       				</div>
-      				<div class="modal-footer">
-      					<label>Desconto Total: R$<strong class="descontoTotal">0</strong></label>
-      					<p>
-      					<label>Taxa de Entrega: R$<strong class="taxaEntrega">${taxa_entrega}</strong></label>
-      					<p>				
-      					<label>Valor Total: R$<strong class="valorTotal">${taxa_entrega}</strong></label>
-      					<p>
-      					<label>Tempo Estimado de Entrega: <strong class="tempoEntrega">${tempo_entrega}</strong></label>
-						<div><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPagamento">Enviar Pedido</button></div>
-					</div>
+	      				<div class="modal-footer">
+	      				
+	      					<label>Desconto Total: R$<strong class="descontoTotal">0</strong></label>
+	      					<p>
+	      					<label>Taxa de Entrega: R$<strong class="taxaEntrega">${taxa_entrega}</strong></label>
+	      					<p>				
+	      					<label>Valor Total: R$<strong class="valorTotal">${taxa_entrega}</strong></label>
+	      					<p>
+	      					<label>Tempo Estimado de Entrega: <strong class="tempoEntrega">${tempo_entrega}</strong></label>
+							<div><button type="button" id="enviar-pedido" class="btn btn-primary" data-toggle="modal" data-target="#modalPagamento">Enviar Pedido</button></div>
+						
+						</div>
+<!-- 					</form> -->
 				</div>
 			</div>
 		</div>
@@ -165,12 +175,14 @@ footer {
 					<h4 class="modal-title">Resumo do pedido</h4>
 				</div>
 				<div class="modal-body">
-					<div class="form-group" id="resumo">
-				
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-default" type="submit">Concluir</button>
-					</div>
+					<form action="/FarmaWeb/incluirPedido" method="POST">
+						<div class="form-group" id="resumo">
+					
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-default" type="submit">Concluir</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -205,10 +217,12 @@ footer {
 			}
 			
 			$( ".lista" ).append(
-				'<div class="div-carrinho" id='+ id +'><input type="number" id="quantidade" class="form-control text-center" onKeyPress="if(this.value.length==2) return false;" value="1" min="1" max="99">'
-				+ '<li class="nome" name=' + nome + ' >' + nome + '</li>'
+				'<div class="div-carrinho" id='+ id +'><input type="number" name="quantidadeCarrinho" id="quantidade" class="form-control text-center" onKeyPress="if(this.value.length==2) return false;" value="1" min="1" max="99">'
+				+ '<li class="nome" name=nome value=' + nome + '>' + nome + '</li>' 
+				+ '<input type=hidden name=produtoCarrinho value=' + nome + '>'
 				+ '<li class="valor" value='+ preco +'>'+ preco +'</li>' 
-				+ '<li class="hidden" value='+ id +'>'+ id +'</li>'
+				+ '<li class="hidden" name="id" value='+ id +'>'+ id +'</li>'
+				+ '<input type=hidden name="cod_produto_carrinho" value='+ id +'>'
 				+ '<span class="glyphicon glyphicon-trash"></span> <input type="hidden" class="valorUnitario" value='+preco+' > <input type="hidden" class="valorDesconto" value='+desconto+' ></div>');
 			
 			$('input[type="number"]').bind('click keyup', function (e){
@@ -279,12 +293,16 @@ footer {
 			);
 			
 			resumo.forEach(function(produtos){
-			    $('#resumo').append('<div>'+ produtos.quantidade +' '+ produtos.nome +' '+ produtos.valor + '</div>');
+			    $('#resumo').append('<div>'+ produtos.quantidade +' '+ produtos.nome +' '+ produtos.valor + '</div>' +
+			    		'<input type=hidden value = '+ produtos.quantidade +' name=quantidade_produto>' +
+			    		'<input type=hidden value = '+ produtos.id_produto +' name=id_produto>'
+			    );
 			});
 			
 			$( "#resumo" ).append(
 				'<div>---------------------------------------------------------</div>' +
 				'<div>Endereço de Entrega</div>' +
+				'<input type=hidden value = ${cod_cliente} name=cod_cliente>' +
 				'<input type=hidden value = ${rua_cliente}>${rua_cliente}, <input type=hidden value = ${numero_cliente}>${numero_cliente} - <input type=hidden value = ${complemento_cliente}>${complemento_cliente}' +
 				'<br>' +
 				'<input type=hidden value = ${cep_cliente}>${cep_cliente} - <input type=hidden value = ${bairro_cliente}>${bairro_cliente}' +
@@ -292,19 +310,40 @@ footer {
 				'<input type=hidden value = ${cidade_cliente}>${cidade_cliente}/<input type=hidden value = ${estado_cliente}>${estado_cliente}' +
 				'<div>---------------------------------------------------------</div>' +
 				'<div>Informações Adicionais</div>' +
+				'<input type=hidden value=' + cod_pagamento + ' name=cod_pagamento>'+
 				'<div value = ' + forma_pagamento + '>Forma de Pagamento: ' + forma_pagamento + '</div>' +
-				'<div value = ' + $('.descontoTotal').text() + '>Desconto Total: ' + $('.descontoTotal').text() + '</div>' +
+				'<input type=hidden name=descontoTotal value = ' + $('.descontoTotal').text() + '>' +
+				'<div name=descontoTotal value = ' + $('.descontoTotal').text() + '>Desconto Total: ' + $('.descontoTotal').text() + '</div>' +
 				'<div value = ' + $('.taxaEntrega').text() + '>Taxa de Entrega: ' + $('.taxaEntrega').text() + '</div>' +
-				'<div value = ' + $('.valorTotal').text() + '>Valor Total: ' + $('.valorTotal').text() + '</div>' +
+				'<input type=hidden name=valorTotal value = ' + $('.valorTotal').text() + '>' +
+				'<div name=valorTotal value = ' + $('.valorTotal').text() + '>Valor Total: ' + $('.valorTotal').text() + '</div>' +
 				'<div value = ' + $('.tempoEntrega').text() + '>Tempo Estimado de Entrega: ' + $('.tempoEntrega').text() + '</div>'
 			);
 					
-			$('#modalPagamento').hide();
+			
+			$('.fade in').removeClass('modal-backdrop fade in');
+			
 		});
+		
+// 		$('#enviar-pedido').click(function (){
+// 			e.preventDefault();
+// 			$.ajax({
+// 		         type: 'POST',    
+// 		         url:'/FarmaWeb/verificarQuantidade',
+// 		         success: function(data){
+// 		    		 if(data){
+		    			
+// 		    			$('#alerta-quantidade').append(data); 
+// 		    			$('#alerta-quantidade').fadeIn();
+// 						$('#alerta-quantidade').fadeOut(5000);
+// 		    		 }
+// 		    	 }
+// 		     });
+// 		});
 		
 	
 	
-		</script>
+	</script>
 		
 		
 

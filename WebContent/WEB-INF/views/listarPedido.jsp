@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
@@ -11,20 +12,29 @@
 
 <body class="container">
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.PedidoDao" />
+	<jsp:useBean id="daoNomeFarm" class="br.com.farmaweb.daos.FarmaciaDao" />
 	<table class="table table-bordered">
 		<tr>
-			<th>Status</th>
+			<th>Número do Pedido</th>
+			<th>Farmácia</th>
 			<th>Valor Total</th>
 			<th>Valor Desconto</th>
 			<th>Data Pedido</th>
-			<th></th>
+			<th>Status</th>
 		</tr>
+		
 		<c:forEach var="pedido" items="${dao.pedidos}">
 			<tr>
-				<td>${pedido.status}</td>
+				<td>${pedido.cod_pedido}</td>
+				<c:forEach var="nomeFarm" items="${daoNomeFarm.retornaNomeFarm(pedido.cod_pedido)}">
+					<c:if test="${not empty nomeFarm}">
+						 <td>${nomeFarm}</td>
+					</c:if>
+				</c:forEach>
 				<td>${pedido.valor_total}</td>
 				<td>${pedido.valor_desconto}</td>
 				<td>${pedido.data_pedido}</td>
+				<td>${pedido.status}</td>
 			</tr>
 		</c:forEach>
 	</table>

@@ -1,5 +1,7 @@
 package br.com.farmaweb.models;
 
+import java.time.LocalDateTime;
+
 public class Pedido {
 	private int cod_pedido;
 	private String status;
