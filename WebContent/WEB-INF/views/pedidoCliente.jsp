@@ -46,6 +46,7 @@ footer {
 		<div class="col-xs-6">
 			<table class="table table-bordered">
 				<tr>
+					<th></th>
 					<th>Foto</th>
 					<th>Produto</th>
 					<th>Preço</th>
@@ -53,6 +54,7 @@ footer {
 				<c:forEach var="produto" items="${dao.listaProdutoFarmacia(cod_farmacia)}">
 					<tr>
 						<td id="cod_produto${produto.cod_produto}"></td>
+						<td><img src="/FarmaWeb/recuperaImagem?cod_produto=${produto.cod_produto}&cod_farmacia=${cod_farmacia}" width="100" height="100"/></td>
 						<td id="nome_produto${produto.cod_produto}">${produto.nome_produto}</td>
 						<td id="preco_unitario${produto.cod_produto}">${produto.preco_unitario}</td>
 						<td><a class="btn btn-xs btn-info adicionar" data-toggle="modal" data-id="${produto.cod_produto}">Adicionar</a></td>

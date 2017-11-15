@@ -78,7 +78,6 @@ public class ProdutoDao {
 				produto.setReceita(rs.getInt("receita"));
 				produto.setPreco_unitario(rs.getDouble("preco_unitario"));
 				produto.setDesconto(rs.getInt("desconto"));
-				//produto.setFoto_produto(rs.getBlob("foto_produto"));
 				
 				produtos.add(produto);
 			}

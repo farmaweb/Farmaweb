@@ -27,6 +27,8 @@
 		
 		<c:forEach var="produto" items="${dao.getProdutos(usuarioLogado.cod_login)}">
 			<tr>
+
+				<td><img src="/FarmaWeb/recuperaImagem?cod_produto=${produto.cod_produto}" width="100" height="100"/></td>
 				<td>${produto.nome_produto}</td>
 				<td>${produto.marca_fabricante}</td>
 				<td>${produto.caracteristica}</td>
@@ -52,9 +54,6 @@
 				</td>
 			</tr>
 		</c:forEach>
-
-
-
 	</table>
 	<form action="/FarmaWeb/voltar" method="POST">
 		<button type="submit" class="btn btn-primary">Voltar</button>

@@ -1,8 +1,6 @@
 package br.com.farmaweb.servlet;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

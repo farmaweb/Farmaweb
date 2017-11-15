@@ -1,7 +1,6 @@
 package br.com.farmaweb.servlet;
 
 import java.io.IOException;
-import java.sql.Blob;
 import java.sql.SQLException;
 import java.io.InputStream;
 
@@ -21,7 +20,7 @@ import br.com.farmaweb.models.Login;
 import br.com.farmaweb.models.Produto;
 
 @WebServlet("/incluirProduto")
-@MultipartConfig(maxFileSize = 16177215)
+@MultipartConfig(maxFileSize = 5242880,maxRequestSize=5242880)
 public class IncluirProduto extends HttpServlet {
 	
 	private static final long serialVersionUID = 5488520725052135988L;
@@ -42,7 +41,6 @@ public class IncluirProduto extends HttpServlet {
 
         Part filePart = req.getPart("foto_produto");
         if (filePart != null) {
-     
         	inputStream = filePart.getInputStream();
         }
 		
