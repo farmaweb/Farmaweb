@@ -35,9 +35,13 @@
 				<td>${pedido.valor_desconto}</td>
 				<td>${pedido.data_pedido}</td>
 				<td>${pedido.status}</td>
+				<td>
+					<button type="button" id="botaoDetalhes" class="btn btn-primary" data-toggle="modal" data-target="#modalDetalhes">Detalhes do Pedido</button>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
+	
 	<form action="/FarmaWeb/voltar" method="POST">
 		<button type="submit" class="btn btn-primary">Voltar</button>
 	</form>
@@ -67,6 +71,80 @@
 			</div>
 		</div>
 	</div>
+	
+	<div id="modalDetalhes" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Detalhes do Pedido</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group" id="detalhes">
+				
+					</div>
+					<div class="modal-footer">
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
+	<script type="text/javascript">
+	
+		$('#botaoDetalhes').click(function (){
+			cod_pagamento = $("#cod_pagamento option:selected").val();
+			forma_pagamento = $("#cod_pagamento option:selected").text().trim();
+			
+			var resumo = [];
+			$('.lista div').each(function(){
+			   resumo.push({
+				   quantidade: $(this).children('#quantidade').val(),
+				   nome: $(this).children('.nome').text(),
+				   valor: $(this).children('.valor').text(),
+				   id_produto: $(this).children('.hidden').text()
+				});
+			});
+			
+			$( "#detalhes" ).append(
+				'<div>Lista de Produtos</div>'
+			);
+			
+			resumo.forEach(function(produtos){
+			    $('#detalhes').append('<div>'+ produtos.quantidade +' '+ produtos.nome +' '+ produtos.valor + '</div>' +
+			    		'<input type=hidden value = '+ produtos.quantidade +' name=quantidade_produto>' +
+			    		'<input type=hidden value = '+ produtos.id_produto +' name=id_produto>'
+			    );
+			});
+			
+			$( "#detalhes" ).append(
+				'<div>---------------------------------------------------------</div>' +
+				'<div>Endereço de Entrega</div>' +
+				'<input type=hidden value = ${cod_cliente} name=cod_cliente>' +
+				'<input type=hidden value = ${rua_cliente}>${rua_cliente}, <input type=hidden value = ${numero_cliente}>${numero_cliente} - <input type=hidden value = ${complemento_cliente}>${complemento_cliente}' +
+				'<br>' +
+				'<input type=hidden value = ${cep_cliente}>${cep_cliente} - <input type=hidden value = ${bairro_cliente}>${bairro_cliente}' +
+				'<br>' +
+				'<input type=hidden value = ${cidade_cliente}>${cidade_cliente}/<input type=hidden value = ${estado_cliente}>${estado_cliente}' +
+				'<div>---------------------------------------------------------</div>' +
+				'<div>Informações Adicionais</div>' +
+				'<input type=hidden value=' + cod_pagamento + ' name=cod_pagamento>'+
+				'<div value = ' + forma_pagamento + '>Forma de Pagamento: ' + forma_pagamento + '</div>' +
+				'<input type=hidden name=descontoTotal value = ' + $('.descontoTotal').text() + '>' +
+				'<div name=descontoTotal value = ' + $('.descontoTotal').text() + '>Desconto Total: ' + $('.descontoTotal').text() + '</div>' +
+				'<div value = ' + $('.taxaEntrega').text() + '>Taxa de Entrega: ' + $('.taxaEntrega').text() + '</div>' +
+				'<input type=hidden name=valorTotal value = ' + $('.valorTotal').text() + '>' +
+				'<div name=valorTotal value = ' + $('.valorTotal').text() + '>Valor Total: ' + $('.valorTotal').text() + '</div>' +
+				'<div value = ' + $('.tempoEntrega').text() + '>Tempo Estimado de Entrega: ' + $('.tempoEntrega').text() + '</div>'
+			);
+					
+			
+			$('.fade in').removeClass('modal-backdrop fade in');
+			
+		});
+	</script>
+	
 </body>
 </html>

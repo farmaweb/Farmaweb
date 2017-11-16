@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,6 +61,8 @@ public class IncluirPedido extends HttpServlet {
 			e.printStackTrace();
 		}
 
+		RequestDispatcher rd = req.getRequestDispatcher("/listaPedido");
+		rd.forward(req, res);
 	}
 
 }

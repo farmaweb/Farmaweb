@@ -42,7 +42,8 @@
 				<td>${produto.desconto}</td>
 				
 				<td><button type="button" class="btn btn-primary">Editar</button></td>
-				<td><form action="/FarmaWeb/excluirProduto" method="POST">
+				<td>
+					<form action="/FarmaWeb/excluirProduto" method="POST">
 						<input type="hidden" name="cod_produto"
 							value="${produto.cod_produto}" />
 						<button type="submit" class="btn btn-primary">Excluir</button>

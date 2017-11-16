@@ -24,7 +24,7 @@ public class IncluirProduto extends HttpServlet {
 	private static final long serialVersionUID = 5488520725052135988L;
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		String nome_produto = req.getParameter("nome_produto");
 		String marca_fabricante = req.getParameter("marca_fabricante");
@@ -66,6 +66,6 @@ public class IncluirProduto extends HttpServlet {
 		}
 
 		RequestDispatcher rd = req.getRequestDispatcher("/listaProduto");
-		rd.forward(req, resp);
+		rd.forward(req, res);
 	}
 }
