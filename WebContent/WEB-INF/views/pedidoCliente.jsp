@@ -59,9 +59,10 @@ footer {
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.ProdutoDao" />
 	<jsp:useBean id="daoFormaDePagamento" class="br.com.farmaweb.daos.FormaDePagamentoDao" />
 	
+	<strong>Procurar o produto:</strong> <input type="text" onkeyup="filtrar()" id="filtro" name="produto"/>
 	<div class="row">
 		<div class="col-xs-6">
-			<table class="table table-bordered">
+			<table class="table table-bordered" id="myTable">
 				<tr>
 					<th>Foto</th>
 					<th>Produto</th>
@@ -325,21 +326,26 @@ footer {
 			
 		});
 		
-// 		$('#enviar-pedido').click(function (){
-// 			e.preventDefault();
-// 			$.ajax({
-// 		         type: 'POST',    
-// 		         url:'/FarmaWeb/verificarQuantidade',
-// 		         success: function(data){
-// 		    		 if(data){
-		    			
-// 		    			$('#alerta-quantidade').append(data); 
-// 		    			$('#alerta-quantidade').fadeIn();
-// 						$('#alerta-quantidade').fadeOut(5000);
-// 		    		 }
-// 		    	 }
-// 		     });
-// 		});
+		function filtrar() {
+			  // Declare variables 
+			  var input, filter, table, tr, td, i;
+			  input = document.getElementById("filtro");
+			  filter = input.value.toUpperCase();
+			  table = document.getElementById("myTable");
+			  tr = table.getElementsByTagName("tr");
+
+			  // Loop through all table rows, and hide those who don't match the search query
+			  for (i = 1; i < tr.length; i++) {
+			    td = tr[i].getElementsByTagName("td")[1];
+			    if (td) {
+			      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+			        tr[i].style.display = "";
+			      } else {
+			        tr[i].style.display = "none";
+			      }
+			    } 
+			  }
+		}
 		
 	
 	
