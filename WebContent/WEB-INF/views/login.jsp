@@ -173,6 +173,12 @@ img {
 						</br> 
 						<label for="tel_farmacia">Telefone:</label> 
 						<input type="text" name="tel_farmacia" style="border-radius: 5px;" required>
+						</br> 		
+						<label for="tel_farmacia">Taxa de entrega:</label> 
+						<input type="text" name="taxa_entrega" style="border-radius: 5px;" required>
+						</br> 	
+						<label for="tel_farmacia">Tempo estimado:</label> 
+						<input type="text" name="tempo_entrega" style="border-radius: 5px;" required>
 						</br> 
 						<label for="observacao">Observação:</label>
 						</br>

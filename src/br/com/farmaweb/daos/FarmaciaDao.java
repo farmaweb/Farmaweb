@@ -92,8 +92,8 @@ public class FarmaciaDao {
 	public int incluirFarmacia(Farmacia farmacia, int cod_endereco) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"insert into farmacia(nome_fantasia,razao_social,cnpj,tel_farmacia,observacao,cod_end_farm)"
-							+ "values ( ?,?,?,?,?,? )",
+					"insert into farmacia(nome_fantasia,razao_social,cnpj,tel_farmacia,observacao,cod_end_farm,taxa_entrega,tempo_entrega)"
+							+ "values ( ?,?,?,?,?,?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setString(1, farmacia.getNome_fantasia());
@@ -102,6 +102,8 @@ public class FarmaciaDao {
 			stmt.setLong(4, farmacia.getTel_farmacia());
 			stmt.setString(5, farmacia.getObservacao());
 			stmt.setInt(6, cod_endereco);
+			stmt.setFloat(7, farmacia.getTaxaEntrega());
+			stmt.setString(8, farmacia.getTempo_entrega());
 
 			stmt.executeUpdate();
 			int ret = 0;

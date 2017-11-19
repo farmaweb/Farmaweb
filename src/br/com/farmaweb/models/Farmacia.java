@@ -9,7 +9,7 @@ public class Farmacia {
 	private Long tel_farmacia;
 	private String observacao;
 	private Float taxa_entrega;
-	private String tempo_entrega;
+	private String tempo_entrega;	
 	
 	private int cod_end_farm;
 	

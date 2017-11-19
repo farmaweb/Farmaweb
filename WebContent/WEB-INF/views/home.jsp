@@ -3180,9 +3180,10 @@ transform
 	</div>
 
 	<c:if test="${usuarioLogado.tipo == 2}">
+		<strong>Procurar pelo número do pedido:</strong> <input type="text" onkeyup="filtrar()" id="filtro" />
 		<jsp:useBean id="dao" class="br.com.farmaweb.daos.PedidoDao" />
 		<div class="container-fluid">
-			<table class="table table-hover text-centered">
+			<table class="table table-hover text-centered" id="myTable">
 				<tr>
 					<th>Número do Pedido</th>
 					<th>Valor</th>
@@ -3230,14 +3231,14 @@ transform
 						</select>
 					</div>
 					<div class="modal-footer">
-						<button type="button" id="botaoAlterarStatus" data-dismiss="modal" class="btn btn-primary" >Salvar</button>
+						<button type="button" id="teste" data-dismiss="modal" class="btn btn-primary" >Salvar</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	
-	<div id="modalDetalhes" class="modal fade"    role="dialog">
+	<div id="modalDetalhes" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -3314,23 +3315,48 @@ transform
 
 	<script>
 	
-	var cod_pedido = null;
-	function enviarCodPedido(cod_pedido){
-		cod_pedido = cod_pedido;
+	function filtrar() {
+		  // Declare variables 
+		  var input, filter, table, tr, td, i;
+		  input = document.getElementById("filtro");
+		  filter = input.value.toUpperCase();
+		  table = document.getElementById("myTable");
+		  tr = table.getElementsByTagName("tr");
+
+		  // Loop through all table rows, and hide those who don't match the search query
+		  for (i = 0; i < tr.length; i++) {
+		    td = tr[i].getElementsByTagName("td")[0];
+		    if (td) {
+		      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+		        tr[i].style.display = "";
+		      } else {
+		        tr[i].style.display = "none";
+		      }
+		    } 
+		  }
 	}
 	
-	$('#botaoAlterarStatus').click(function (){
+	var cod_pedidoFarmacia;
+	function enviarCodPedido(cod_pedido){
+		cod_pedidoFarmacia = cod_pedido;
+	}
+	
+	$('#teste').click(function (event){
 		var data = {
 				status:$('#status option:selected').val(),
-				cod_pedido: cod_pedido
+				cod_pedido: cod_pedidoFarmacia
 		}
 		$.ajax({
 	         type: 'POST',    
 	         url:'/FarmaWeb/AlterarStatus',
 	         data: data,
-	         success: success,
-	         dataType: dataType
-	});
+	         success: function (response) {
+	        	 location.reload();
+            },
+            error: function (e) {
+	              console.log(e);
+            }
+		});
 		
 	});
 	
@@ -3513,6 +3539,11 @@ transform
 				'<div>Tempo Estimado de Entrega: ' + data[0].tempo_entrega + '</div>'
 		);
 	}
+	
+	 setTimeout(function(){ 
+		 location.reload(); 
+	}, 20000);
+
 	
 </script>
 <script

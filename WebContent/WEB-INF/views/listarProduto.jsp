@@ -10,8 +10,9 @@
 </head>
 
 <body class="container">
+	<strong>Procurar pelo produto:</strong> <input type="text" onkeyup="filtrar()" id="filtro" />
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.ProdutoDao" />
-	<table class="table table-bordered">
+	<table class="table table-bordered" id="myTable">
 		<tr>
 			<th>Produto</th>
 			<th>Marca/Fabricante</th>
@@ -109,5 +110,28 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+		function filtrar() {
+			  // Declare variables 
+			  var input, filter, table, tr, td, i;
+			  input = document.getElementById("filtro");
+			  filter = input.value.toUpperCase();
+			  table = document.getElementById("myTable");
+			  tr = table.getElementsByTagName("tr");
+
+			  // Loop through all table rows, and hide those who don't match the search query
+			  for (i = 0; i < tr.length; i++) {
+			    td = tr[i].getElementsByTagName("td")[0];
+			    if (td) {
+			      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+			        tr[i].style.display = "";
+			      } else {
+			        tr[i].style.display = "none";
+			      }
+			    } 
+			  }
+		}
+	</script>
 </body>
 </html>

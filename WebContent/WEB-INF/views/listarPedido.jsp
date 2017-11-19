@@ -185,6 +185,11 @@
 			    } 
 			  }
 		}
+		
+		 setTimeout(function(){ 
+			 location.reload(); 
+		}, 20000);
+
 	</script>
 	
 </body>
