@@ -193,4 +193,17 @@ public class PedidoDao {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public void alterarStatus(int cod_pedido, String status) throws SQLException {
+		try {
+			PreparedStatement stmt = this.connection.prepareStatement("update pedido set status = ? where cod_pedido = ? ");
+			stmt.setString(1, status);
+			stmt.setInt(2, cod_pedido);
+			
+			stmt.executeUpdate();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

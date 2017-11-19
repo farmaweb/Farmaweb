@@ -3184,20 +3184,25 @@ transform
 		<div class="container-fluid">
 			<table class="table table-hover text-centered">
 				<tr>
-					<th>Status</th>
-					<th>Valor Total</th>
-					<th>Valor Desconto</th>
+					<th>Número do Pedido</th>
+					<th>Valor</th>
 					<th>Data Pedido</th>
-					<th></th>
+					<th>Status</th>
 				</tr>
 				<c:forEach var="pedido" items="${dao.getPedidosFarmacia(usuarioLogado.cod_login)}">
 					<c:if test="${pedido.status ne 'Cancelado'}">
 						<c:if test="${pedido.status ne 'Concluído'}">
 							<tr>
-								<td>${pedido.status}</td>
+								<td id="cod_pedido">${pedido.cod_pedido}</td>
 								<td>${pedido.valor_total}</td>
-								<td>${pedido.valor_desconto}</td>
 								<td>${pedido.data_pedido}</td>
+								<td>${pedido.status}</td>
+								<td>
+									<button type="button" id="botaoDetalhes" onclick="getDetalhes(${pedido.cod_pedido})" class="btn btn-primary" data-toggle="modal" data-target="#modalDetalhes">Detalhes do Pedido</button>
+								</td>
+								<td>
+									<button type="button" id="botaoAlterarStatus" onclick="enviarCodPedido(${pedido.cod_pedido})"  class="btn btn-primary" data-toggle="modal" data-target="#modalStatus">Alterar Status</button>
+								</td>
 							</tr>
 						</c:if>
 					</c:if>
@@ -3206,7 +3211,50 @@ transform
 		</div>
 	</c:if>
 
-
+	<div id="modalStatus" class="modal fade"    role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Alterar Status do Pedido</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group" id="status">
+						<label for="tipo_pagamento">Tipo De Pagamento:</label>
+						<select id="status" name="status" class="selectpicker" >
+						    <option  value="Separação">Separação</option>
+						    <option  value="Enviado">Enviado</option>
+						    <option  value="Concluído">Concluído</option>
+						    <option  value="Cancelado">Cancelado</option>
+						</select>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="botaoAlterarStatus" data-dismiss="modal" class="btn btn-primary" >Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="modalDetalhes" class="modal fade"    role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Detalhes do Pedido</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group" id="detalhes">
+					</div>
+					<div class="modal-footer">
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<c:if test="${usuarioLogado.tipo == 1}">
 		<div id="map"></div>
@@ -3266,6 +3314,26 @@ transform
 
 	<script>
 	
+	var cod_pedido = null;
+	function enviarCodPedido(cod_pedido){
+		cod_pedido = cod_pedido;
+	}
+	
+	$('#botaoAlterarStatus').click(function (){
+		var data = {
+				status:$('#status option:selected').val(),
+				cod_pedido: cod_pedido
+		}
+		$.ajax({
+	         type: 'POST',    
+	         url:'/FarmaWeb/AlterarStatus',
+	         data: data,
+	         success: success,
+	         dataType: dataType
+	});
+		
+	});
+	
 	$('#selecionar').click(function (){
 		
 		getData(); 
@@ -3290,7 +3358,7 @@ transform
 		        	 })
 		        	 initMap(lista); 
 		         }
-		     });
+		});
 	}
 	
 	function initMap(lista) {
@@ -3401,8 +3469,51 @@ transform
 	
 		var markerCluster = new MarkerClusterer(map, markers,{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
     }
+	
+	$('.close').click( function (){
+		$('#detalhes').empty();
+	});
 		
+	function getDetalhes(cod_pedido) {
+		$.ajax({
+		         type: 'GET',    
+		         url:'/FarmaWeb/buscarDetalhes?cod_pedido=' + cod_pedido,
+		         success: function(data){
+		        		 detalhaPedidoFarmacia(data);
+		         }
+		     });
+	 }
 		
+	function detalhaPedidoFarmacia(data){
+		$('#detalhes').append(
+				'<div>Número do Pedido: ' + data[0].cod_pedido + '</div>' +
+				'<div>Status do Pedido: ' + data[0].status + '</div>' +
+				'<div>Cliente: ' + data[0].nome_cliente + '</div>' +
+				'<div>Telefone: ' + data[0].tel_cliente + '</div>' +
+				'<div>CPF: ' + data[0].cpf_cliente + '</div>' +
+				'<div>Data: ' + data[0].data_pedido + '</div>' +
+				'<div>---------------------------------------------------------</div>' +
+				'<div>Lista de Produtos</div>'
+		);
+		
+		data.forEach( function (e){
+				$('#detalhes').append('<div>'+ e.quant_prod_ped +' '+ e.nome_produto +' R$'+ e.preco_unitario + '</div>');
+		});
+		
+		$('#detalhes').append(
+				'<div>Desconto Total: ' + data[0].valor_desconto + '</div>' +
+				'<div>Taxa de Entrega: ' + data[0].taxa_entrega + '</div>' +
+				'<div>Valor Total: ' + data[0].valor_total + '</div>' +
+				'<div>Forma de Pagamento: ' + data[0].tipo_pagamento + '</div>' +
+				'<div>---------------------------------------------------------</div>' +
+				'<div>Endereço de Entrega</div>' +
+				'<div>' + data[0].rua + ', ' + data[0].numero + ' - ' + data[0].complemento +
+				'<div>' + data[0].cep + ' - ' + data[0].bairro +
+				'<div>' + data[0].cidade + '/' + data[0].estado +
+				'<div>Tempo Estimado de Entrega: ' + data[0].tempo_entrega + '</div>'
+		);
+	}
+	
 </script>
 <script
 	src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">

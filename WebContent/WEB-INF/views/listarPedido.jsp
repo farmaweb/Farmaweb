@@ -38,7 +38,7 @@
 					<td>${pedido.data_pedido}</td>
 					<td>${pedido.status}</td>
 					<td>
-						<button type="button" id="botaoDetalhes" onclick="getDetalhes(${pedido.cod_pedido})" class="btn btn-primary" data-toggle="modal" data-target="#modalDetalhes">Detalhes do Pedido</button>
+						<button type="button" id="botaoDetalhes" value="1" onclick="getDetalhes(${pedido.cod_pedido})" class="btn btn-primary" data-toggle="modal" data-target="#modalDetalhes">Detalhes do Pedido</button>
 					</td>
 				</tr>
 			</c:forEach>
@@ -53,7 +53,7 @@
 					<td>${pedido.data_pedido}</td>
 					<td>${pedido.status}</td>
 					<td>
-						<button type="button" id="botaoDetalhes" onclick="getDetalhes(${pedido.cod_pedido})" class="btn btn-primary" data-toggle="modal" data-target="#modalDetalhes">Detalhes do Pedido</button>
+						<button type="button" id="botaoDetalhes"  onclick="getDetalhes(${pedido.cod_pedido})" class="btn btn-primary" data-toggle="modal" data-target="#modalDetalhes">Detalhes do Pedido</button>
 					</td>
 				</tr>
 			</c:forEach>
@@ -97,7 +97,12 @@
 		         type: 'GET',    
 		         url:'/FarmaWeb/buscarDetalhes?cod_pedido=' + cod_pedido,
 		         success: function(data){
-		        	 detalhaPedido(data); 
+		        	 if($('#botaoDetalhes').val() == 1){
+		        		 detalhaPedido(data);  
+		        	 }else{
+		        		 detalhaPedidoFarmacia(data);
+		        	 }
+		        	 
 		         }
 		     });
 	 }
@@ -129,6 +134,36 @@
 						'<div>Tempo Estimado de Entrega: ' + data[0].tempo_entrega + '</div>'
 				);
 		}
+		
+		function detalhaPedidoFarmacia(data){
+			$('#detalhes').append(
+					'<div>Número do Pedido: ' + data[0].cod_pedido + '</div>' +
+					'<div>Status do Pedido: ' + data[0].status + '</div>' +
+					'<div>Cliente: ' + data[0].nome_cliente + '</div>' +
+					'<div>Telefone: ' + data[0].tel_cliente + '</div>' +
+					'<div>CPF: ' + data[0].cpf_cliente + '</div>' +
+					'<div>Data: ' + data[0].data_pedido + '</div>' +
+					'<div>---------------------------------------------------------</div>' +
+					'<div>Lista de Produtos</div>'
+			);
+			
+			data.forEach( function (e){
+					$('#detalhes').append('<div>'+ e.quant_prod_ped +' '+ e.nome_produto +' R$'+ e.preco_unitario + '</div>');
+			});
+			
+			$('#detalhes').append(
+					'<div>Desconto Total: ' + data[0].valor_desconto + '</div>' +
+					'<div>Taxa de Entrega: ' + data[0].taxa_entrega + '</div>' +
+					'<div>Valor Total: ' + data[0].valor_total + '</div>' +
+					'<div>Forma de Pagamento: ' + data[0].tipo_pagamento + '</div>' +
+					'<div>---------------------------------------------------------</div>' +
+					'<div>Endereço de Entrega</div>' +
+					'<div>' + data[0].rua + ', ' + data[0].numero + ' - ' + data[0].complemento +
+					'<div>' + data[0].cep + ' - ' + data[0].bairro +
+					'<div>' + data[0].cidade + '/' + data[0].estado +
+					'<div>Tempo Estimado de Entrega: ' + data[0].tempo_entrega + '</div>'
+			);
+	}
 		
 		function filtrar() {
 			  // Declare variables 
