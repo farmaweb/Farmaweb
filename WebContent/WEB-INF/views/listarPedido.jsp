@@ -17,63 +17,56 @@
 	<table class="table table-bordered" id="myTable">
 		<tr>
 			<th>Número do Pedido</th>
-			<th>Farmácia</th>
+			<c:if test="${usuarioLogado.tipo == 1}"><th>Farmácia</th></c:if>
 			<th>Valor Total</th>
 			<th>Valor Desconto</th>
 			<th>Data Pedido</th>
 			<th>Status</th>
 		</tr>
 		
-		<c:forEach var="pedido" items="${dao.pedidos}">
-			<tr>
-				<td>${pedido.cod_pedido}</td>
-				<c:forEach var="nomeFarm" items="${daoNomeFarm.retornaNomeFarm(pedido.cod_pedido)}">
-					<c:if test="${not empty nomeFarm}">
-						 <td>${nomeFarm}</td>
-					</c:if>
-				</c:forEach>
-				<td>${pedido.valor_total}</td>
-				<td>${pedido.valor_desconto}</td>
-				<td>${pedido.data_pedido}</td>
-				<td>${pedido.status}</td>
-				<td>
-					<button type="button" id="botaoDetalhes" class="btn btn-primary" data-toggle="modal" data-target="#modalDetalhes">Detalhes do Pedido</button>
-				</td>
-			</tr>
-		</c:forEach>
+		<c:if test="${usuarioLogado.tipo == 1}">
+			<c:forEach var="pedido" items="${dao.getPedidos(usuarioLogado.cod_login)}">
+				<tr>
+					<td>${pedido.cod_pedido}</td>
+					<c:forEach var="nomeFarm" items="${daoNomeFarm.retornaNomeFarm(pedido.cod_pedido)}">
+						<c:if test="${not empty nomeFarm}">
+							 <td>${nomeFarm}</td>
+						</c:if>
+					</c:forEach>
+					<td>${pedido.valor_total}</td>
+					<td>${pedido.valor_desconto}</td>
+					<td>${pedido.data_pedido}</td>
+					<td>${pedido.status}</td>
+					<td>
+						<button type="button" id="botaoDetalhes" onclick="getDetalhes(${pedido.cod_pedido})" class="btn btn-primary" data-toggle="modal" data-target="#modalDetalhes">Detalhes do Pedido</button>
+					</td>
+				</tr>
+			</c:forEach>
+		</c:if>
+		
+			<c:if test="${usuarioLogado.tipo == 2}">
+			<c:forEach var="pedido" items="${dao.getPedidosFarmacia(usuarioLogado.cod_login)}">
+				<tr>
+					<td>${pedido.cod_pedido}</td>
+					<td>${pedido.valor_total}</td>
+					<td>${pedido.valor_desconto}</td>
+					<td>${pedido.data_pedido}</td>
+					<td>${pedido.status}</td>
+					<td>
+						<button type="button" id="botaoDetalhes" onclick="getDetalhes(${pedido.cod_pedido})" class="btn btn-primary" data-toggle="modal" data-target="#modalDetalhes">Detalhes do Pedido</button>
+					</td>
+				</tr>
+			</c:forEach>
+		</c:if>
+		
 	</table>
 	
 	<form action="/FarmaWeb/voltar" method="POST">
 		<button type="submit" class="btn btn-primary">Voltar</button>
 	</form>
 	
-	<div id="myModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
 
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Forma de pagamento</h4>
-				</div>
-				<div class="modal-body">
-					<form class="form-signin"
-						action="/FarmaWeb/incluirFormaDePagamento" method="POST">
-						<div class="form-group">
-
-							<label for="tipo_pagamento">Tipo De Pagamento:</label> <input
-								type="text" name="tipo_pagamento" style="border-radius: 5px;">
-						</div>
-						<div class="modal-footer">
-							<button class="btn btn-default" type="submit">Salvar</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<div id="modalDetalhes" class="modal fade" role="dialog">
+	<div id="modalDetalhes" class="modal fade"    role="dialog">
 		<div class="modal-dialog">
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -83,7 +76,6 @@
 				</div>
 				<div class="modal-body">
 					<div class="form-group" id="detalhes">
-				
 					</div>
 					<div class="modal-footer">
 					
@@ -93,58 +85,50 @@
 		</div>
 	</div>
 
+
 	<script type="text/javascript">
 	
-		$('#botaoDetalhes').click(function (){
-			cod_pagamento = $("#cod_pagamento option:selected").val();
-			forma_pagamento = $("#cod_pagamento option:selected").text().trim();
-			
-			var resumo = [];
-			$('.lista div').each(function(){
-			   resumo.push({
-				   quantidade: $(this).children('#quantidade').val(),
-				   nome: $(this).children('.nome').text(),
-				   valor: $(this).children('.valor').text(),
-				   id_produto: $(this).children('.hidden').text()
+	$('.close').click( function (){
+		$('#detalhes').empty();
+	});
+		
+	function getDetalhes(cod_pedido) {
+		$.ajax({
+		         type: 'GET',    
+		         url:'/FarmaWeb/buscarDetalhes?cod_pedido=' + cod_pedido,
+		         success: function(data){
+		        	 detalhaPedido(data); 
+		         }
+		     });
+	 }
+		
+		function detalhaPedido(data){
+				$('#detalhes').append(
+						'<div>Número do Pedido: ' + data[0].cod_pedido + '</div>' +
+						'<div>' + data[0].nome_fantasia + '</div>' +
+						'<div>Status do Pedido: ' + data[0].status + '</div>' +
+						'<div>Data: ' + data[0].data_pedido + '</div>' +
+						'<div>---------------------------------------------------------</div>' +
+						'<div>Lista de Produtos</div>'
+				);
+				
+				data.forEach( function (e){
+						$('#detalhes').append('<div>'+ e.quant_prod_ped +' '+ e.nome_produto +' R$'+ e.preco_unitario + '</div>');
 				});
-			});
-			
-			$( "#detalhes" ).append(
-				'<div>Lista de Produtos</div>'
-			);
-			
-			resumo.forEach(function(produtos){
-			    $('#detalhes').append('<div>'+ produtos.quantidade +' '+ produtos.nome +' '+ produtos.valor + '</div>' +
-			    		'<input type=hidden value = '+ produtos.quantidade +' name=quantidade_produto>' +
-			    		'<input type=hidden value = '+ produtos.id_produto +' name=id_produto>'
-			    );
-			});
-			
-			$( "#detalhes" ).append(
-				'<div>---------------------------------------------------------</div>' +
-				'<div>Endereço de Entrega</div>' +
-				'<input type=hidden value = ${cod_cliente} name=cod_cliente>' +
-				'<input type=hidden value = ${rua_cliente}>${rua_cliente}, <input type=hidden value = ${numero_cliente}>${numero_cliente} - <input type=hidden value = ${complemento_cliente}>${complemento_cliente}' +
-				'<br>' +
-				'<input type=hidden value = ${cep_cliente}>${cep_cliente} - <input type=hidden value = ${bairro_cliente}>${bairro_cliente}' +
-				'<br>' +
-				'<input type=hidden value = ${cidade_cliente}>${cidade_cliente}/<input type=hidden value = ${estado_cliente}>${estado_cliente}' +
-				'<div>---------------------------------------------------------</div>' +
-				'<div>Informações Adicionais</div>' +
-				'<input type=hidden value=' + cod_pagamento + ' name=cod_pagamento>'+
-				'<div value = ' + forma_pagamento + '>Forma de Pagamento: ' + forma_pagamento + '</div>' +
-				'<input type=hidden name=descontoTotal value = ' + $('.descontoTotal').text() + '>' +
-				'<div name=descontoTotal value = ' + $('.descontoTotal').text() + '>Desconto Total: ' + $('.descontoTotal').text() + '</div>' +
-				'<div value = ' + $('.taxaEntrega').text() + '>Taxa de Entrega: ' + $('.taxaEntrega').text() + '</div>' +
-				'<input type=hidden name=valorTotal value = ' + $('.valorTotal').text() + '>' +
-				'<div name=valorTotal value = ' + $('.valorTotal').text() + '>Valor Total: ' + $('.valorTotal').text() + '</div>' +
-				'<div value = ' + $('.tempoEntrega').text() + '>Tempo Estimado de Entrega: ' + $('.tempoEntrega').text() + '</div>'
-			);
-					
-			
-			$('.fade in').removeClass('modal-backdrop fade in');
-			
-		});
+				
+				$('#detalhes').append(
+						'<div>Desconto Total: ' + data[0].valor_desconto + '</div>' +
+						'<div>Taxa de Entrega: ' + data[0].taxa_entrega + '</div>' +
+						'<div>Valor Total: ' + data[0].valor_total + '</div>' +
+						'<div>Forma de Pagamento: ' + data[0].tipo_pagamento + '</div>' +
+						'<div>---------------------------------------------------------</div>' +
+						'<div>Endereço de Entrega</div>' +
+						'<div>' + data[0].rua + ', ' + data[0].numero + ' - ' + data[0].complemento +
+						'<div>' + data[0].cep + ' - ' + data[0].bairro +
+						'<div>' + data[0].cidade + '/' + data[0].estado +
+						'<div>Tempo Estimado de Entrega: ' + data[0].tempo_entrega + '</div>'
+				);
+		}
 		
 		function filtrar() {
 			  // Declare variables 

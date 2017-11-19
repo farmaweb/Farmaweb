@@ -303,6 +303,7 @@ footer {
 			$( "#resumo" ).append(
 				'<div>---------------------------------------------------------</div>' +
 				'<div>Endereço de Entrega</div>' +
+				'<input type=hidden value = ${cod_endereco} name=cod_endereco>'+
 				'<input type=hidden value = ${cod_cliente} name=cod_cliente>' +
 				'<input type=hidden value = ${rua_cliente}>${rua_cliente}, <input type=hidden value = ${numero_cliente}>${numero_cliente} - <input type=hidden value = ${complemento_cliente}>${complemento_cliente}' +
 				'<br>' +

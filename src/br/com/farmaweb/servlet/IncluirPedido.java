@@ -26,7 +26,8 @@ public class IncluirPedido extends HttpServlet {
 		String status = "Aberto";
 		Double valor_total = Double.parseDouble(req.getParameter("valorTotal"));
 		Double valor_desconto = Double.parseDouble(req.getParameter("descontoTotal"));
-
+		Integer cod_endereco = Integer.parseInt(req.getParameter("cod_endereco"));
+		
 		LocalDateTime data_pedido = LocalDateTime.now();
 
 		int cod_pag_ped = Integer.parseInt(req.getParameter("cod_pagamento"));
@@ -42,6 +43,7 @@ public class IncluirPedido extends HttpServlet {
 		pedido.setData_pedido(data_pedido.toString());
 		pedido.setCod_pag_ped(cod_pag_ped);
 		pedido.setCod_cli_ped(cod_cli_ped);
+		pedido.setCod_endereco(cod_endereco);
 
 		try {
 			PedidoDao pedidoDao = new PedidoDao();

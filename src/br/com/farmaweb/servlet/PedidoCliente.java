@@ -29,6 +29,7 @@ public class PedidoCliente extends HttpServlet{
 		String cidade_cliente = req.getParameter("cidade_cliente");
 		String estado_cliente = req.getParameter("estado_cliente");
 		int cod_cliente = Integer.parseInt(req.getParameter("cod_cliente"));
+		int cod_endereco = Integer.parseInt(req.getParameter("cod_endereco"));
 		
 		req.setAttribute("cod_farmacia", cod_farmacia);
 		req.setAttribute("taxa_entrega", taxa_entrega);	
@@ -42,6 +43,7 @@ public class PedidoCliente extends HttpServlet{
 		req.setAttribute("cidade_cliente", cidade_cliente);
 		req.setAttribute("estado_cliente", estado_cliente);
 		req.setAttribute("cod_cliente", cod_cliente);
+		req.setAttribute("cod_endereco", cod_endereco);
 		
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/pedidoCliente.jsp");
 		rd.forward(req, res);

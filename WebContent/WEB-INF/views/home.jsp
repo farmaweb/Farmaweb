@@ -3167,8 +3167,11 @@ transform
 						</a></li>
 					</c:if>
 				</ul>
+				
+				<c:if test="${usuarioLogado.tipo == 1}">
 				<button type="button" class="btn btn-info btn-lg"
 					data-toggle="modal" data-target="#modalEnderecos">Escolha endereços</button>
+				</c:if>
 				<button type="button" class="btn btn-info btn-lg"
 					data-toggle="modal" data-target="#myModal">Sair</button>
 			</aside>
@@ -3187,13 +3190,17 @@ transform
 					<th>Data Pedido</th>
 					<th></th>
 				</tr>
-				<c:forEach var="pedido" items="${dao.pedidos}">
-					<tr>
-						<td>${pedido.status}</td>
-						<td>${pedido.valor_total}</td>
-						<td>${pedido.valor_desconto}</td>
-						<td>${pedido.data_pedido}</td>
-					</tr>
+				<c:forEach var="pedido" items="${dao.getPedidosFarmacia(usuarioLogado.cod_login)}">
+					<c:if test="${pedido.status ne 'Cancelado'}">
+						<c:if test="${pedido.status ne 'Concluído'}">
+							<tr>
+								<td>${pedido.status}</td>
+								<td>${pedido.valor_total}</td>
+								<td>${pedido.valor_desconto}</td>
+								<td>${pedido.data_pedido}</td>
+							</tr>
+						</c:if>
+					</c:if>
 				</c:forEach>
 			</table>
 		</div>
@@ -3241,7 +3248,7 @@ transform
 													<br>
 													<input id="cidade"  type="hidden" value="${endereco.cidade}">${endereco.cidade}/<input id="estado"  type="hidden" value="${endereco.estado}">${endereco.estado}
 													<br>
-													<input type="radio" name="enderecoSelecionado" value="${endereco.cod_endereco}">Selecionar endereço<br>
+													<input type="radio" id="cod_endereco" name="enderecoSelecionado" value="${endereco.cod_endereco}">Selecionar endereço<br>
 													<input id="latitude"  type="hidden" value="${endereco.latitude}">
 													<input id="longitude" type="hidden" value="${endereco.longitude}">
 											</p>
@@ -3302,6 +3309,7 @@ transform
 			var bairro_cliente = $("#endereco input[type='radio']:checked").siblings("#bairro").val();
 			var cidade_cliente = $("#endereco input[type='radio']:checked").siblings("#cidade").val();
 			var estado_cliente = $("#endereco input[type='radio']:checked").siblings("#estado").val();
+			var cod_endereco = $("#endereco input[type='radio']:checked").val();
 		}else{
 			var latitude = $('#latitude').val();
 			var longitude = $('#longitude').val();
@@ -3312,6 +3320,7 @@ transform
 			var bairro_cliente = $("#bairro").val();
 			var cidade_cliente = $("#cidade").val();
 			var estado_cliente = $("#estado").val();
+			var cod_endereco = $("#cod_endereco").val();
 		}
 		
 		var map = new google.maps.Map(document.getElementById('map'), {
@@ -3361,6 +3370,7 @@ transform
 						      '<input type="hidden" name="cidade_cliente" value="'+cidade_cliente+'" />'+
 						      '<input type="hidden" name="estado_cliente" value="'+estado_cliente+'" />'+
 						      '<input type="hidden" name="cod_farmacia" value="'+marker.title+'" />'+
+						      '<input type="hidden" name="cod_endereco" value="'+cod_endereco+'" />'+
 						      '<input type="hidden" name="cod_cliente" value="'+${usuarioLogado.cod_login}+'" />'+
 						      '<button class="btn btn-default" type="submit">Entre na Farmácia</button>'+
 						      '</form>'+		  
