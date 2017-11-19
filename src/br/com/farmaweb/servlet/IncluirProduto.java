@@ -2,14 +2,17 @@ package br.com.farmaweb.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.io.InputStream;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import br.com.farmaweb.daos.FarmaciaDao;
 import br.com.farmaweb.daos.ProdutoDao;
@@ -17,9 +20,13 @@ import br.com.farmaweb.models.Login;
 import br.com.farmaweb.models.Produto;
 
 @WebServlet("/incluirProduto")
+@MultipartConfig(maxFileSize = 5242880,maxRequestSize=5242880)
 public class IncluirProduto extends HttpServlet {
+	
+	private static final long serialVersionUID = 5488520725052135988L;
+
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		String nome_produto = req.getParameter("nome_produto");
 		String marca_fabricante = req.getParameter("marca_fabricante");
@@ -29,6 +36,13 @@ public class IncluirProduto extends HttpServlet {
 		int receita = Integer.parseInt(req.getParameter("receita"));
 		Double preco_unitario = Double.parseDouble(req.getParameter("preco_unitario"));
 		int desconto = Integer.parseInt(req.getParameter("desconto"));
+		
+		InputStream inputStream = null; 
+
+        Part filePart = req.getPart("foto_produto");
+        if (filePart != null) {
+        	inputStream = filePart.getInputStream();
+        }
 		
 		Integer cod_farm_prod = 0;
 
@@ -50,6 +64,7 @@ public class IncluirProduto extends HttpServlet {
 		produto.setReceita(receita);
 		produto.setPreco_unitario(preco_unitario);
 		produto.setDesconto(desconto);
+		produto.setFoto_produto(inputStream);
 		
 		produto.setCod_farm_prod(cod_farm_prod);
 
@@ -61,6 +76,6 @@ public class IncluirProduto extends HttpServlet {
 		}
 
 		RequestDispatcher rd = req.getRequestDispatcher("/listaProduto");
-		rd.forward(req, resp);
+		rd.forward(req, res);
 	}
 }

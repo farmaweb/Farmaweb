@@ -46,6 +46,7 @@ footer {
 		<div class="col-xs-6">
 			<table class="table table-bordered">
 				<tr>
+					<th></th>
 					<th>Foto</th>
 					<th>Produto</th>
 					<th>Preço</th>
@@ -53,6 +54,7 @@ footer {
 				<c:forEach var="produto" items="${dao.listaProdutoFarmacia(cod_farmacia)}">
 					<tr>
 						<td id="cod_produto${produto.cod_produto}"></td>
+						<td><img src="/FarmaWeb/recuperaImagem?cod_produto=${produto.cod_produto}&cod_farmacia=${cod_farmacia}" width="100" height="100"/></td>
 						<td id="nome_produto${produto.cod_produto}">${produto.nome_produto}</td>
 						<td id="preco_unitario${produto.cod_produto}">${produto.preco_unitario}</td>
 						<td><a class="btn btn-xs btn-info adicionar" data-toggle="modal" data-id="${produto.cod_produto}">Adicionar</a></td>
@@ -91,7 +93,6 @@ footer {
 	<script type="text/javascript">
 		$(".adicionar").on('click', function(){
 			var id = $(this).data('id');
-			
 			var nome = $('#nome_produto' + id).text();
 			var preco = $('#preco_unitario' + id).text();
 			if(document.getElementById(id) != null){
@@ -105,14 +106,31 @@ footer {
 			
 			var $lista = document.querySelector('.lista'),
 			HTMLTemporario = $lista.innerHTML,
-			HTMLNovo = '<li id='+ id +'><div  name=' + nome + ' >' + nome + '</div> <div value='+ preco +'>' + preco + '</div> <div >'  + '<input id="quantidade" type="number" class="form-control text-center" value="1" min="1" max="99">' + '</div></li>';
+			HTMLNovo = '<li id='+ id +'><div  name=' + nome + ' >' + nome + '</div> <div value='+ preco +'>' + preco + '</div> <div>' + '<input id="quantidade" type="number" class="form-control text-center" value="1" min="1" max="99">' + '</div></li>';
 			
 		
 			HTMLTemporario = HTMLTemporario + HTMLNovo;
 			
 			$lista.innerHTML = HTMLTemporario;
 			
+			$('input[type="number"]').click(function (){
+				qty = $(this).val();
+				var preco_temp = preco * qty;
+				alert(preco_temp);
+			});
 		});
+		
+		
+		//$(function() {
+		 //   $(':input[id="quantidade"]').click(function () { alert('hello'); });
+		//});
+		
+		//$(':input[id="quantidade"]').on('click', function(){
+		//	var preco = $('#preco_unitario' + id).text();
+		//	qty = $(this).val();
+		//	var preco_temp = preco * qty;
+		//});
+		
 	</script>
 
 	<form action="/FarmaWeb/voltar" method="POST">

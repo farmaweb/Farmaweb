@@ -78,7 +78,7 @@ public class ProdutoDao {
 				produto.setReceita(rs.getInt("receita"));
 				produto.setPreco_unitario(rs.getDouble("preco_unitario"));
 				produto.setDesconto(rs.getInt("desconto"));
-
+				
 				produtos.add(produto);
 			}
 
@@ -92,11 +92,35 @@ public class ProdutoDao {
 	}
 	
 
+	public byte[] recuperaImagem(int cod_farmacia, int cod_produto) {
+		try {			
+			PreparedStatement stmt = this.connection.prepareStatement("select foto_produto from produto where cod_farm_prod = ? and cod_produto = ?");
+			stmt.setInt(1, cod_farmacia);
+			stmt.setInt(2, cod_produto);
+			
+			ResultSet rs = stmt.executeQuery();
+
+			byte[] imagem = null;
+
+			while (rs.next()) {
+				imagem = rs.getBytes("foto_produto");
+			}
+
+			rs.close();
+			stmt.close();
+
+			return imagem;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	
 	public int incluirProduto(Produto produto) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"insert into produto(nome_produto, marca_fabricante, caracteristica, descricao_produto, quantidade_produto, receita, preco_unitario, desconto, cod_farm_prod)"
-							+ "values ( ?,?,?,?,?,?,?,?,? )");
+					"insert into produto(nome_produto, marca_fabricante, caracteristica, descricao_produto, quantidade_produto, receita, preco_unitario, desconto, foto_produto, cod_farm_prod)"
+							+ "values ( ?,?,?,?,?,?,?,?,?,? )");
 
 			stmt.setString(1, produto.getNome_produto());
 			stmt.setString(2, produto.getMarca_fabricante());
@@ -106,8 +130,11 @@ public class ProdutoDao {
 			stmt.setInt(6, produto.getReceita());
 			stmt.setDouble(7, produto.getPreco_unitario());
 			stmt.setInt(8, produto.getDesconto());
-			stmt.setInt(9, produto.getCod_farm_prod());
-
+			if (produto.getFoto_produto() != null) {
+                stmt.setBlob(9, produto.getFoto_produto());
+            }
+			stmt.setInt(10, produto.getCod_farm_prod());
+			
 			int ret = stmt.executeUpdate();
 
 			stmt.close();
