@@ -64,16 +64,18 @@ footer {
 		<div class="col-xs-6">
 			<table class="table table-bordered" id="myTable">
 				<tr>
+					<th></th>
 					<th>Foto</th>
 					<th>Produto</th>
-					<th>Informações</th>
-					<th>Preço</th>
+					<th>InformaÃ§Ãµes</th>
+					<th>PreÃ§o</th>
 					<th>Desconto</th>
 					<th>Receita</th>
 				</tr>
 				<c:forEach var="produto" items="${dao.listaProdutoFarmacia(cod_farmacia)}">
 					<tr>
 						<td id="cod_produto${produto.cod_produto}"></td>
+						<td><img src="/FarmaWeb/recuperaImagem?cod_produto=${produto.cod_produto}&cod_farmacia=${cod_farmacia}" width="100" height="100"/></td>
 						<td id="nome_produto${produto.cod_produto}">${produto.nome_produto}</td>
 						<td>${produto.marca_fabricante}<br>${produto.descricao_produto}<br>${produto.caracteristica}</td>
 						<td id="preco_unitario${produto.cod_produto}">${produto.preco_unitario}</td>
@@ -83,7 +85,7 @@ footer {
 					      		<td>Sim</td>
 					    	</c:when>    
 					    	<c:otherwise>
-					      		<td>Não</td> 
+					      		<td>NÃ£o</td> 
 					    	</c:otherwise>
 						</c:choose>
 						<td><a class="btn btn-xs btn-info adicionar" data-toggle="modal" data-id="${produto.cod_produto}">Adicionar</a></td>
@@ -96,13 +98,13 @@ footer {
 		
 		<footer>
 			<div class="alert  alert-danger" style="display:none;">
-	  			<strong>Atenção!</strong> Produto já adicionado no carrinho.
+	  			<strong>AtenÃ§Ã£o!</strong> Produto jÃ¡ adicionado no carrinho.
 			</div>
 		</footer>
 		
 		<footer>
 			<div id="alerta-quantidade" class="alert  alert-danger" style="display:none;">
-	  			<strong>Atenção!</strong> 
+	  			<strong>AtenÃ§Ã£o!</strong> 
 			</div>
 		</footer>
 
@@ -197,7 +199,7 @@ footer {
 		var valorDesconto = new Map();
 		
 		$(".adicionar").on('click', function(){
-			
+
 			var id = $(this).data('id');
 			var nome = $('#nome_produto' + id).text();
 			var preco = $('#preco_unitario' + id).text();
@@ -217,6 +219,7 @@ footer {
 				}
 			}
 			
+
 			$( ".lista" ).append(
 				'<div class="div-carrinho" id='+ id +'><input type="number" name="quantidadeCarrinho" id="quantidade" class="form-control text-center" onKeyPress="if(this.value.length==2) return false;" value="1" min="1" max="99">'
 				+ '<li class="nome" name=nome value=' + nome + '>' + nome + '</li>' 
@@ -246,6 +249,7 @@ footer {
 				somaDesconto(valorDesconto);
 				somaValores(valorMap);
 			});
+
 			
 			$('.glyphicon-trash').unbind("click").click(function (){
 				var nome = $(this).siblings(".nome").text();
@@ -302,7 +306,7 @@ footer {
 			
 			$( "#resumo" ).append(
 				'<div>---------------------------------------------------------</div>' +
-				'<div>Endereço de Entrega</div>' +
+				'<div>EndereÃ§o de Entrega</div>' +
 				'<input type=hidden value = ${cod_endereco} name=cod_endereco>'+
 				'<input type=hidden value = ${cod_cliente} name=cod_cliente>' +
 				'<input type=hidden value = ${rua_cliente}>${rua_cliente}, <input type=hidden value = ${numero_cliente}>${numero_cliente} - <input type=hidden value = ${complemento_cliente}>${complemento_cliente}' +
@@ -311,7 +315,7 @@ footer {
 				'<br>' +
 				'<input type=hidden value = ${cidade_cliente}>${cidade_cliente}/<input type=hidden value = ${estado_cliente}>${estado_cliente}' +
 				'<div>---------------------------------------------------------</div>' +
-				'<div>Informações Adicionais</div>' +
+				'<div>InformaÃ§Ãµes Adicionais</div>' +
 				'<input type=hidden value=' + cod_pagamento + ' name=cod_pagamento>'+
 				'<div value = ' + forma_pagamento + '>Forma de Pagamento: ' + forma_pagamento + '</div>' +
 				'<input type=hidden name=descontoTotal value = ' + $('.descontoTotal').text() + '>' +
@@ -327,6 +331,7 @@ footer {
 			
 		});
 		
+
 		function filtrar() {
 			  // Declare variables 
 			  var input, filter, table, tr, td, i;
@@ -349,7 +354,7 @@ footer {
 		}
 		
 	
-	
+
 	</script>
 		
 		
