@@ -72,7 +72,7 @@ body {
       <ul class="nav navbar-nav navbar-right">
 		<p class="navbar-btn">
           	<c:if test="${usuarioLogado.tipo == 1}">
- 				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalEnderecos">Escolha endereços</button> 
+ 				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalEnderecos">Selecione o seu endereço</button> 
 			</c:if>	
               <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Sair</button>
          </p>
