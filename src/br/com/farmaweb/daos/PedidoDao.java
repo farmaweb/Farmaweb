@@ -106,7 +106,7 @@ public class PedidoDao {
 			stmt.setString(4, pedido.getData_pedido());
 			stmt.setInt(5, pedido.getCod_pag_ped());
 			stmt.setInt(6, pedido.getCod_cli_ped());
-			stmt.setInt(7, 4);
+			stmt.setInt(7, pedido.getCod_endereco());
 
 			stmt.executeUpdate();
 			int ret = 0;
