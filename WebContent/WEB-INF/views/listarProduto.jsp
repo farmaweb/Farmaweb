@@ -4,6 +4,7 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <title>Lista de Produtos</title>
@@ -96,10 +97,10 @@
 						<input type="text" name="quantidade_produto" style="border-radius: 5px;" required> 
 						</br> 
 						<label for="preco_uniario">Preço Unitário:</label> 
-						<input type="text" name="preco_unitario" style="border-radius: 5px;" required>
+						<input type="text" id="currency" data-thousands="." data-decimal="." name="preco_unitario" style="border-radius: 5px;" required>
 						</br>
 						<label for="desconto">Desconto:</label> 
-						<input type="text" name="desconto" style="border-radius: 5px;" required>
+						<input type="text" name="desconto" style="border-radius: 5px;" required>%
 						</br>
 					</div>
 						<div class="modal-footer">
@@ -112,6 +113,11 @@
 	</div>
 	
 	<script>
+	
+		$(function() {
+		    $('#currency').maskMoney();
+		})
+		
 		function filtrar() {
 			  // Declare variables 
 			  var input, filter, table, tr, td, i;

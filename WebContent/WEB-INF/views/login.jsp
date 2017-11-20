@@ -5,6 +5,7 @@
 <title>FarmaWeb</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <style>
@@ -84,13 +85,13 @@ img {
 						<input type="text" name="nome_cliente" style="border-radius: 5px;" required> 
 						</br> 
 						<label for="Cpf">Cpf:</label> 
-						<input type="text" name="cpf_cliente" style="border-radius: 5px;" required>
+						<input type="text" id="cpf" name="cpf_cliente" style="border-radius: 5px;" required>
 						</br> 
 						<label for="Email">Email:</label> 
 						<input type="text" name="email_cliente" style="border-radius: 5px;" required>
 						</br> 
 						<label for="Telefone">Telefone:</label> 
-						<input type="text" name="tel_cliente" style="border-radius: 5px;" required> 
+						<input type="text" id="telefone" name="tel_cliente" style="border-radius: 5px;" required> 
 						<input type="hidden" name="tipo" value="1" />
 					</div>
 					<div class="modal-footer">
@@ -130,7 +131,7 @@ img {
 						<input type="text" name="matricula_funcionario" style="border-radius: 5px;" required>
 						</br>
 						<label for="Telefone">Telefone:</label> 
-						<input type="text" name="tel_funcionario" style="border-radius: 5px;" required>
+						<input type="text" id="telefone" name="tel_funcionario" style="border-radius: 5px;" required>
 						</br> 
 						<label for="Função">Função:</label> 
 						<input type="text" name="funcao" style="border-radius: 5px;" required> 
@@ -169,10 +170,10 @@ img {
 						<input type="text" name="razao_social" style="border-radius: 5px;" required> 
 						</br> 
 						<label for="cnpj">CNPJ:</label> 
-						<input type="text" name="cnpj" style="border-radius: 5px;" required>
+						<input type="text" id="cnpj" name="cnpj" style="border-radius: 5px;" required>
 						</br> 
 						<label for="tel_farmacia">Telefone:</label> 
-						<input type="text" name="tel_farmacia" style="border-radius: 5px;" required>
+						<input type="text" id="telefone" name="tel_farmacia" style="border-radius: 5px;" required>
 						</br> 		
 						<label for="tel_farmacia">Taxa de entrega:</label> 
 						<input type="text" name="taxa_entrega" style="border-radius: 5px;" required>
@@ -223,6 +224,11 @@ img {
 </html>
 
 <script type="text/javascript">
+		
+		$('#cpf').mask('000.000.000-00', {reverse: true});
+		$('#cnpj').mask('00.000.000/0000-00', {reverse: true});
+		$('#telefone').mask('0000-0000')
+		 
 		$("#cep").focusout(function(){
 			$.ajax({
 				url: 'https://viacep.com.br/ws/'+$(this).val()+'/json/unicode/',
