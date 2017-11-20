@@ -116,6 +116,7 @@ public class ProdutoDao {
 
 
 	public int alterarQuantidade(int cod_produto, int quantidade_nova) throws SQLException {
+		
 			PreparedStatement stmt = this.connection.prepareStatement(
 					"update produto set quantidade_produto = ? where cod_produto = ?");
 

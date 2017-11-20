@@ -36,7 +36,24 @@
 					<td>${pedido.valor_total}</td>
 					<td>${pedido.valor_desconto}</td>
 					<td>${pedido.data_pedido}</td>
-					<td>${pedido.status}</td>
+					<td>
+					   <c:if test="${pedido.status == 'Aberto'}">
+							<span  class="btn btn-success btn-circle btn-xl"></span>
+						</c:if>
+						<c:if test="${pedido.status == 'Enviado'}">
+							<span  class="btn btn-info btn-circle btn-xl"></span>
+						</c:if>
+						<c:if test="${pedido.status == 'Separação'}">
+							<span  class="btn btn-warning btn-circle btn-xl"></span>
+						</c:if>
+						<c:if test="${pedido.status == 'Cancelado'}">
+							<span  class="btn btn-danger btn-circle btn-xl"></span>
+						</c:if>
+						<c:if test="${pedido.status == 'Concluído'}">
+							<span class="glyphicon glyphicon-ok"></span>
+						</c:if>
+						${pedido.status}
+					</td>
 					<td>
 						<button type="button" id="botaoDetalhes" value="1" onclick="getDetalhes(${pedido.cod_pedido})" class="btn btn-primary" data-toggle="modal" data-target="#modalDetalhes">Detalhes do Pedido</button>
 					</td>
@@ -51,7 +68,24 @@
 					<td>${pedido.valor_total}</td>
 					<td>${pedido.valor_desconto}</td>
 					<td>${pedido.data_pedido}</td>
-					<td>${pedido.status}</td>
+					<td>
+						<c:if test="${pedido.status == 'Aberto'}">
+							<span  class="btn btn-success btn-circle btn-xl"></span>
+						</c:if>
+						<c:if test="${pedido.status == 'Enviado'}">
+							<span  class="btn btn-info btn-circle btn-xl"></span>
+						</c:if>
+						<c:if test="${pedido.status == 'Separação'}">
+							<span  class="btn btn-warning btn-circle btn-xl"></span>
+						</c:if>
+						<c:if test="${pedido.status == 'Cancelado'}">
+							<span  class="btn btn-danger btn-circle btn-xl"></span>
+						</c:if>
+						<c:if test="${pedido.status == 'Concluído'}">
+							<span class="glyphicon glyphicon-ok"></span>
+						</c:if>
+						${pedido.status}
+					</td>
 					<td>
 						<button type="button" id="botaoDetalhes"  onclick="getDetalhes(${pedido.cod_pedido})" class="btn btn-primary" data-toggle="modal" data-target="#modalDetalhes">Detalhes do Pedido</button>
 					</td>

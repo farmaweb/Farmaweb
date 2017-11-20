@@ -104,6 +104,7 @@ public class PedidoDao {
 			stmt.setDouble(2, pedido.getValor_total());
 			stmt.setDouble(3, pedido.getValor_desconto());
 			stmt.setString(4, pedido.getData_pedido());
+
 			if (pedido.getFoto_receita() != null) {
                 stmt.setBlob(5, pedido.getFoto_receita());
             }
