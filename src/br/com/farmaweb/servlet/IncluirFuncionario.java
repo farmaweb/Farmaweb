@@ -21,6 +21,9 @@ import br.com.farmaweb.models.Login;
 
 @WebServlet("/incluirFuncionario")
 public class IncluirFuncionario extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		

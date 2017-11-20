@@ -8,6 +8,9 @@ public class Farmacia {
 	private Long cnpj;
 	private Long tel_farmacia;
 	private String observacao;
+	private Float taxa_entrega;
+	private String tempo_entrega;	
+	
 	private int cod_end_farm;
 	
 	public int getCod_farmacia() {
@@ -51,6 +54,18 @@ public class Farmacia {
 	}
 	public void setCod_end_farm(int cod_end_farm) {
 		this.cod_end_farm = cod_end_farm;
+	}
+	public Float getTaxaEntrega() {
+		return taxa_entrega;
+	}
+	public void setTaxaEntrega(Float taxaeEntrega) {
+		this.taxa_entrega = taxaeEntrega;
+	}
+	public String getTempo_entrega() {
+		return tempo_entrega;
+	}
+	public void setTempo_entrega(String tempo_entrega) {
+		this.tempo_entrega = tempo_entrega;
 	}
 
 

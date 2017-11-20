@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/voltar")
 public class Voltar extends HttpServlet {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9068232172027794246L;
+
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");

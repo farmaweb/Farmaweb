@@ -37,6 +37,24 @@ public class FarmaciaDao {
 
 		return cod_farmacia;
 	}
+	
+	public String retornaNomeFarm(int cod_pedido) {
+		String nome_farmacia = "";
+		try {			
+			PreparedStatement stmt = this.connection.prepareStatement(
+					"select far.nome_fantasia, nome_produto, cod_pedido from farmacia as far inner join produto as prod on prod.cod_farm_prod = far.cod_farmacia inner join ped_prod as ped on ped.cod_produto = prod.cod_produto and ped.cod_pedido = ?");
+			stmt.setInt(1, cod_pedido);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				nome_farmacia = rs.getString("nome_fantasia");
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return nome_farmacia;
+	}
 
 	public ArrayList<Farmacia> getFarmacias() {
 		try {
@@ -55,8 +73,10 @@ public class FarmaciaDao {
 				farmacia.setCnpj(rs.getLong("cnpj"));
 				farmacia.setTel_farmacia(rs.getLong("tel_farmacia"));
 				farmacia.setObservacao(rs.getString("observacao"));
+				farmacia.setTaxaEntrega(rs.getFloat("taxa_entrega"));
+				farmacia.setTempo_entrega(rs.getString("tempo_entrega"));
 				farmacia.setCod_end_farm(rs.getInt("cod_end_farm"));
-
+				
 				farmacias.add(farmacia);
 			}
 
@@ -72,8 +92,8 @@ public class FarmaciaDao {
 	public int incluirFarmacia(Farmacia farmacia, int cod_endereco) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"insert into farmacia(nome_fantasia,razao_social,cnpj,tel_farmacia,observacao,cod_end_farm)"
-							+ "values ( ?,?,?,?,?,? )",
+					"insert into farmacia(nome_fantasia,razao_social,cnpj,tel_farmacia,observacao,cod_end_farm,taxa_entrega,tempo_entrega)"
+							+ "values ( ?,?,?,?,?,?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setString(1, farmacia.getNome_fantasia());
@@ -82,6 +102,8 @@ public class FarmaciaDao {
 			stmt.setLong(4, farmacia.getTel_farmacia());
 			stmt.setString(5, farmacia.getObservacao());
 			stmt.setInt(6, cod_endereco);
+			stmt.setFloat(7, farmacia.getTaxaEntrega());
+			stmt.setString(8, farmacia.getTempo_entrega());
 
 			stmt.executeUpdate();
 			int ret = 0;

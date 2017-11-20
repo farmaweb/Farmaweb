@@ -5,13 +5,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.min.js"></script>
 <title>Funcionarios</title>
 </head>
 
 <body class="container">
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.FuncionarioDao" />
-	<table class="table table-bordered">
+	<strong>Procurar o funcionario:</strong> <input type="text" onkeyup="filtrar()" id="filtro"/>
+	<table class="table table-bordered" id="myTable">
 		<tr>
 			<th>Matrícula</th>
 			<th>Nome</th>
@@ -88,5 +89,28 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+		function filtrar() {
+			  // Declare variables 
+			  var input, filter, table, tr, td, i;
+			  input = document.getElementById("filtro");
+			  filter = input.value.toUpperCase();
+			  table = document.getElementById("myTable");
+			  tr = table.getElementsByTagName("tr");
+	
+			  // Loop through all table rows, and hide those who don't match the search query
+			  for (i = 0; i < tr.length; i++) {
+			    td = tr[i].getElementsByTagName("td")[1];
+			    if (td) {
+			      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+			        tr[i].style.display = "";
+			      } else {
+			        tr[i].style.display = "none";
+			      }
+			    } 
+			  }
+		}
+	</script>
 </body>
 </html>

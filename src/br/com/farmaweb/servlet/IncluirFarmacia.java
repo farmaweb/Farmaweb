@@ -33,7 +33,9 @@ public class IncluirFarmacia extends HttpServlet {
 		String cidade = req.getParameter("cidade");
 		String estado = req.getParameter("estado");
 		String complemento = req.getParameter("complemento");
-		
+		Float taxa_entrega = Float.parseFloat(req.getParameter("taxa_entrega"));
+		String tempo_entrega = req.getParameter("tempo_entrega");
+		 
 		Endereco endereco = new Endereco();
 		endereco.setCep(cep);
 		endereco.setRua(rua);
@@ -56,6 +58,8 @@ public class IncluirFarmacia extends HttpServlet {
 		farmacia.setCnpj(cnpj);
 		farmacia.setTel_farmacia(tel_farmacia);
 		farmacia.setObservacao(observacao);
+		farmacia.setTaxaEntrega(taxa_entrega);
+		farmacia.setTempo_entrega(tempo_entrega);
 		
 		FarmaciaDao farmaciaDao = null;
 		EnderecoDao enderecoDao = null;

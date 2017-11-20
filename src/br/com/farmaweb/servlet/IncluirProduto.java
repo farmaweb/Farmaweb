@@ -22,7 +22,7 @@ import br.com.farmaweb.models.Produto;
 @WebServlet("/incluirProduto")
 @MultipartConfig(maxFileSize = 5242880,maxRequestSize=5242880)
 public class IncluirProduto extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 5488520725052135988L;
 
 	@Override

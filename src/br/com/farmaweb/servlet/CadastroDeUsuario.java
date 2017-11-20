@@ -17,6 +17,11 @@ import br.com.farmaweb.models.Login;
 
 @WebServlet("/cadastrarUsuario")
 public class CadastroDeUsuario extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3742936888899167660L;
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		

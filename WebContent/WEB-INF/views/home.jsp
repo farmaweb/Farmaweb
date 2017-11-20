@@ -2,12 +2,9 @@
 
 <html>
 <head>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 #map {
 	width: 100%;
@@ -3135,12 +3132,7 @@ transform
 						<li><a href="/FarmaWeb/listaFormaDePagamento"> <span
 								class="sidebar-title">Forma de pagamento</span>
 						</a></li>
-					</c:if>
-					<c:if test="${usuarioLogado.tipo == 3}">
-						<li><a href="/FarmaWeb/listaClientes"> <span
-								class="sidebar-title">Cliente</span>
-						</a></li>
-					</c:if>
+					</c:if>	
 					<c:if test="${usuarioLogado.tipo == 1}">
 						<li><a href="/FarmaWeb/listarEndereco"> <span
 								class="sidebar-title">Endereço</span>
@@ -3167,6 +3159,11 @@ transform
 						</a></li>
 					</c:if>
 				</ul>
+				
+				<c:if test="${usuarioLogado.tipo == 1}">
+				<button type="button" class="btn btn-info btn-lg"
+					data-toggle="modal" data-target="#modalEnderecos">Escolha endereços</button>
+				</c:if>
 				<button type="button" class="btn btn-info btn-lg"
 					data-toggle="modal" data-target="#myModal">Sair</button>
 			</aside>
@@ -3175,29 +3172,82 @@ transform
 	</div>
 
 	<c:if test="${usuarioLogado.tipo == 2}">
+		<strong>Procurar pelo número do pedido:</strong> <input type="text" onkeyup="filtrar()" id="filtro" />
 		<jsp:useBean id="dao" class="br.com.farmaweb.daos.PedidoDao" />
 		<div class="container-fluid">
-			<table class="table table-hover text-centered">
+			<table class="table table-hover text-centered" id="myTable">
 				<tr>
-					<th>Status</th>
-					<th>Valor Total</th>
-					<th>Valor Desconto</th>
+					<th>Número do Pedido</th>
+					<th>Valor</th>
 					<th>Data Pedido</th>
-					<th></th>
+					<th>Status</th>
 				</tr>
-				<c:forEach var="pedido" items="${dao.pedidos}">
-					<tr>
-						<td>${pedido.status}</td>
-						<td>${pedido.valor_total}</td>
-						<td>${pedido.valor_desconto}</td>
-						<td>${pedido.data_pedido}</td>
-					</tr>
+				<c:forEach var="pedido" items="${dao.getPedidosFarmacia(usuarioLogado.cod_login)}">
+					<c:if test="${pedido.status ne 'Cancelado'}">
+						<c:if test="${pedido.status ne 'Concluído'}">
+							<tr>
+								<td id="cod_pedido">${pedido.cod_pedido}</td>
+								<td>${pedido.valor_total}</td>
+								<td>${pedido.data_pedido}</td>
+								<td>${pedido.status}</td>
+								<td>
+									<button type="button" id="botaoDetalhes" onclick="getDetalhes(${pedido.cod_pedido})" class="btn btn-primary" data-toggle="modal" data-target="#modalDetalhes">Detalhes do Pedido</button>
+								</td>
+								<td>
+									<button type="button" id="botaoAlterarStatus" onclick="enviarCodPedido(${pedido.cod_pedido})"  class="btn btn-primary" data-toggle="modal" data-target="#modalStatus">Alterar Status</button>
+								</td>
+							</tr>
+						</c:if>
+					</c:if>
 				</c:forEach>
 			</table>
 		</div>
 	</c:if>
 
-
+	<div id="modalStatus" class="modal fade"    role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Alterar Status do Pedido</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group" id="status">
+						<label for="tipo_pagamento">Tipo De Pagamento:</label>
+						<select id="status" name="status" class="selectpicker" >
+						    <option  value="Separação">Separação</option>
+						    <option  value="Enviado">Enviado</option>
+						    <option  value="Concluído">Concluído</option>
+						    <option  value="Cancelado">Cancelado</option>
+						</select>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="teste" data-dismiss="modal" class="btn btn-primary" >Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="modalDetalhes" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Detalhes do Pedido</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group" id="detalhes">
+					</div>
+					<div class="modal-footer">
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<c:if test="${usuarioLogado.tipo == 1}">
 		<div id="map"></div>
@@ -3219,7 +3269,96 @@ transform
 		</div>
 	</div>
 
+	<div id="modalEnderecos" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Endereços Cadastrados</h4>
+				</div>
+				<div class="modal-body">
+					<jsp:useBean id="daoEnderecos" class="br.com.farmaweb.daos.EnderecoDao" />
+					<form id="endereco">
+						<c:forEach var="endereco" items="${daoEnderecos.getEnderecos(usuarioLogado.cod_login)}">
+								<div class="card" style="width: 20rem;">
+				  					<div class="card-block">
+				    					<h4 class="card-title">Tipo de Endereço</h4>
+				    						<p class="card-text">
+													<input id="rua"  type="hidden" value="${endereco.rua}">${endereco.rua}, <input id="numero"  type="hidden" value="${endereco.numero}">${endereco.numero} - <input id="complemento"  type="hidden" value="${endereco.complemento}">${endereco.complemento}
+													<br>
+													<input id="cep"  type="hidden" value="${endereco.cep}">${endereco.cep} - <input id="bairro"  type="hidden" value="${endereco.bairro}">${endereco.bairro}
+													<br>
+													<input id="cidade"  type="hidden" value="${endereco.cidade}">${endereco.cidade}/<input id="estado"  type="hidden" value="${endereco.estado}">${endereco.estado}
+													<br>
+													<input type="radio" id="cod_endereco" name="enderecoSelecionado" value="${endereco.cod_endereco}">Selecionar endereço<br>
+													<input id="latitude"  type="hidden" value="${endereco.latitude}">
+													<input id="longitude" type="hidden" value="${endereco.longitude}">
+											</p>
+				    				</div>
+			    				</div>
+		    			</c:forEach>
+	    			</form>
+				</div>
+				<div class="modal-footer">
+						<button id="selecionar" class="btn btn-primary" data-dismiss="modal" type="submit">Selecionar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script>
+	
+	function filtrar() {
+		  // Declare variables 
+		  var input, filter, table, tr, td, i;
+		  input = document.getElementById("filtro");
+		  filter = input.value.toUpperCase();
+		  table = document.getElementById("myTable");
+		  tr = table.getElementsByTagName("tr");
+
+		  // Loop through all table rows, and hide those who don't match the search query
+		  for (i = 0; i < tr.length; i++) {
+		    td = tr[i].getElementsByTagName("td")[0];
+		    if (td) {
+		      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+		        tr[i].style.display = "";
+		      } else {
+		        tr[i].style.display = "none";
+		      }
+		    } 
+		  }
+	}
+	
+	var cod_pedidoFarmacia;
+	function enviarCodPedido(cod_pedido){
+		cod_pedidoFarmacia = cod_pedido;
+	}
+	
+	$('#teste').click(function (event){
+		var data = {
+				status:$('#status option:selected').val(),
+				cod_pedido: cod_pedidoFarmacia
+		}
+		$.ajax({
+	         type: 'POST',    
+	         url:'/FarmaWeb/AlterarStatus',
+	         data: data,
+	         success: function (response) {
+	        	 location.reload();
+            },
+            error: function (e) {
+	              console.log(e);
+            }
+		});
+		
+	});
+	
+	$('#selecionar').click(function (){
+		
+		getData(); 
+		
+		$('.fade in').removeClass('fade in');
+	});
+	
 	$(window).on('load',function() {
 	    getData();
 	});
@@ -3237,7 +3376,7 @@ transform
 		        	 })
 		        	 initMap(lista); 
 		         }
-		     });
+		});
 	}
 	
 	function initMap(lista) {
@@ -3246,9 +3385,33 @@ transform
 		var listaFarmacias = [];
 		var contentString = '';
 		
+		if($("#endereco input[type='radio']:checked").siblings("#latitude").val() != null && $("#endereco input[type='radio']:checked").siblings("#longitude").val() != null){
+			var latitude = $("#endereco input[type='radio']:checked").siblings("#latitude").val();
+			var longitude = $("#endereco input[type='radio']:checked").siblings("#longitude").val();
+			var rua_cliente = $("#endereco input[type='radio']:checked").siblings("#rua").val();
+			var numero_cliente = $("#endereco input[type='radio']:checked").siblings("#numero").val();
+			var complemento_cliente = $("#endereco input[type='radio']:checked").siblings("#complemento").val();
+			var cep_cliente = $("#endereco input[type='radio']:checked").siblings("#cep").val();
+			var bairro_cliente = $("#endereco input[type='radio']:checked").siblings("#bairro").val();
+			var cidade_cliente = $("#endereco input[type='radio']:checked").siblings("#cidade").val();
+			var estado_cliente = $("#endereco input[type='radio']:checked").siblings("#estado").val();
+			var cod_endereco = $("#endereco input[type='radio']:checked").val();
+		}else{
+			var latitude = $('#latitude').val();
+			var longitude = $('#longitude').val();
+			var rua_cliente = $("#rua").val();
+			var numero_cliente = $("#numero").val();
+			var complemento_cliente = $("#complemento").val();
+			var cep_cliente = $("#cep").val();
+			var bairro_cliente = $("#bairro").val();
+			var cidade_cliente = $("#cidade").val();
+			var estado_cliente = $("#estado").val();
+			var cod_endereco = $("#cod_endereco").val();
+		}
+		
 		var map = new google.maps.Map(document.getElementById('map'), {
-	          zoom: 13,
-	          center: {lat: lista[0].lat, lng: lista[0].lng}
+	          zoom: 16,
+	          center: {lat: parseFloat(latitude), lng: parseFloat(longitude)}
         });
 		    
 		var markers = lista.map(function(location) {
@@ -3267,10 +3430,11 @@ transform
 			         }
 			 });
 			
-			marker.addListener('mouseover', function() {			 
-				 listaLatLongCodFarmacia.forEach(function (endereco){
-					 listaFarmacias.forEach(function (farmacia){
-					 	if(parseInt(marker.title) == farmacia.cod_farmacia){
+			marker.addListener('mouseover', function() {		
+				 listaFarmacias.forEach(function (farmacia){
+				 	listaLatLongCodFarmacia.forEach(function (endereco){
+				 	  if(farmacia.cod_farmacia == endereco.cod_farmacia){	
+					 	if(parseInt(marker.title) == endereco.cod_farmacia){
 					 		contentString = '<div id="content">'+
 						      '<div id="siteNotice">'+
 						      '</div>'+
@@ -3282,12 +3446,24 @@ transform
 						      '<p>' + endereco.cep +'</p>'+
 						      '<p> Telefone: '+ farmacia.tel_farmacia +'</p>'+
 						      '<form class="form-signin" action="/FarmaWeb/pedidoCliente" method="POST">'+
-						      '<input type="hidden" name="cod_farmacia" value="'+marker.title+'" />'+		  
+						      '<input type="hidden" name="taxa_entrega" value="'+farmacia.taxa_entrega+'" />'+
+						      '<input type="hidden" name="tempo_entrega" value="'+farmacia.tempo_entrega+'" />'+
+						      '<input type="hidden" name="rua_cliente" value="'+rua_cliente+'" />'+
+						      '<input type="hidden" name="numero_cliente" value="'+numero_cliente+'" />'+
+						      '<input type="hidden" name="complemento_cliente" value="'+complemento_cliente+'" />'+
+						      '<input type="hidden" name="cep_cliente" value="'+cep_cliente+'" />'+
+						      '<input type="hidden" name="bairro_cliente" value="'+bairro_cliente+'" />'+
+						      '<input type="hidden" name="cidade_cliente" value="'+cidade_cliente+'" />'+
+						      '<input type="hidden" name="estado_cliente" value="'+estado_cliente+'" />'+
+						      '<input type="hidden" name="cod_farmacia" value="'+marker.title+'" />'+
+						      '<input type="hidden" name="cod_endereco" value="'+cod_endereco+'" />'+
+						      '<input type="hidden" name="cod_cliente" value="'+${usuarioLogado.cod_login}+'" />'+
 						      '<button class="btn btn-default" type="submit">Entre na Farmácia</button>'+
 						      '</form>'+		  
 						      '</div>'+
 						      '</div>';
-					 	}
+					 		}
+				 		}
 					 });
 				 });
 				 
@@ -3311,17 +3487,63 @@ transform
 	
 		var markerCluster = new MarkerClusterer(map, markers,{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
     }
+	
+	$('.close').click( function (){
+		$('#detalhes').empty();
+	});
 		
+	function getDetalhes(cod_pedido) {
+		$.ajax({
+		         type: 'GET',    
+		         url:'/FarmaWeb/buscarDetalhes?cod_pedido=' + cod_pedido,
+		         success: function(data){
+		        		 detalhaPedidoFarmacia(data);
+		         }
+		     });
+	 }
 		
+	function detalhaPedidoFarmacia(data){
+		$('#detalhes').append(
+				'<div>Número do Pedido: ' + data[0].cod_pedido + '</div>' +
+				'<div>Status do Pedido: ' + data[0].status + '</div>' +
+				'<div>Cliente: ' + data[0].nome_cliente + '</div>' +
+				'<div>Telefone: ' + data[0].tel_cliente + '</div>' +
+				'<div>CPF: ' + data[0].cpf_cliente + '</div>' +
+				'<div>Data: ' + data[0].data_pedido + '</div>' +
+				'<div>---------------------------------------------------------</div>' +
+				'<div>Lista de Produtos</div>'
+		);
+		
+		data.forEach( function (e){
+				$('#detalhes').append('<div>'+ e.quant_prod_ped +' '+ e.nome_produto +' R$'+ e.preco_unitario + '</div>');
+		});
+		
+		$('#detalhes').append(
+				'<div>Desconto Total: ' + data[0].valor_desconto + '</div>' +
+				'<div>Taxa de Entrega: ' + data[0].taxa_entrega + '</div>' +
+				'<div>Valor Total: ' + data[0].valor_total + '</div>' +
+				'<div>Forma de Pagamento: ' + data[0].tipo_pagamento + '</div>' +
+				'<div>---------------------------------------------------------</div>' +
+				'<div>Endereço de Entrega</div>' +
+				'<div>' + data[0].rua + ', ' + data[0].numero + ' - ' + data[0].complemento +
+				'<div>' + data[0].cep + ' - ' + data[0].bairro +
+				'<div>' + data[0].cidade + '/' + data[0].estado +
+				'<div>Tempo Estimado de Entrega: ' + data[0].tempo_entrega + '</div>'
+		);
+	}
+	
+	 setTimeout(function(){ 
+		 location.reload(); 
+	}, 20000);
+
+	
 </script>
 <script
-		src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+	src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
 </script>
 <script async defer
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIOUquPXPAq0yXYC8JYcNjUCrCz1OGukc&callback=initMap">
 </script>
-
-
 </body>
 </html>
 

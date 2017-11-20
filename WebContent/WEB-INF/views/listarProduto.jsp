@@ -4,14 +4,16 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <title>Lista de Produtos</title>
 </head>
 
 <body class="container">
+	<strong>Procurar pelo produto:</strong> <input type="text" onkeyup="filtrar()" id="filtro" />
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.ProdutoDao" />
-	<table class="table table-bordered">
+	<table class="table table-bordered" id="myTable">
 		<tr>
 			<th>Foto</th>
 			<th>Produto</th>
@@ -46,7 +48,8 @@
 				<td>${produto.desconto}</td>
 				
 				<td><button type="button" class="btn btn-primary">Editar</button></td>
-				<td><form action="/FarmaWeb/excluirProduto" method="POST">
+				<td>
+					<form action="/FarmaWeb/excluirProduto" method="POST">
 						<input type="hidden" name="cod_produto"
 							value="${produto.cod_produto}" />
 						<button type="submit" class="btn btn-primary">Excluir</button>
@@ -94,10 +97,10 @@
 						<input type="text" name="quantidade_produto" style="border-radius: 5px;" required> 
 						</br> 
 						<label for="preco_uniario">Preço Unitário:</label> 
-						<input type="text" name="preco_unitario" style="border-radius: 5px;" required>
+						<input type="text" id="currency" data-thousands="." data-decimal="." name="preco_unitario" style="border-radius: 5px;" required>
 						</br>
 						<label for="desconto">Desconto:</label> 
-						<input type="text" name="desconto" style="border-radius: 5px;" required>
+						<input type="text" name="desconto" style="border-radius: 5px;" required>%
 						</br>
 						<input type="file" name="foto_produto"/>
 					</div>
@@ -109,5 +112,33 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+	
+		$(function() {
+		    $('#currency').maskMoney();
+		})
+		
+		function filtrar() {
+			  // Declare variables 
+			  var input, filter, table, tr, td, i;
+			  input = document.getElementById("filtro");
+			  filter = input.value.toUpperCase();
+			  table = document.getElementById("myTable");
+			  tr = table.getElementsByTagName("tr");
+
+			  // Loop through all table rows, and hide those who don't match the search query
+			  for (i = 0; i < tr.length; i++) {
+			    td = tr[i].getElementsByTagName("td")[0];
+			    if (td) {
+			      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+			        tr[i].style.display = "";
+			      } else {
+			        tr[i].style.display = "none";
+			      }
+			    } 
+			  }
+		}
+	</script>
 </body>
 </html>

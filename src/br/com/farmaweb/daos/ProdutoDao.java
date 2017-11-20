@@ -91,6 +91,43 @@ public class ProdutoDao {
 		}
 	}
 	
+	public int getQuantidadeProduto(int cod_produto) {
+		try {
+
+			PreparedStatement stmt = this.connection.prepareStatement("select quantidade_produto from produto where cod_produto = ? ");
+			stmt.setInt(1, cod_produto);
+			
+			ResultSet rs = stmt.executeQuery();
+
+			int quantidade = 0;
+					
+			while (rs.next()) {
+				quantidade = rs.getInt("quantidade_produto");
+			}
+			
+			rs.close();
+			stmt.close();
+
+			return quantidade;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+
+	public int alterarQuantidade(int cod_produto, int quantidade_nova) throws SQLException {
+		try {
+			PreparedStatement stmt = this.connection.prepareStatement(
+					"update produto set quantidade_produto = ? where cod_produto = ?");
+
+			stmt.setInt(1, quantidade_nova);
+			stmt.setInt(2, cod_produto);
+
+			int ret = stmt.executeUpdate();
+
+			stmt.close();
+
+			return ret;
 
 	public byte[] recuperaImagem(int cod_farmacia, int cod_produto) {
 		try {			
@@ -110,12 +147,13 @@ public class ProdutoDao {
 			stmt.close();
 
 			return imagem;
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
-	
+
 	public int incluirProduto(Produto produto) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(

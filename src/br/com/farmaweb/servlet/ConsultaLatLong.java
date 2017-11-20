@@ -20,7 +20,7 @@ public class ConsultaLatLong extends HttpServlet {
 	private static final long serialVersionUID = -2769374226961053867L;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		List<Object> listaLatLong = null;
 		 	
 		try {
@@ -32,9 +32,9 @@ public class ConsultaLatLong extends HttpServlet {
 		
 		String json = new Gson().toJson(listaLatLong);
 		
-		resp.setContentType("application/json"); 
-		resp.setCharacterEncoding("UTF-8"); 
-		resp.getWriter().write(json); 
+		res.setContentType("application/json"); 
+		res.setCharacterEncoding("UTF-8"); 
+		res.getWriter().write(json); 
 
 	}
 }
