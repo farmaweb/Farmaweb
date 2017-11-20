@@ -128,7 +128,6 @@ public class ProdutoDao {
 			stmt.close();
 
 			return ret;
-		
 	}
 
 	public byte[] recuperaImagem(int cod_farmacia, int cod_produto) {
