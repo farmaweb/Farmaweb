@@ -15,6 +15,7 @@
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.ProdutoDao" />
 	<table class="table table-bordered" id="myTable">
 		<tr>
+			<th>Foto</th>
 			<th>Produto</th>
 			<th>Marca/Fabricante</th>
 			<th>Característica</th>
@@ -25,8 +26,11 @@
 			<th>Desconto</th>
 			<th>Ação</th>
 		</tr>
+		
 		<c:forEach var="produto" items="${dao.getProdutos(usuarioLogado.cod_login)}">
 			<tr>
+
+				<td><img src="/FarmaWeb/recuperaImagem?cod_produto=${produto.cod_produto}" width="100" height="100"/></td>
 				<td>${produto.nome_produto}</td>
 				<td>${produto.marca_fabricante}</td>
 				<td>${produto.caracteristica}</td>
@@ -53,9 +57,6 @@
 				</td>
 			</tr>
 		</c:forEach>
-
-
-
 	</table>
 	<form action="/FarmaWeb/voltar" method="POST">
 		<button type="submit" class="btn btn-primary">Voltar</button>
@@ -73,8 +74,7 @@
 				<h4 class="modal-title">Cadastro de Produto</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-signin" action="/FarmaWeb/incluirProduto"
-					method="POST">
+				<form class="form-signin" action="/FarmaWeb/incluirProduto" method="POST"  enctype="multipart/form-data">
 					<div class="form-group">
 	
 						<label for="Nome_Produto">Nome do Produto:</label>
@@ -102,6 +102,7 @@
 						<label for="desconto">Desconto:</label> 
 						<input type="text" name="desconto" style="border-radius: 5px;" required>%
 						</br>
+						<input type="file" name="foto_produto"/>
 					</div>
 						<div class="modal-footer">
 							<button class="btn btn-default" type="submit">Salvar</button>

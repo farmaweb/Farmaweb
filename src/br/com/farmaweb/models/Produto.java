@@ -1,5 +1,8 @@
 package br.com.farmaweb.models;
 
+import java.io.InputStream;
+import java.sql.Blob;
+
 public class Produto {
 	private int cod_produto;
 	private String nome_produto;
@@ -10,6 +13,7 @@ public class Produto {
 	private int receita;
 	private Double preco_unitario;
 	private int desconto;
+	private InputStream  foto_produto;
 	private int cod_farm_prod;
 
 	public int getCod_produto() {
@@ -82,6 +86,14 @@ public class Produto {
 
 	public void setDesconto(int desconto) {
 		this.desconto = desconto;
+	}
+
+	public InputStream  getFoto_produto() {
+		return foto_produto;
+	}
+
+	public void setFoto_produto(InputStream  foto_produto) {
+		this.foto_produto = foto_produto;
 	}
 
 	public int getCod_farm_prod() {

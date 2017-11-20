@@ -16,7 +16,7 @@ public class ListarProduto extends HttpServlet {
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+		
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/listarProduto.jsp");
 		rd.forward(req, res);
 
