@@ -7,6 +7,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+<style>
+	#lightbox .modal-content {
+    display: inline-block;
+    text-align: center;   
+	}
+
+	#lightbox .close {
+	    opacity: 1;
+	    color: rgb(255, 255, 255);
+	    background-color: rgb(25, 25, 25);
+	    padding: 5px 8px;
+	    border-radius: 30px;
+	    border: 2px solid rgb(255, 255, 255);
+	    position: absolute;
+	    top: -15px;
+	    right: -55px;
+	    
+	    z-index:1032;
+	}
+</style>
+
 <title>Lista de Produtos</title>
 </head>
 
@@ -29,8 +50,11 @@
 		
 		<c:forEach var="produto" items="${dao.getProdutos(usuarioLogado.cod_login)}">
 			<tr>
-
-				<td><img src="/FarmaWeb/recuperaImagem?cod_produto=${produto.cod_produto}" width="100" height="100"/></td>
+				<td>
+					<a href="#" class="thumbnail" data-toggle="modal" data-target="#lightbox">
+						<img src="/FarmaWeb/recuperaImagem?cod_produto=${produto.cod_produto}" width="100" height="100"/>
+					</a>
+				</td>
 				<td>${produto.nome_produto}</td>
 				<td>${produto.marca_fabricante}</td>
 				<td>${produto.caracteristica}</td>
@@ -113,6 +137,17 @@
 		</div>
 	</div>
 	
+	<div id="lightbox" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <button type="button" class="close hidden" data-dismiss="modal" aria-hidden="true">×</button>
+	        <div class="modal-content">
+	            <div class="modal-body">
+	                <img src="" alt="" />
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
 	<script>
 	
 		$(function() {
@@ -139,6 +174,33 @@
 			    } 
 			  }
 		}
+		
+		$(document).ready(function() {
+		    var $lightbox = $('#lightbox');
+		    
+		    $('[data-target="#lightbox"]').on('click', function(event) {
+		        var $img = $(this).find('img'), 
+		            src = $img.attr('src'),
+		            alt = $img.attr('alt'),
+		            css = {
+		                'maxWidth': $(window).width() - 100,
+		                'maxHeight': $(window).height() - 100
+		            };
+		    
+		        $lightbox.find('.close').addClass('hidden');
+		        $lightbox.find('img').attr('src', src);
+		        $lightbox.find('img').attr('alt', alt);
+		        $lightbox.find('img').css(css);
+		    });
+		    
+		    $lightbox.on('shown.bs.modal', function (e) {
+		        var $img = $lightbox.find('img');
+		            
+		        $lightbox.find('.modal-dialog').css({'width': $img.width()});
+		        $lightbox.find('.close').removeClass('hidden');
+		    });
+		});
+		
 	</script>
 </body>
 </html>

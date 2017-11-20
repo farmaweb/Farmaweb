@@ -1,22 +1,26 @@
 package br.com.farmaweb.servlet;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import br.com.farmaweb.daos.PedidoDao;
 import br.com.farmaweb.daos.ProdutoDao;
 import br.com.farmaweb.models.Pedido;
 
 @WebServlet("/incluirPedido")
+@MultipartConfig(maxFileSize = 5242880,maxRequestSize=5242880)
 public class IncluirPedido extends HttpServlet {
 
 	private static final long serialVersionUID = -4360001337042041844L;
@@ -24,8 +28,8 @@ public class IncluirPedido extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		String status = "Aberto";
-		Double valor_total = Double.parseDouble(req.getParameter("valorTotal"));
-		Double valor_desconto = Double.parseDouble(req.getParameter("descontoTotal"));
+		String valor_total = req.getParameter("valorTotal");
+		String valor_desconto = req.getParameter("descontoTotal");
 		Integer cod_endereco = Integer.parseInt(req.getParameter("cod_endereco"));
 		
 		LocalDateTime data_pedido = LocalDateTime.now();
@@ -35,15 +39,24 @@ public class IncluirPedido extends HttpServlet {
 
 		String[] cod_produtos = req.getParameterValues("id_produto");
 		String[] quantidade_produtos = req.getParameterValues("quantidade_produto");
+		
+		InputStream inputStream = null; 
+
+        Part filePart = req.getPart("foto_receita");
+        if (filePart != null) {
+        	inputStream = filePart.getInputStream();
+        }
 
 		Pedido pedido = new Pedido();
 		pedido.setStatus(status);
-		pedido.setValor_total(valor_total);
-		pedido.setValor_desconto(valor_desconto);
+		pedido.setValor_total(Double.parseDouble(valor_total));
+		pedido.setValor_desconto(Double.parseDouble(valor_desconto));
 		pedido.setData_pedido(data_pedido.toString());
+		pedido.setFoto_receita(inputStream);
 		pedido.setCod_pag_ped(cod_pag_ped);
 		pedido.setCod_cli_ped(cod_cli_ped);
 		pedido.setCod_endereco(cod_endereco);
+		
 
 		try {
 			PedidoDao pedidoDao = new PedidoDao();

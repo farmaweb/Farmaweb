@@ -96,17 +96,21 @@ public class PedidoDao {
 	public int incluirPedido(Pedido pedido) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"insert into pedido (status, valor_total, valor_desconto, data_pedido, cod_pag_ped, cod_cliente, cod_endereco)"
-							+ "values ( ?,?,?,?,?,?,? )",
+					"insert into pedido (status, valor_total, valor_desconto, data_pedido, foto_receita, cod_pag_ped, cod_cliente, cod_endereco)"
+							+ "values ( ?,?,?,?,?,?,?,? )",
 					Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setString(1, pedido.getStatus());
 			stmt.setDouble(2, pedido.getValor_total());
 			stmt.setDouble(3, pedido.getValor_desconto());
 			stmt.setString(4, pedido.getData_pedido());
-			stmt.setInt(5, pedido.getCod_pag_ped());
-			stmt.setInt(6, pedido.getCod_cli_ped());
-			stmt.setInt(7, pedido.getCod_endereco());
+
+			if (pedido.getFoto_receita() != null) {
+                stmt.setBlob(5, pedido.getFoto_receita());
+            }
+			stmt.setInt(6, pedido.getCod_pag_ped());
+			stmt.setInt(7, pedido.getCod_cli_ped());
+			stmt.setInt(8, pedido.getCod_endereco());
 
 			stmt.executeUpdate();
 			int ret = 0;
@@ -202,6 +206,29 @@ public class PedidoDao {
 			
 			stmt.executeUpdate();
 			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public byte[] recuperaReceita(int cod_pedido) {
+		try {			
+			PreparedStatement stmt = this.connection.prepareStatement("select foto_receita from pedido where cod_pedido = ?");
+			stmt.setInt(1, cod_pedido);
+			
+			ResultSet rs = stmt.executeQuery();
+
+			byte[] receita = null;
+
+			while (rs.next()) {
+				receita = rs.getBytes("foto_receita");
+			}
+
+			rs.close();
+			stmt.close();
+
+			return receita;
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
