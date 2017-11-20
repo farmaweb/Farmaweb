@@ -159,6 +159,7 @@ footer {
 							        </option>
 							    </c:forEach> 
 							</select>
+							
 							<input type="hidden" name="cod_login" value="${usuarioLogado.cod_login}" />
 						</div>
 						<div class="modal-footer">
@@ -178,9 +179,9 @@ footer {
 					<h4 class="modal-title">Resumo do Pedido</h4>
 				</div>
 				<div class="modal-body">
-					<form action="/FarmaWeb/incluirPedido" method="POST">
+					<form class="form-signin" action="/FarmaWeb/incluirPedido" method="POST" enctype="multipart/form-data">
 						<div class="form-group" id="resumo">
-					
+						
 						</div>
 						<div class="modal-footer">
 							<button class="btn btn-default" type="submit">Concluir</button>
@@ -254,7 +255,6 @@ footer {
 			$('.glyphicon-trash').unbind("click").click(function (){
 				var nome = $(this).siblings(".nome").text();
 				valorMap.delete(nome);
-				
 				var valor = parseFloat(parseFloat($('.valorTotal').text()) + valorDesconto.get(nome)) - parseFloat($(this).siblings(".valor").text());
 				valorDesconto.delete(nome);
 				somaDesconto(valorDesconto);
@@ -323,7 +323,8 @@ footer {
 				'<div value = ' + $('.taxaEntrega').text() + '>Taxa de Entrega: ' + $('.taxaEntrega').text() + '</div>' +
 				'<input type=hidden name=valorTotal value = ' + $('.valorTotal').text() + '>' +
 				'<div name=valorTotal value = ' + $('.valorTotal').text() + '>Valor Total: ' + $('.valorTotal').text() + '</div>' +
-				'<div value = ' + $('.tempoEntrega').text() + '>Tempo Estimado de Entrega: ' + $('.tempoEntrega').text() + '</div>'
+				'<div value = ' + $('.tempoEntrega').text() + '>Tempo Estimado de Entrega: ' + $('.tempoEntrega').text() + '</div>' +
+				'<input type="file" name="foto_receita"/>'
 			);
 					
 			

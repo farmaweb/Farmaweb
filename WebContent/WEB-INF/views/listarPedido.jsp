@@ -139,6 +139,7 @@
 			$('#detalhes').append(
 					'<div>Número do Pedido: ' + data[0].cod_pedido + '</div>' +
 					'<div>Status do Pedido: ' + data[0].status + '</div>' +
+					'<div>Teste<img src="/FarmaWeb/recuperaReceita?cod_pedido=' + data[0].cod_pedido + '" width="100" height="100"/></div>' +
 					'<div>Cliente: ' + data[0].nome_cliente + '</div>' +
 					'<div>Telefone: ' + data[0].tel_cliente + '</div>' +
 					'<div>CPF: ' + data[0].cpf_cliente + '</div>' +

@@ -1,5 +1,6 @@
 package br.com.farmaweb.models;
 
+import java.io.InputStream;
 import java.time.LocalDateTime;
 
 public class Pedido {
@@ -8,6 +9,7 @@ public class Pedido {
 	private Double valor_total;
 	private Double valor_desconto;
 	private String data_pedido;
+	private InputStream foto_receita;
 	private int cod_pag_ped;
 	private int cod_cli_ped;
 	private int cod_func;
@@ -51,6 +53,14 @@ public class Pedido {
 
 	public void setData_pedido(String data_pedido) {
 		this.data_pedido = data_pedido;
+	}
+
+	public InputStream getFoto_receita() {
+		return foto_receita;
+	}
+
+	public void setFoto_receita(InputStream foto_receita) {
+		this.foto_receita = foto_receita;
 	}
 
 	public int getCod_pag_ped() {
