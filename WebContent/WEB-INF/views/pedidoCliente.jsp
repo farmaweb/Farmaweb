@@ -12,14 +12,18 @@
 	
 <style>
 .modal-carrinho {
-	position: absolute;
+	position: fixed;
     right: 0px;
-    width: 350px;
+    width: 400px;
     padding: 10px;
 }
 .modal-header {
 	background: #337ab7;
 	color: white;
+}
+#ModalTeste .modal-body{
+    height: 200px;
+    overflow-y: auto;
 }
 input[type=number] {
 	width: 60px;
@@ -49,6 +53,25 @@ footer {
 	margin-bottom: 5px;
 	margin-left: -40;
 }
+
+	#lightbox .modal-content {
+	    display: inline-block;
+	    text-align: center;   
+	}
+
+	#lightbox .close {
+	    opacity: 1;
+	    color: rgb(255, 255, 255);
+	    background-color: rgb(25, 25, 25);
+	    padding: 5px 8px;
+	    border-radius: 30px;
+	    border: 2px solid rgb(255, 255, 255);
+	    position: absolute;
+	    top: -15px;
+	    right: -55px;
+	    
+	    z-index:1032;
+	}
 </style>	
 
 <title>Lista de Produtos</title>
@@ -75,7 +98,11 @@ footer {
 				<c:forEach var="produto" items="${dao.listaProdutoFarmacia(cod_farmacia)}">
 					<tr>
 						<td id="cod_produto${produto.cod_produto}"></td>
-						<td><img src="/FarmaWeb/recuperaImagem?cod_produto=${produto.cod_produto}&cod_farmacia=${cod_farmacia}" width="100" height="100"/></td>
+						<td>
+							<a href="#" class="thumbnail" data-toggle="modal" data-target="#lightbox">
+								<img src="/FarmaWeb/recuperaImagem?cod_produto=${produto.cod_produto}&cod_farmacia=${cod_farmacia}" width="100" height="100"/>
+							</a>
+						</td>
 						<td id="nome_produto${produto.cod_produto}">${produto.nome_produto}</td>
 						<td>${produto.marca_fabricante}<br>${produto.descricao_produto}<br>${produto.caracteristica}</td>
 						<td id="preco_unitario${produto.cod_produto}">${produto.preco_unitario}</td>
@@ -114,7 +141,6 @@ footer {
 					<div class="modal-header">
 						<h4 class="modal-title"><span class="glyphicon glyphicon-shopping-cart"></span> Carrinho </h4>
 					</div>
-<!-- 					<form action="/FarmaWeb/verificarQuantidade" method="POST"> -->
 					 <div class="modal-body">	 	
 	       				<ul class="lista">
 						</ul>
@@ -131,10 +157,21 @@ footer {
 							<div><button type="button" id="enviar-pedido" class="btn btn-primary" data-toggle="modal" data-target="#modalPagamento">Enviar Pedido</button></div>
 						
 						</div>
-<!-- 					</form> -->
 				</div>
 			</div>
 		</div>
+		
+		<div id="lightbox" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <button type="button" class="close hidden" data-dismiss="modal" aria-hidden="true">×</button>
+	        <div class="modal-content">
+	            <div class="modal-body">
+	                <img src="" alt="" />
+	            </div>
+	        </div>
+	    </div>
+		</div>
+		
 	</div>
 
 
@@ -354,11 +391,33 @@ footer {
 			  }
 		}
 		
-	
-
+		$(document).ready(function() {
+		    var $lightbox = $('#lightbox');
+		    
+		    $('[data-target="#lightbox"]').on('click', function(event) {
+		        var $img = $(this).find('img'), 
+		            src = $img.attr('src'),
+		            alt = $img.attr('alt'),
+		            css = {
+		                'maxWidth': $(window).width() - 100,
+		                'maxHeight': $(window).height() - 100
+		            };
+		    
+		        $lightbox.find('.close').addClass('hidden');
+		        $lightbox.find('img').attr('src', src);
+		        $lightbox.find('img').attr('alt', alt);
+		        $lightbox.find('img').css(css);
+		    });
+		    
+		    $lightbox.on('shown.bs.modal', function (e) {
+		        var $img = $lightbox.find('img');
+		            
+		        $lightbox.find('.modal-dialog').css({'width': $img.width()});
+		        $lightbox.find('.close').removeClass('hidden');
+		    });
+		});
+		
 	</script>
-		
-		
 
 	<form action="/FarmaWeb/voltar" method="POST">
 		<button type="submit" class="btn btn-primary">Voltar</button>
