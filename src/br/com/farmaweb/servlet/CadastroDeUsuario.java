@@ -32,9 +32,9 @@ public class CadastroDeUsuario extends HttpServlet {
 		
 		//Cliente
 		String nome_cliente = req.getParameter("nome_cliente");
-		Long cpf_cliente = Long.parseLong(req.getParameter("cpf_cliente"));
+		Long cpf_cliente = Long.parseLong(req.getParameter("cpf_cliente").replace("-", "").replace(".", "").replace(".", "").trim());
 		String email_cliente = req.getParameter("email_cliente");
-		Long tel_cliente = Long.parseLong(req.getParameter("tel_cliente"));
+		Long tel_cliente = Long.parseLong(req.getParameter("tel_cliente").replace("-", "").trim());
 		
 		
 		Login login = new Login();
@@ -62,7 +62,8 @@ public class CadastroDeUsuario extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher rd = req.getRequestDispatcher("/login");
+		req.setAttribute("verificaResultado", 1);
+		RequestDispatcher rd = req.getRequestDispatcher("/");
 		rd.forward(req, resp);
 	}
 }

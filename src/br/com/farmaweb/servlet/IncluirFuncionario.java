@@ -35,7 +35,7 @@ public class IncluirFuncionario extends HttpServlet {
 		//Funcionario
 		String nome_funcionario = req.getParameter("nome_funcionario");
 		Long matricula_funcionario = Long.parseLong(req.getParameter("matricula_funcionario"));
-		Long tel_funcionario = Long.parseLong(req.getParameter("tel_funcionario"));
+		Long tel_funcionario = Long.parseLong(req.getParameter("tel_funcionario").replace("-", "").trim());
 		String funcao = req.getParameter("funcao");
 		Integer cod_farm_func = Integer.parseInt(req.getParameter("cod_farm_func"));
 		

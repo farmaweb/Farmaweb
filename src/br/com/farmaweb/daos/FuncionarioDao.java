@@ -52,6 +52,33 @@ public class FuncionarioDao {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public Funcionario getFuncionario(int cod_funcionario) {
+		try {
+			
+			PreparedStatement stmt = this.connection.prepareStatement("select * from funcionario where cod_funcionario = ?");
+			stmt.setInt(1, cod_funcionario);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			Funcionario funcionario =  new Funcionario();
+
+			while (rs.next()) {
+				funcionario.setCod_funcionario(rs.getInt("cod_funcionario"));
+				funcionario.setMatricula_funcionario(rs.getLong("matricula_funcionario"));
+				funcionario.setNome_funcionario(rs.getString("nome_funcionario"));
+				funcionario.setTel_funcionario(rs.getLong("tel_funcionario"));
+				funcionario.setFuncao(rs.getString("funcao"));
+			}
+
+			rs.close();
+			stmt.close();
+
+			return funcionario;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	public int incluirFuncionario(Funcionario funcionario) throws SQLException {
 		try {

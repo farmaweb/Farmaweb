@@ -336,7 +336,7 @@
 		
 		 setTimeout(function(){ 
 			 location.reload(); 
-		}, 20000);
+		}, 40000);
 
 	</script>	
 </body>

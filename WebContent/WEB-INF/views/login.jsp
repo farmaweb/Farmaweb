@@ -56,7 +56,11 @@ img {
 							<strong>Atenção!</strong> Login ou Senha incorretos.
 						</div>
 					</c:if>
-
+					<c:if test="${verificaResultado == 1}">
+						<div class="alert alert-success">
+							<strong>Atenção!</strong> Cliente cadastrado com sucesso!.
+						</div>
+					</c:if>
 				</div>
 
 			</div>
@@ -227,7 +231,7 @@ img {
 		
 		$('#cpf').mask('000.000.000-00', {reverse: true});
 		$('#cnpj').mask('00.000.000/0000-00', {reverse: true});
-		$('#telefone').mask('0000-0000')
+		$('#telefone').mask('0000-0000');
 		 
 		$("#cep").focusout(function(){
 			$.ajax({

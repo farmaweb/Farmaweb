@@ -25,7 +25,7 @@ public class IncluirFarmacia extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse res)
               throws ServletException, IOException {
 			
-		//incluir endereço farmácia
+		//incluir endereï¿½o farmï¿½cia
 		int cep = Integer.parseInt(req.getParameter("cep"));
 		String rua = req.getParameter("rua");
 		String numero = req.getParameter("numero");
@@ -47,7 +47,7 @@ public class IncluirFarmacia extends HttpServlet {
 		
 		String nome_fantasia = req.getParameter("nome_fantasia");
 		String razao_social = req.getParameter("razao_social");
-		Long cnpj = Long.parseLong(req.getParameter("cnpj"));
+		Long cnpj = Long.parseLong(req.getParameter("cnpj").replace("-", "").replace("/", "").replace(".", "").replace(".", "").trim());
 		Long tel_farmacia = Long.parseLong(req.getParameter("tel_farmacia"));
 		String observacao = req.getParameter("observacao");
 		
