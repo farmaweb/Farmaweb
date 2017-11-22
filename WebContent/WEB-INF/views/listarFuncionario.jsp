@@ -28,7 +28,7 @@
 				<td>${funcionario.nome_funcionario}</td>
 				<td>${funcionario.tel_funcionario}</td>
 				<td>${funcionario.funcao}</td>
-				<td><button type="button" onclick="teste(${funcionario.cod_funcionario})" data-toggle="modal"
+				<td><button type="button" onclick="editar(${funcionario.cod_funcionario})" data-toggle="modal"
 				data-target="#editarFuncionario" class="btn btn-primary">Editar</button></td>
 				<td><form action="/FarmaWeb/excluirFuncionario"
 						method="POST">
@@ -130,7 +130,7 @@
 		$('#editarTelefone').mask('0000-0000');
 		$('#telefone').mask('0000-0000');
 		
-		function teste(cod_funcionario) {		
+		function editar(cod_funcionario) {		
 			var data = {
 					cod_funcionario: cod_funcionario
 			}

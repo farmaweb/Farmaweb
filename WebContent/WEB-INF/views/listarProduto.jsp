@@ -70,8 +70,8 @@
 				</c:choose>
 				<td>${produto.preco_unitario}</td>
 				<td>${produto.desconto}</td>
-				
-				<td><button type="button" class="btn btn-primary">Editar</button></td>
+				<td><button type="button" onclick="editar(${produto.cod_produto})" data-toggle="modal"
+				data-target="#editarProduto" class="btn btn-primary">Editar</button></td>
 				<td>
 					<form action="/FarmaWeb/excluirProduto" method="POST">
 						<input type="hidden" name="cod_produto"
@@ -90,8 +90,6 @@
 
 	<div id="myModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
-
-			<!-- Modal content-->
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -137,6 +135,54 @@
 		</div>
 	</div>
 	
+	<div id="editarProduto" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Editar Produto</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-signin" action="/FarmaWeb/AlterarProduto" method="POST">
+					<div class="form-group">
+	
+						<label for="Nome_Produto">Nome do Produto:</label>
+						<input type="text" class="editarNome" minlength="3" maxlength="20" name="nome_produto" style="border-radius: 5px;" required>
+						</br>
+						<label for="Marca_Fabricante">Marca/Fabricante:</label>
+						<input type="text" class="editarMarca" minlength="3" maxlength="20" name="marca_fabricante" style="border-radius: 5px;" required>
+						</br>
+						<label for="Caracteristica">Caracteristica:</label>
+						<input type="text" class="editarCaracteristica" minlength="3" maxlength="20" name="caracteristica" style="border-radius: 5px;" required>
+						</br>
+						<label for="Descricao_Produto">Descrição do Produto:</label>
+						<input type="text" class="alterarDescricao" minlength="6" maxlength="30" name="descricao_produto" style="border-radius: 5px;" required>
+						</br> 
+						<label for="Receita">Receita:</label>
+						<input type="radio" class="alterarReceitaSim" name="receita" value="1" required> Sim
+  						<input type="radio" class="alterarReceitaNao" name="receita" value="0"required> Não
+						</br>
+						<label for="Quantidade_Produto">Quantidade:</label>
+						<input type="text" class="alterarQuantidade" name="quantidade_produto" style="border-radius: 5px;" required> 
+						</br> 
+						<label for="preco_uniario">Preço Unitário:</label> 
+						<input type="text" class="currency" data-thousands="." data-decimal="." name="preco_unitario" style="border-radius: 5px;" required>
+						</br>
+						<label for="desconto">Desconto:</label> 
+						<input type="text" class="alterarDesconto" name="desconto" style="border-radius: 5px;" required>%
+						</br>
+						<input type="file" name="foto_produto"/>
+						<input type="hidden" id="cod_produto" name="cod_produto"/>
+					</div>
+						<div class="modal-footer">
+							<button class="btn btn-default" type="submit">Salvar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<div id="lightbox" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 	    <div class="modal-dialog">
 	        <button type="button" class="close hidden" data-dismiss="modal" aria-hidden="true">×</button>
@@ -152,7 +198,37 @@
 	
 		$(function() {
 		    $('#currency').maskMoney();
+		    $('.currency').maskMoney();
 		})
+		
+		function editar(cod_produto) {		
+			var data = {
+					cod_produto: cod_produto
+			}
+			$.ajax({
+		         type: 'POST',    
+		         url:'/FarmaWeb/BuscarProduto',
+		         data: data,
+		         success: function (response) {
+		        	 $('.editarNome').val(response.nome_produto).text(response.nome_produto);
+		        	 $('.editarMarca').val(response.marca_fabricante).text(response.marca_fabricante);
+		        	 $('.editarCaracteristica').val(response.caracteristica).text(response.caracteristica);
+		        	 $('.alterarDescricao').val(response.descricao_produto).text(response.descricao_produto);
+		        	 if(response.receita == 1){
+			        	 $('.alterarReceitaSim').prop( "checked", true );
+		        	 }else{
+			        	 $('.alterarReceitaNao').prop( "checked", true );
+		        	 }	
+		        	 $('.alterarQuantidade').val(response.quantidade_produto).text(response.quantidade_produto);
+		        	 $('.currency').val(response.preco_unitario).text(response.preco_unitario);
+		        	 $('.alterarDesconto').val(response.desconto).text(response.desconto);
+		        	 $('#cod_produto').val(response.cod_produto);
+	            },
+	            error: function (e) {
+		              console.log(e);
+	            }
+			});
+		}
 		
 		function filtrar() {
 			  // Declare variables 
