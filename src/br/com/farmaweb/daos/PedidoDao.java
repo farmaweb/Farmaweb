@@ -61,7 +61,7 @@ public class PedidoDao {
 			FarmaciaDao farmaciaDao = new FarmaciaDao();
 			int cod_farmacia = farmaciaDao.retornaCodFarm(cod_login);
 
-			PreparedStatement stmt = this.connection.prepareStatement("select * from pedido as ped inner join ped_prod as pp on pp.cod_pedido = ped.cod_pedido inner join produto as prod on prod.cod_produto = pp.cod_produto inner join farmacia as far on far.cod_farmacia = prod.cod_farm_prod where far.cod_farmacia = ?");
+			PreparedStatement stmt = this.connection.prepareStatement("select * from pedido where cod_farmacia = ?");
 
 			stmt.setInt(1, cod_farmacia);
 
@@ -96,8 +96,8 @@ public class PedidoDao {
 	public int incluirPedido(Pedido pedido) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"insert into pedido (status, valor_total, valor_desconto, data_pedido, foto_receita, cod_pag_ped, cod_cliente, cod_endereco)"
-							+ "values ( ?,?,?,?,?,?,?,? )",
+					"insert into pedido (status, valor_total, valor_desconto, data_pedido, foto_receita, cod_pag_ped, cod_cliente, cod_endereco, cod_farmacia)"
+							+ "values ( ?,?,?,?,?,?,?,?,? )",
 					Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setString(1, pedido.getStatus());
@@ -111,6 +111,7 @@ public class PedidoDao {
 			stmt.setInt(6, pedido.getCod_pag_ped());
 			stmt.setInt(7, pedido.getCod_cli_ped());
 			stmt.setInt(8, pedido.getCod_endereco());
+			stmt.setInt(9, pedido.getCod_farmacia());
 
 			stmt.executeUpdate();
 			int ret = 0;

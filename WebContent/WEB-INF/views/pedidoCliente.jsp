@@ -112,7 +112,7 @@ footer {
 					      		<td>Sim</td>
 					    	</c:when>    
 					    	<c:otherwise>
-					      		<td>NÃ£o</td> 
+					      		<td>Não</td> 
 					    	</c:otherwise>
 						</c:choose>
 						<td><a class="btn btn-xs btn-info adicionar" data-toggle="modal" data-id="${produto.cod_produto}">Adicionar</a></td>
@@ -154,6 +154,7 @@ footer {
 	      					<label>Valor Total: R$<strong class="valorTotal">${taxa_entrega}</strong></label>
 	      					<p>
 	      					<label>Tempo Estimado de Entrega: <strong class="tempoEntrega">${tempo_entrega}</strong></label>
+	      					<input type="hidden" name="cod_farmacia" class=codFarmacia value="${cod_farmacia}" />
 							<div><button type="button" id="enviar-pedido" class="btn btn-primary" data-toggle="modal" data-target="#modalPagamento">Enviar Pedido</button></div>
 						
 						</div>
@@ -343,7 +344,7 @@ footer {
 			
 			$( "#resumo" ).append(
 				'<div>---------------------------------------------------------</div>' +
-				'<div>EndereÃ§o de Entrega</div>' +
+				'<div>Endereço de Entrega</div>' +
 				'<input type=hidden value = ${cod_endereco} name=cod_endereco>'+
 				'<input type=hidden value = ${cod_cliente} name=cod_cliente>' +
 				'<input type=hidden value = ${rua_cliente}>${rua_cliente}, <input type=hidden value = ${numero_cliente}>${numero_cliente} - <input type=hidden value = ${complemento_cliente}>${complemento_cliente}' +
@@ -352,16 +353,17 @@ footer {
 				'<br>' +
 				'<input type=hidden value = ${cidade_cliente}>${cidade_cliente}/<input type=hidden value = ${estado_cliente}>${estado_cliente}' +
 				'<div>---------------------------------------------------------</div>' +
-				'<div>InformaÃ§Ãµes Adicionais</div>' +
+				'<div>Informações Adicionais</div>' +
 				'<input type=hidden value=' + cod_pagamento + ' name=cod_pagamento>'+
 				'<div value = ' + forma_pagamento + '>Forma de Pagamento: ' + forma_pagamento + '</div>' +
 				'<input type=hidden name=descontoTotal value = ' + $('.descontoTotal').text() + '>' +
 				'<div name=descontoTotal value = ' + $('.descontoTotal').text() + '>Desconto Total: ' + $('.descontoTotal').text() + '</div>' +
 				'<div value = ' + $('.taxaEntrega').text() + '>Taxa de Entrega: ' + $('.taxaEntrega').text() + '</div>' +
 				'<input type=hidden name=valorTotal value = ' + $('.valorTotal').text() + '>' +
+				'<input type=hidden name=cod_farmacia value = ' + $('.codFarmacia').val() + '>' +
 				'<div name=valorTotal value = ' + $('.valorTotal').text() + '>Valor Total: ' + $('.valorTotal').text() + '</div>' +
 				'<div value = ' + $('.tempoEntrega').text() + '>Tempo Estimado de Entrega: ' + $('.tempoEntrega').text() + '</div>' +
-				'<input type="file" name="foto_receita"/>'
+				'Adicionar Receita: <input type="file" name="foto_receita"/>'
 			);
 					
 			
