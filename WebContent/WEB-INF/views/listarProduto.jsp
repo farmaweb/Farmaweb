@@ -73,9 +73,8 @@
 				
 				<td><button type="button" class="btn btn-primary">Editar</button></td>
 				<td>
-					<form action="/FarmaWeb/excluirProduto" method="POST">
-						<input type="hidden" name="cod_produto"
-							value="${produto.cod_produto}" />
+					<form action="/FarmaWeb/desativarProduto" method="POST">
+						<input type="hidden" name="cod_produto" value="${produto.cod_produto}" />
 						<button type="submit" class="btn btn-primary">Excluir</button>
 					</form>
 				</td>

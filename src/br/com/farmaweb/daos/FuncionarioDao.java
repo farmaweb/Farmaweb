@@ -17,14 +17,13 @@ public class FuncionarioDao {
 		this.connection = ConexaoBanco.getConnection();
 	}
 	
-
 	public ArrayList<Funcionario> getFuncionarios(int cod_login) {
 		try {
 			
 			FarmaciaDao farmaciaDao = new FarmaciaDao();
 			int cod_farm = farmaciaDao.retornaCodFarm(cod_login);
 			
-			PreparedStatement stmt = this.connection.prepareStatement("select * from funcionario where cod_farm_func = ?");
+			PreparedStatement stmt = this.connection.prepareStatement("select * from funcionario as fu inner join login as lo on lo.cod_login = fu.cod_funcionario where fu.cod_farm_func = ? and lo.status_login = 1");
 			stmt.setInt(1, cod_farm);
 			
 			ResultSet rs = stmt.executeQuery();
@@ -79,7 +78,7 @@ public class FuncionarioDao {
 			throw new RuntimeException(e);
 		}
 	}
-
+	
 	public int incluirFuncionario(Funcionario funcionario) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(

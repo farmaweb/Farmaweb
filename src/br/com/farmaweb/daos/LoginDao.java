@@ -23,7 +23,7 @@ public class LoginDao {
 		try {
 
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"select * from login where usuario='" + loginUsuario + "' and " + "senha='" + senhaUsuario + "' ");
+					"select * from login where usuario='" + loginUsuario + "' and " + "senha='" + senhaUsuario + "' and status_login = 1 ");
 			ResultSet rs = stmt.executeQuery();
 
 			Login login = new Login();
@@ -75,7 +75,7 @@ public class LoginDao {
 	public int incluirUsuario(Login login) {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"insert into login(usuario,senha,tipo)" + "values ( ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+					"insert into login(usuario,senha,tipo,status_login)" + "values ( ?, ?, ?, 1)", Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setString(1, login.getUsuario());
 			stmt.setString(2, login.getSenha());
@@ -95,5 +95,17 @@ public class LoginDao {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public void desativarLogin(int cod_login) throws SQLException {
+		
+		PreparedStatement stmt = this.connection.prepareStatement(
+				"update login set status_login = 0 where cod_login = ?");
+
+		stmt.setInt(1, cod_login);
+
+		stmt.executeUpdate();
+
+		stmt.close();
 	}
 }

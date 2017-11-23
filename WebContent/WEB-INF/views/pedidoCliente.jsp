@@ -125,13 +125,13 @@ footer {
 		
 		<footer>
 			<div class="alert  alert-danger" style="display:none;">
-	  			<strong>Aten√ß√£o!</strong> Produto j√° adicionado no carrinho.
+	  			<strong>AtenÁ„o!</strong> Produto j· adicionado no carrinho.
 			</div>
 		</footer>
 		
 		<footer>
 			<div id="alerta-quantidade" class="alert  alert-danger" style="display:none;">
-	  			<strong>Aten√ß√£o!</strong> 
+	  			<strong>AtenÁ„o!</strong> 
 			</div>
 		</footer>
 

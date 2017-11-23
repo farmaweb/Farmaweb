@@ -15,8 +15,8 @@ import br.com.farmaweb.daos.ProdutoDao;
 import br.com.farmaweb.models.FormaDePagamento;
 import br.com.farmaweb.models.Produto;
 
-@WebServlet("/excluirProduto")
-public class ExcluirProduto extends HttpServlet {
+@WebServlet("/desativarProduto")
+public class DesativarProduto extends HttpServlet {
 
 	private static final long serialVersionUID = 4242586602541123601L;
 
@@ -25,16 +25,10 @@ public class ExcluirProduto extends HttpServlet {
 
 		int cod_produto = Integer.parseInt(req.getParameter("cod_produto"));
 
-		Produto produto = new Produto();
-
-		produto.setCod_produto(cod_produto);
-
 		try {
 			ProdutoDao produtoDao = new ProdutoDao();
-			produtoDao.excluirProduto(produto);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+			produtoDao.desativarProduto(cod_produto);
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 

@@ -167,6 +167,7 @@ a.lightbox-close:after {
 		<p class="navbar-btn">
           	<c:if test="${usuarioLogado.tipo == 1}">
  				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalEnderecos">Selecione o seu endereço</button> 
+ 				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalExclusao">Excluir Perfil</button>
 			</c:if>	
               <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Sair</button>
          </p>
@@ -282,6 +283,29 @@ a.lightbox-close:after {
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="modalExclusao" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Deseja realmente excluir?</h4>
+				</div>
+				<div class="modal-footer">
+					<jsp:useBean id="pegar" class="br.com.farmaweb.daos.ClienteDao" />
+          			<c:forEach var="cliente" items="${pegar.getClientes(usuarioLogado.cod_login)}">
+	 					<form class="bottom-left" action="/FarmaWeb/desativarLogin" method="POST">
+	 						<input type="hidden" name="cod_login" value="${cliente.cod_cliente}" />
+							<input type="hidden" name="cod_login_sessao" value="${usuarioLogado.cod_login}" />
+							<button type="submit" class="btn btn-lg btn-primary btn-block">Sim</button>
+						</form>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
 
 	<div id="modalEnderecos" class="modal fade" role="dialog">
 		<div class="modal-dialog">

@@ -23,7 +23,7 @@ public class ProdutoDao {
 			FarmaciaDao farmaciaDao = new FarmaciaDao();
 			int cod_farm_prod = farmaciaDao.retornaCodFarm(cod_login);
 
-			PreparedStatement stmt = this.connection.prepareStatement("select * from produto where cod_farm_prod = ? ");
+			PreparedStatement stmt = this.connection.prepareStatement("select * from produto where cod_farm_prod = ? and status_produto = 1");
 			stmt.setInt(1, cod_farm_prod);
 			
 			ResultSet rs = stmt.executeQuery();
@@ -59,7 +59,7 @@ public class ProdutoDao {
 	public ArrayList<Produto> listaProdutoFarmacia(int cod_farmacia) {
 		try {
 			
-			PreparedStatement stmt = this.connection.prepareStatement("select * from produto where cod_farm_prod = ? ");
+			PreparedStatement stmt = this.connection.prepareStatement("select * from produto where cod_farm_prod = ? and status_produto = 1");
 			stmt.setInt(1, cod_farmacia);
 			
 			ResultSet rs = stmt.executeQuery();
@@ -129,6 +129,18 @@ public class ProdutoDao {
 
 			return ret;
 	}
+	
+	public void desativarProduto(int cod_produto) throws SQLException {
+		
+		PreparedStatement stmt = this.connection.prepareStatement(
+				"update produto set status_produto = 0 where cod_produto = ?");
+
+		stmt.setInt(1, cod_produto);
+
+		stmt.executeUpdate();
+
+		stmt.close();
+	}
 
 	public byte[] recuperaImagem(int cod_farmacia, int cod_produto) {
 		try {			
@@ -153,13 +165,12 @@ public class ProdutoDao {
 			throw new RuntimeException(e);
 		}
 	}
-	
 
 	public int incluirProduto(Produto produto) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"insert into produto(nome_produto, marca_fabricante, caracteristica, descricao_produto, quantidade_produto, receita, preco_unitario, desconto, foto_produto, cod_farm_prod)"
-							+ "values ( ?,?,?,?,?,?,?,?,?,? )");
+					"insert into produto(nome_produto, marca_fabricante, caracteristica, descricao_produto, quantidade_produto, receita, preco_unitario, desconto, status_produto, foto_produto, cod_farm_prod)"
+							+ "values ( ?,?,?,?,?,?,?,?,1,?,? )");
 
 			stmt.setString(1, produto.getNome_produto());
 			stmt.setString(2, produto.getMarca_fabricante());
@@ -173,22 +184,6 @@ public class ProdutoDao {
                 stmt.setBlob(9, produto.getFoto_produto());
             }
 			stmt.setInt(10, produto.getCod_farm_prod());
-			
-			int ret = stmt.executeUpdate();
-
-			stmt.close();
-
-			return ret;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	public int excluirProduto(Produto produto) throws SQLException {
-		try {
-			PreparedStatement stmt = this.connection.prepareStatement("delete from produto where cod_produto = ?");
-
-			stmt.setInt(1, produto.getCod_produto());
 			
 			int ret = stmt.executeUpdate();
 

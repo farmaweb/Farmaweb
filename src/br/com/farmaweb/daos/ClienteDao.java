@@ -19,10 +19,12 @@ public class ClienteDao {
 		this.connection = ConexaoBanco.getConnection();
 	}
 
-	public ArrayList<Cliente> getClientes() {
+	public ArrayList<Cliente> getClientes(int cod_cliente) {
 		try {
 
-			PreparedStatement stmt = this.connection.prepareStatement("select * from cliente");
+			PreparedStatement stmt = this.connection.prepareStatement("select * from cliente where cod_cliente = ?");
+			stmt.setInt(1, cod_cliente);
+			
 			ResultSet rs = stmt.executeQuery();
 
 			ArrayList<Cliente> clientes = new ArrayList<Cliente>();
