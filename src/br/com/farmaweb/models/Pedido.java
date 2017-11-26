@@ -14,6 +14,7 @@ public class Pedido {
 	private int cod_cli_ped;
 	private int cod_func;
 	private int cod_endereco;
+	private int cod_farmacia;
 
 	public int getCod_pedido() {
 		return cod_pedido;
@@ -93,6 +94,14 @@ public class Pedido {
 
 	public void setCod_endereco(int cod_endereco) {
 		this.cod_endereco = cod_endereco;
+	}
+
+	public int getCod_farmacia() {
+		return cod_farmacia;
+	}
+
+	public void setCod_farmacia(int cod_farmacia) {
+		this.cod_farmacia = cod_farmacia;
 	}
 
 }

@@ -30,10 +30,9 @@
 				<td>${funcionario.funcao}</td>
 				<td><button type="button" onclick="editar(${funcionario.cod_funcionario})" data-toggle="modal"
 				data-target="#editarFuncionario" class="btn btn-primary">Editar</button></td>
-				<td><form action="/FarmaWeb/excluirFuncionario"
-						method="POST">
-						<input type="hidden" name="cod_funcionario"
-							value="${funcionario.cod_funcionario}" />
+				<td><form action="/FarmaWeb/desativarLogin" method="POST">
+						<input type="hidden" name="cod_login" value="${funcionario.cod_funcionario}" />
+						<input type="hidden" name="cod_login_sessao" value="${usuarioLogado.cod_login}" />
 						<button type="submit" class="btn btn-primary">Excluir</button>
 					</form></td>
 			</tr>

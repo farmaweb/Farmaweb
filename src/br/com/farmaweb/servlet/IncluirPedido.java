@@ -31,6 +31,7 @@ public class IncluirPedido extends HttpServlet {
 		String valor_total = req.getParameter("valorTotal");
 		String valor_desconto = req.getParameter("descontoTotal");
 		Integer cod_endereco = Integer.parseInt(req.getParameter("cod_endereco"));
+		Integer cod_farmacia = Integer.parseInt(req.getParameter("cod_farmacia"));
 		
 		LocalDateTime data_pedido = LocalDateTime.now();
 
@@ -56,6 +57,7 @@ public class IncluirPedido extends HttpServlet {
 		pedido.setCod_pag_ped(cod_pag_ped);
 		pedido.setCod_cli_ped(cod_cli_ped);
 		pedido.setCod_endereco(cod_endereco);
+		pedido.setCod_farmacia(cod_farmacia);
 		
 
 		try {
