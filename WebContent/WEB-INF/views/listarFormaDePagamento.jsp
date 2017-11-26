@@ -13,36 +13,66 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Formas de pagamento</title>
+
+<style type="text/css">
+  body {
+  	background: DarkTurquoise ;
+  }
+	
+</style>
 </head>
 
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" >FarmaWeb</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+       	  	<form class="form-signin navbar-form" action="/FarmaWeb/voltar" method="POST">
+				<button type="submit" class="btn btn-default">Voltar</button>	
+              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#sair">Sair</button>
+              </form>
+      </ul>
+    </div>
+  </div>
+</nav>	
+
+	<div class="modal fade" id="sair" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Deseja realmente sair ?</h4>
+				</div>
+				<div class="modal-footer">
+					<form class="bottom-left" action="/FarmaWeb/logout" method="POST">
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Sim</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 <body class="container">
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.FormaDePagamentoDao" />
 	<table class="table table-bordered">
 		<tr>
 			<th>Tipo De Pagamento</th>
-			<th>Ação</th>
 		</tr>
 		<c:forEach var="forma" items="${dao.getPagamentos(usuarioLogado.cod_login)}">
 			<tr>
 				<td>${forma.tipo_pagamento}</td>
-				<td><form action="/FarmaWeb/excluirFormaDePagamento"
-						method="POST">
-						<input type="hidden" name="cod_pagamento"
-							value="${forma.cod_pagamento}" />
-						<button type="submit" class="btn btn-primary">Excluir</button>
-					</form>
-				</td>
 			</tr>
 		</c:forEach>
 
 
 
 	</table>
-	<form action="/FarmaWeb/voltar" method="POST">
-		<button type="submit" class="btn btn-primary">Voltar</button>
-	<button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#myModal">Incluir</button>
-	</form>
+	
+	
+	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Incluir</button>
+
 
 
 	<div id="myModal" class="modal fade" role="dialog">
