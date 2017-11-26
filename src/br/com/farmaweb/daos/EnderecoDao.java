@@ -65,6 +65,39 @@ public class EnderecoDao {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public Endereco getEndereco(int cod_endereco) {
+		try {
+
+			PreparedStatement stmt = this.connection.prepareStatement(
+					"select * from endereco where cod_endereco = ?");
+
+			stmt.setInt(1, cod_endereco);
+
+			ResultSet rs = stmt.executeQuery();
+
+			Endereco endereco = new Endereco();
+
+			while (rs.next()) {
+
+				endereco.setCod_endereco(rs.getInt("cod_endereco"));
+				endereco.setCep(rs.getInt("cep"));
+				endereco.setRua(rs.getString("rua"));
+				endereco.setNumero(rs.getString("numero"));
+				endereco.setBairro(rs.getString("bairro"));
+				endereco.setCidade(rs.getString("cidade"));
+				endereco.setEstado(rs.getString("estado"));
+				endereco.setComplemento(rs.getString("complemento"));
+			}
+
+			rs.close();
+			stmt.close();
+
+			return endereco;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	public int incluirEndereco(Endereco endereco) throws SQLException {
 		try {
@@ -135,6 +168,8 @@ public class EnderecoDao {
 			stmt.setString(5, endereco.getCidade());
 			stmt.setString(6, endereco.getEstado());
 			stmt.setString(7, endereco.getComplemento());
+			stmt.setInt(8, endereco.getCod_endereco());
+
 
 			int ret = stmt.executeUpdate();
 
