@@ -8,118 +8,308 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <style>
-	.lightbox-target {
-		position: fixed;
-		top: -100%;
-		width: 100%;
-		background: rgba(0,0,0,.7);
-		width: 100%;
-		opacity: 0;
-		-webkit-transition: opacity .5s ease-in-out;
-		-moz-transition: opacity .5s ease-in-out;
-		-o-transition: opacity .5s ease-in-out;
-		transition: opacity .5s ease-in-out;
-		overflow: hidden;
-	}
-	
-	.lightbox-target img {
-		margin: auto;
-		position: absolute;
-		top: 0;
-		left:0;
-		right:0;
-		bottom: 0;
-		max-height: 0%;
-		max-width: 0%;
-		border: 3px solid white;
-		box-shadow: 0px 0px 8px rgba(0,0,0,.3);
-		box-sizing: border-box;
-		-webkit-transition: .5s ease-in-out;
-		-moz-transition: .5s ease-in-out;
-		-o-transition: .5s ease-in-out;
-		transition: .5s ease-in-out;
-	}
-	
-	a.lightbox-close {
-		display: block;
-		width:50px;
-		height:50px;
-		box-sizing: border-box;
-		background: white;
-		color: black;
-		text-decoration: none;
-		position: absolute;
-		top: -80px;
-		right: 0;
-		-webkit-transition: .5s ease-in-out;
-		-moz-transition: .5s ease-in-out;
-		-o-transition: .5s ease-in-out;
-		transition: .5s ease-in-out;
-	}
-	
-	a.lightbox-close:before {
-		content: "";
-		display: block;
-		height: 30px;
-		width: 1px;
-		background: black;
-		position: absolute;
-		left: 26px;
-		top:10px;
-		-webkit-transform:rotate(45deg);
-		-moz-transform:rotate(45deg);
-		-o-transform:rotate(45deg);
-		transform:rotate(45deg);
-	}
-		
-	a.lightbox-close:after {
-		content: "";
-		display: block;
-		height: 30px;
-		width: 1px;
-		background: black;
-		position: absolute;
-		left: 26px;
-		top:10px;
-		-webkit-transform:rotate(-45deg);
-		-moz-transform:rotate(-45deg);
-		-o-transform:rotate(-45deg);
-		transform:rotate(-45deg);
-	}
+.lightbox-target {
+	position: fixed;
+	top: -100%;
+	width: 100%;
+	background: rgba(0,0,0,.7);
+	width: 100%;
+	opacity: 0;
+	-webkit-transition: opacity .5s ease-in-out;
+	-moz-transition: opacity .5s ease-in-out;
+	-o-transition: opacity .5s ease-in-out;
+	transition: opacity .5s ease-in-out;
+	overflow: hidden;
+}
 
-	.lightbox-target:target {
-		opacity: 1;
-		top: 0;
-		bottom: 0;
-	}
+.lightbox-target img {
+	margin: auto;
+	position: absolute;
+	top: 0;
+	left:0;
+	right:0;
+	bottom: 0;
+	max-height: 0%;
+	max-width: 0%;
+	border: 3px solid white;
+	box-shadow: 0px 0px 8px rgba(0,0,0,.3);
+	box-sizing: border-box;
+	-webkit-transition: .5s ease-in-out;
+	-moz-transition: .5s ease-in-out;
+	-o-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+}
+
+a.lightbox-close {
+	display: block;
+	width:50px;
+	height:50px;
+	box-sizing: border-box;
+	background: white;
+	color: black;
+	text-decoration: none;
+	position: absolute;
+	top: -80px;
+	right: 0;
+	-webkit-transition: .5s ease-in-out;
+	-moz-transition: .5s ease-in-out;
+	-o-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+}
+
+a.lightbox-close:before {
+	content: "";
+	display: block;
+	height: 30px;
+	width: 1px;
+	background: black;
+	position: absolute;
+	left: 26px;
+	top:10px;
+	-webkit-transform:rotate(45deg);
+	-moz-transform:rotate(45deg);
+	-o-transform:rotate(45deg);
+	transform:rotate(45deg);
+}
 	
-	.lightbox-target:target img {
-		max-height: 100%;
-		max-width: 100%;
-	}
-	
-	.lightbox-target:target a.lightbox-close {
-		top: 0px;
-	}
+a.lightbox-close:after {
+	content: "";
+	display: block;
+	height: 30px;
+	width: 1px;
+	background: black;
+	position: absolute;
+	left: 26px;
+	top:10px;
+	-webkit-transform:rotate(-45deg);
+	-moz-transform:rotate(-45deg);
+	-o-transform:rotate(-45deg);
+	transform:rotate(-45deg);
+}
+
+.lightbox-target:target {
+	opacity: 1;
+	top: 0;
+	bottom: 0;
+}
+
+.lightbox-target:target img {
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.lightbox-target:target a.lightbox-close {
+	top: 0px;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+
+body {
+  font-family: "Roboto", helvetica, arial, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+}
+
+div.table-title {
+   display: block;
+  margin: auto;
+  max-width: 600px;
+  padding:5px;
+  width: 100%;
+}
+
+.table-title h3 {
+   color: #fafafa;
+   font-size: 30px;
+   font-weight: 400;
+   font-style:normal;
+   font-family: "Roboto", helvetica, arial, sans-serif;
+   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+   text-transform:uppercase;
+}
+
+
+/*** Table Styles **/
+
+.table-fill {
+  background: white;
+  border-radius:3px;
+  border-collapse: collapse;
+  height: 220px;
+  margin: auto;
+  max-width: 1600px;
+  padding:5px;
+  width: 100%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  animation: float 5s infinite;
+}
+ 
+th {
+  color:#D5DDE5;;
+  background:#1b1e24;
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  font-size:23px;
+  font-weight: 100;
+  padding:24px;
+  text-align:left;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  vertical-align:middle;
+}
+
+th:first-child {
+  border-top-left-radius:3px;
+}
+ 
+th:last-child {
+  border-top-right-radius:3px;
+  border-right:none;
+}
+  
+tr {
+  border-top: 1px solid #C1C3D1;
+  border-bottom-: 1px solid #C1C3D1;
+  color:#666B85;
+  font-size:16px;
+  font-weight:normal;
+  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+ 
+tr:hover td {
+  background:#4E5066;
+  color:#FFFFFF;
+  border-top: 1px solid #22262e;
+}
+ 
+tr:first-child {
+  border-top:none;
+}
+
+tr:last-child {
+  border-bottom:none;
+}
+ 
+tr:nth-child(odd):hover td {
+  background:#4E5066;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius:3px;
+}
+ 
+tr:last-child td:last-child {
+  border-bottom-right-radius:3px;
+}
+ 
+td {
+  background:#FFFFFF;
+  padding:20px;
+  text-align:left;
+  vertical-align:middle;
+  font-weight:300;
+  font-size:18px;
+  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #C1C3D1;
+}
+
+td:last-child {
+  border-right: 0px;
+}
+
+th.text-left {
+  text-align: left;
+}
+
+th.text-center {
+  text-align: center;
+}
+
+th.text-right {
+  text-align: right;
+}
+
+td.text-left {
+  text-align: left;
+}
+
+td.text-center {
+  text-align: center;
+}
+
+td.text-right {
+  text-align: right;
+}
+
+table {
+  width:500px;
+  margin: 10px auto;
+}
+
+.btn-primary {
+  margin-top:20px;
+}
 </style>
 
 <title>Pedidos</title>
 </head>
 
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" >FarmaWeb</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <form class="navbar-form navbar-left">
+	      <c:if test="${usuarioLogado.tipo == 2}">
+	        <div class="form-group">
+	          <input type="text" class="form-control"  onkeyup="filtrar()" id="filtro" placeholder="Procurar pedido"/>	
+	        </div>
+	       </c:if>
+      </form>
+
+	 <ul class="nav navbar-nav navbar-right">
+   	  	<form class="form-signin navbar-form" action="/FarmaWeb/voltar" method="POST">
+  		   <button type="submit" class="btn btn-default">Voltar</button>	
+           <button type="button" class="btn btn-default" data-toggle="modal" data-target="#sair">Sair</button>
+        </form>
+     </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="modal fade" id="sair" role="dialog">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Deseja realmente sair ?</h4>
+			</div>
+			<div class="modal-footer">
+				<form class="bottom-left" action="/FarmaWeb/logout" method="POST">
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Sim</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>	
+
 <body class="container">
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.PedidoDao" />
 	<jsp:useBean id="daoNomeFarm" class="br.com.farmaweb.daos.FarmaciaDao" />
-	<strong>Procurar pelo número do pedido:</strong> <input type="text" onkeyup="filtrar()" id="filtro" />
-	<table class="table table-bordered" id="myTable">
-		<tr>
-			<th>Número do Pedido</th>
-			<c:if test="${usuarioLogado.tipo == 1}"><th>Farmácia</th></c:if>
-			<th>Valor Total</th>
-			<th>Valor Desconto</th>
-			<th>Data Pedido</th>
-			<th>Status</th>
-		</tr>
-		
+	<table class="table-fill" id="myTable">
+		<thead>
+			<tr>
+				<th>Número do Pedido</th>
+				<c:if test="${usuarioLogado.tipo == 1}"><th>Farmácia</th></c:if>
+				<th>Valor Total</th>
+				<th>Valor Desconto</th>
+				<th>Data Pedido</th>
+				<th>Status</th>
+				<th>Detalhes</th>
+			</tr>
+		</thead>
+		<tbody class="table-hover">
 		<c:if test="${usuarioLogado.tipo == 1}">
 			<c:forEach var="pedido" items="${dao.getPedidos(usuarioLogado.cod_login)}">
 				<tr>
@@ -188,14 +378,9 @@
 				</tr>
 			</c:forEach>
 		</c:if>
-		
+		</tbody>
 	</table>
 	
-	<form action="/FarmaWeb/voltar" method="POST">
-		<button type="submit" class="btn btn-primary">Voltar</button>
-	</form>
-	
-
 	<div id="modalDetalhes" class="modal fade"    role="dialog">
 		<div class="modal-dialog">
 			<!-- Modal content-->

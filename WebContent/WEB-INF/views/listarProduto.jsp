@@ -8,84 +8,271 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <style>
-	#lightbox .modal-content {
-    display: inline-block;
-    text-align: center;   
-	}
+#lightbox .modal-content {
+   display: inline-block;
+   text-align: center;   
+}
 
-	#lightbox .close {
-	    opacity: 1;
-	    color: rgb(255, 255, 255);
-	    background-color: rgb(25, 25, 25);
-	    padding: 5px 8px;
-	    border-radius: 30px;
-	    border: 2px solid rgb(255, 255, 255);
-	    position: absolute;
-	    top: -15px;
-	    right: -55px;
-	    
-	    z-index:1032;
-	}
+#lightbox .close {
+    opacity: 1;
+    color: rgb(255, 255, 255);
+    background-color: rgb(25, 25, 25);
+    padding: 5px 8px;
+    border-radius: 30px;
+    border: 2px solid rgb(255, 255, 255);
+    position: absolute;
+    top: -15px;
+    right: -55px;
+    
+    z-index:1032;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+
+body {
+  font-family: "Roboto", helvetica, arial, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+}
+
+div.table-title {
+   display: block;
+  margin: auto;
+  max-width: 600px;
+  padding:5px;
+  width: 100%;
+}
+
+.table-title h3 {
+   color: #fafafa;
+   font-size: 30px;
+   font-weight: 400;
+   font-style:normal;
+   font-family: "Roboto", helvetica, arial, sans-serif;
+   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+   text-transform:uppercase;
+}
+
+
+/*** Table Styles **/
+
+.table-fill {
+  background: white;
+  border-radius:3px;
+  border-collapse: collapse;
+  height: 220px;
+  margin: auto;
+  max-width: 1000px;
+  padding:5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  animation: float 5s infinite;
+}
+ 
+th {
+  color:#D5DDE5;;
+  background:#1b1e24;
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  font-size:16px;
+  font-weight: 100;
+  padding:24px;
+  text-align:left;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  vertical-align:middle;
+}
+
+th:first-child {
+  border-top-left-radius:3px;
+}
+ 
+th:last-child {
+  border-top-right-radius:3px;
+  border-right:none;
+}
+  
+tr {
+  border-top: 1px solid #C1C3D1;
+  border-bottom-: 1px solid #C1C3D1;
+  color:#666B85;
+  font-size:16px;
+  font-weight:normal;
+  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+ 
+tr:hover td {
+  background:#4E5066;
+  color:#FFFFFF;
+  border-top: 1px solid #22262e;
+}
+ 
+tr:first-child {
+  border-top:none;
+}
+
+tr:last-child {
+  border-bottom:none;
+}
+ 
+tr:nth-child(odd):hover td {
+  background:#4E5066;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius:3px;
+}
+ 
+tr:last-child td:last-child {
+  border-bottom-right-radius:3px;
+}
+ 
+td {
+  background:#FFFFFF;
+  padding:20px;
+  text-align:left;
+  vertical-align:middle;
+  font-weight:300;
+  font-size:18px;
+  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #C1C3D1;
+}
+
+td:last-child {
+  border-right: 0px;
+}
+
+th.text-left {
+  text-align: left;
+}
+
+th.text-center {
+  text-align: center;
+}
+
+th.text-right {
+  text-align: right;
+}
+
+td.text-left {
+  text-align: left;
+}
+
+td.text-center {
+  text-align: center;
+}
+
+td.text-right {
+  text-align: right;
+}
+
+table {
+  width:500px;
+  margin: 10px auto;
+}
+
+.btn-primary {
+  margin-top:20px;
+}
 </style>
 
 <title>Lista de Produtos</title>
 </head>
 
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" >FarmaWeb</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <form class="navbar-form navbar-left">
+	      <c:if test="${usuarioLogado.tipo == 2}">
+	        <div class="form-group">
+	          <input type="text" class="form-control"  onkeyup="filtrar()" id="filtro" placeholder="Procurar produto"/>	
+	        </div>
+	       </c:if>
+      </form>
+
+	 <ul class="nav navbar-nav navbar-right">
+   	  	<form class="form-signin navbar-form" action="/FarmaWeb/voltar" method="POST">
+  		   <button type="submit" class="btn btn-default">Voltar</button>	
+           <button type="button" class="btn btn-default" data-toggle="modal" data-target="#sair">Sair</button>
+        </form>
+     </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="modal fade" id="sair" role="dialog">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Deseja realmente sair ?</h4>
+			</div>
+			<div class="modal-footer">
+				<form class="bottom-left" action="/FarmaWeb/logout" method="POST">
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Sim</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
 <body class="container">
-	<strong>Procurar pelo produto:</strong> <input type="text" onkeyup="filtrar()" id="filtro" />
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.ProdutoDao" />
-	<table class="table table-bordered" id="myTable">
-		<tr>
-			<th>Foto</th>
-			<th>Produto</th>
-			<th>Marca/Fabricante</th>
-			<th>Característica</th>
-			<th>Descrição</th>
-			<th>Quantidade</th>
-			<th>Receita</th>
-			<th>Preço</th>
-			<th>Desconto</th>
-			<th>Ação</th>
-		</tr>
-		
-		<c:forEach var="produto" items="${dao.getProdutos(usuarioLogado.cod_login)}">
+	<table class="table-fill" id="myTable">
+		<thead>
 			<tr>
-				<td>
-					<a href="#" class="thumbnail" data-toggle="modal" data-target="#lightbox">
-						<img src="/FarmaWeb/recuperaImagem?cod_produto=${produto.cod_produto}" width="100" height="100"/>
-					</a>
-				</td>
-				<td>${produto.nome_produto}</td>
-				<td>${produto.marca_fabricante}</td>
-				<td>${produto.caracteristica}</td>
-				<td>${produto.descricao_produto}</td>
-				<td>${produto.quantidade_produto}</td>
-				<c:choose>
-				    <c:when test="${produto.receita == 1}">
-				      <td>Sim</td>
-				    </c:when>    
-				    <c:otherwise>
-				      <td>Não</td> 
-				    </c:otherwise>
-				</c:choose>
-				<td>${produto.preco_unitario}</td>
-				<td>${produto.desconto}</td>
-				<td><button type="button" onclick="editar(${produto.cod_produto})" data-toggle="modal"
-				data-target="#editarProduto" class="btn btn-primary">Editar</button></td>
-				<td>
-					<form action="/FarmaWeb/desativarProduto" method="POST">
-						<input type="hidden" name="cod_produto" value="${produto.cod_produto}" />
-						<button type="submit" class="btn btn-primary">Excluir</button>
-					</form>
-				</td>
+				<th>Foto</th>
+				<th>Produto</th>
+				<th>Marca/Fabricante</th>
+				<th>Característica</th>
+				<th>Descrição</th>
+				<th>Quantidade</th>
+				<th>Receita</th>
+				<th>Preço</th>
+				<th>Desconto</th>
+				<th>Ação</th>
+				<th></th>
 			</tr>
-		</c:forEach>
+		</thead>
+		<tbody class="table-hover">
+			<c:forEach var="produto" items="${dao.getProdutos(usuarioLogado.cod_login)}">
+				<tr>
+					<td>
+						<a href="#" class="thumbnail" data-toggle="modal" data-target="#lightbox">
+							<img src="/FarmaWeb/recuperaImagem?cod_produto=${produto.cod_produto}" width="100" height="100"/>
+						</a>
+					</td>
+					<td>${produto.nome_produto}</td>
+					<td>${produto.marca_fabricante}</td>
+					<td>${produto.caracteristica}</td>
+					<td>${produto.descricao_produto}</td>
+					<td>${produto.quantidade_produto}</td>
+					<c:choose>
+					    <c:when test="${produto.receita == 1}">
+					      <td>Sim</td>
+					    </c:when>    
+					    <c:otherwise>
+					      <td>Não</td> 
+					    </c:otherwise>
+					</c:choose>
+					<td>${produto.preco_unitario}</td>
+					<td>${produto.desconto}</td>
+					<td><button type="button" onclick="editar(${produto.cod_produto})" data-toggle="modal"
+					data-target="#editarProduto" class="btn btn-primary">Editar</button></td>
+					<td>
+						<form action="/FarmaWeb/desativarProduto" method="POST">
+							<input type="hidden" name="cod_produto" value="${produto.cod_produto}" />
+							<button type="submit" class="btn btn-primary">Excluir</button>
+						</form>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
 	</table>
-	<form action="/FarmaWeb/voltar" method="POST">
-		<button type="submit" class="btn btn-primary">Voltar</button>
-		<button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#myModal">Incluir</button>
-	</form>
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Incluir produto</button>
+
 
 	<div id="myModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
@@ -239,7 +426,7 @@
 
 			  // Loop through all table rows, and hide those who don't match the search query
 			  for (i = 0; i < tr.length; i++) {
-			    td = tr[i].getElementsByTagName("td")[0];
+			    td = tr[i].getElementsByTagName("td")[1];
 			    if (td) {
 			      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
 			        tr[i].style.display = "";
