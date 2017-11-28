@@ -28,17 +28,6 @@ div.table-title {
   width: 100%;
 }
 
-.table-title h3 {
-   color: #fafafa;
-   font-size: 30px;
-   font-weight: 400;
-   font-style:normal;
-   font-family: "Roboto", helvetica, arial, sans-serif;
-   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
-   text-transform:uppercase;
-}
-
-
 /*** Table Styles **/
 
 .table-fill {
@@ -54,8 +43,8 @@ div.table-title {
 }
  
 th {
-  color:#D5DDE5;;
-  background:#1b1e24;
+  color:black;
+  background:DodgerBlue;
   border-bottom:4px solid #9ea7af;
   border-right: 1px solid #343a45;
   font-size:23px;
@@ -99,7 +88,7 @@ tr:last-child {
 }
  
 tr:nth-child(odd):hover td {
-  background:#4E5066;
+  background:gray;
 }
 
 tr:last-child td:first-child {
