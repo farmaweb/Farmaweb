@@ -79,7 +79,7 @@ public class IncluirFuncionario extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher rd = req.getRequestDispatcher("/listaFuncionario");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
 		rd.forward(req, res);
 	}
 }

@@ -138,11 +138,6 @@ a.lightbox-close:after {
 			Forma de pagamento
 			</a></li> 
 		</c:if>
-		<c:if test="${usuarioLogado.tipo == 1}">
-			<li><a href="/FarmaWeb/listarEndereco"> 
-				Endereço
-				</a></li> 
-		</c:if>
 		<c:if test="${usuarioLogado.tipo == 2}">
  			<li><a href="/FarmaWeb/listaFuncionario"> Funcionários</a></li>
 		</c:if>
@@ -328,6 +323,10 @@ a.lightbox-close:after {
 													<input id="cidade"  type="hidden" value="${endereco.cidade}">${endereco.cidade}/<input id="estado"  type="hidden" value="${endereco.estado}">${endereco.estado}
 													<br>
 													<input type="radio" id="cod_endereco" name="enderecoSelecionado" value="${endereco.cod_endereco}">Selecionar endereço<br>
+													
+													<td><button type="button" onclick="editar(${endereco.cod_endereco})" data-toggle="modal"
+														data-target="#editarEndereco" class="btn btn-primary">Editar</button></td>
+													
 													<input id="latitude"  type="hidden" value="${endereco.latitude}">
 													<input id="longitude" type="hidden" value="${endereco.longitude}">
 											</p>
@@ -337,11 +336,89 @@ a.lightbox-close:after {
 	    			</form>
 				</div>
 				<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalIncluir">Incluir</button>
 						<button id="selecionar" class="btn btn-primary" data-dismiss="modal" type="submit">Selecionar</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	
+	<div id="modalIncluir" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Incluir Endereço</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-signin" action="/FarmaWeb/incluirEndereco"
+						method="POST">
+						<div class="form-group">
+
+							<label for="cep">Cep:</label> <input id="incluirCep"
+								type="text" name="cep" style="border-radius: 5px;" required></br>
+							<label for="rua">Rua:</label> <input id="incluirRua" 
+							type="text" name="rua" style="border-radius: 5px;" readonly="true" required></br>
+							<label for="numero">Número:</label> <input
+								type="text" name="numero" style="border-radius: 5px;" required></br>
+							<label for="bairro">Bairro:</label> <input id="incluirBairro"
+								type="text" name="bairro" style="border-radius: 5px;" readonly="true" required></br>
+							<label for="cidade">Cidade:</label> <input id="incluirCidade"
+								type="text" name="cidade" style="border-radius: 5px;" readonly="true" required></br>
+								<label for="estado">Estado:</label> <input id="incluirEstado"
+								type="text" name="estado" style="border-radius: 5px;" readonly="true" required></br>
+								<label for="complemento">Complemento:</label> <input
+								type="text" name="complemento" style="border-radius: 5px;">	
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-default" type="submit">Salvar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="editarEndereco" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Editar Endereço</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-signin" action="/FarmaWeb/alterarEndereco"
+						method="POST">
+						<div class="form-group">
+
+							<label for="cep">Cep:</label> <input id="editarCep"
+								type="text" name="cep" style="border-radius: 5px;" required></br>
+							<label for="rua">Rua:</label> <input id="editarRua" 
+							type="text" name="rua" style="border-radius: 5px;" readonly="true" required></br>
+							<label for="numero">Número:</label> <input
+								type="text" id="editarNumero" name="numero" style="border-radius: 5px;" required></br>
+							<label for="bairro">Bairro:</label> <input 
+								type="text" id="editarBairro" name="bairro" style="border-radius: 5px;" readonly="true" required></br>
+							<label for="cidade">Cidade:</label> <input id="editarCidade"
+								type="text" name="cidade" style="border-radius: 5px;" readonly="true" required></br>
+								<label for="estado">Estado:</label> <input id="editarEstado"
+								type="text" name="estado" style="border-radius: 5px;" readonly="true" required></br>
+								<label for="complemento">Complemento:</label> <input
+								type="text" id="editarComplemento" name="complemento" style="border-radius: 5px;">
+								<input id="editarCodEndereco" type="hidden" value="cod_endereco" name="cod_endereco">	
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-default" type="submit">Salvar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 
 	<script>
 	
@@ -578,6 +655,58 @@ a.lightbox-close:after {
 				'<div>Tempo Estimado de Entrega: ' + data[0].tempo_entrega + '</div>'
 		);
 	}
+	
+	
+	
+	function editar(cod_endereco) {		
+		var data = {
+				cod_endereco: cod_endereco
+		}
+		$.ajax({
+	         type: 'POST',    
+	         url:'/FarmaWeb/buscarEndereco',
+	         data: data,
+	         success: function (response) {
+	        	 $('#editarCep').val(response.cep).text(response.cep);
+	        	 $('#editarRua').val(response.rua).text(response.rua);
+	        	 $('#editarNumero').val(response.numero).text(response.numero);
+	        	 $('#editarBairro').val(response.bairro).text(response.bairro);
+	        	 $('#editarCidade').val(response.cidade).text(response.cidade);
+	        	 $('#editarEstado').val(response.estado).text(response.estado);
+	        	 $('#editarComplemento').val(response.complemento).text(response.complemento);
+	        	 $('#editarCodEndereco').val(response.cod_endereco);
+            },
+            error: function (e) {
+	              console.log(e);
+            }
+		});
+	}
+
+	$("#incluirCep").focusout(function(){
+		$.ajax({
+			url: 'https://viacep.com.br/ws/'+$(this).val()+'/json/unicode/',
+			dataType: 'json',
+			success: function(resposta){
+				$("#incluirRua").val(resposta.logradouro);
+				$("#incluirBairro").val(resposta.bairro);
+				$("#incluirCidade").val(resposta.localidade);
+				$("#incluirEstado").val(resposta.uf);
+			}
+		});
+	});
+	
+	$("#editarCep").focusout(function(){
+		$.ajax({
+			url: 'https://viacep.com.br/ws/'+$(this).val()+'/json/unicode/',
+			dataType: 'json',
+			success: function(resposta){
+				$("#editarRua").val(resposta.logradouro);
+				$("#editarBairro").val(resposta.bairro);
+				$("#editarCidade").val(resposta.localidade);
+				$("#editarEstado").val(resposta.uf);
+			}
+		});
+	});
 		
 </script>
 <script

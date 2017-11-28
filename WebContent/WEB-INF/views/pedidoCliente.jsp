@@ -58,7 +58,7 @@ footer {
 	    display: inline-block;
 	    text-align: center;   
 	}
-
+	
 	#lightbox .close {
 	    opacity: 1;
 	    color: rgb(255, 255, 255);
@@ -72,34 +72,195 @@ footer {
 	    
 	    z-index:1032;
 	}
+	
+	
+	div.table-title {
+   display: block;
+  margin: auto;
+  max-width: 600px;
+  padding:5px;
+  width: 100%;
+}
+
+.table-fill {
+  background: white;
+  border-radius:3px;
+  border-collapse: collapse;
+  height: 220px;
+  margin: auto;
+  max-width: 1000px;
+  padding:5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  animation: float 5s infinite;
+}
+ 
+th {
+  color:#fff;
+  background:#337ab7;
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  font-size:16px;
+  font-weight: 100;
+  padding:14px;
+  text-align:left;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  vertical-align:middle;
+}
+
+th:first-child {
+  border-top-left-radius:3px;
+}
+ 
+th:last-child {
+  border-top-right-radius:3px;
+}
+  
+tr {
+  border-top: 1px solid #C1C3D1;
+  border-bottom-: 1px solid #C1C3D1;
+  color:#666B85;
+  font-size:16px;
+  font-weight:normal;
+  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+ 
+tr:hover td {
+  background:#4E5066;
+  color:#FFFFFF;
+  border-top: 1px solid #22262e;
+}
+ 
+tr:first-child {
+  border-top:none;
+}
+
+tr:last-child {
+  border-bottom:none;
+}
+ 
+tr:nth-child(odd):hover td {
+  background:#4E5066;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius:3px;
+}
+ 
+tr:last-child td:last-child {
+  border-bottom-right-radius:3px;
+}
+ 
+td {
+  background:#FFFFFF;
+  padding:20px;
+  text-align:left;
+  vertical-align:middle;
+  font-weight:300;
+  font-size:18px;
+  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #C1C3D1;
+}
+
+td:last-child {
+  border-right: 0px;
+}
+
+th.text-left {
+  text-align: left;
+}
+
+th.text-center {
+  text-align: center;
+}
+
+th.text-right {
+  text-align: right;
+}
+
+td.text-left {
+  text-align: left;
+}
+
+td.text-center {
+  text-align: center;
+}
+
+td.text-right {
+  text-align: right;
+}
+
+table {
+  width:500px;
+  margin: 10px auto;
+}
+	
+	
 </style>	
 
 <title>Lista de Produtos</title>
 
 </head>
 
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" >FarmaWeb</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+       <form class="navbar-form navbar-left">
+	   	    <div class="form-group">
+	          <input type="text" class="form-control"  onkeyup="filtrar()" id="filtro" placeholder="Procurar produto"/>	
+	        </div>
+      </form>
+    
+	 <ul class="nav navbar-nav navbar-right">
+   	  	<form class="form-signin navbar-form" action="/FarmaWeb/voltar" method="POST">
+  		   <button type="submit" class="btn btn-default">Voltar</button>	
+           <button type="button" class="btn btn-default" data-toggle="modal" data-target="#sair">Sair</button>
+        </form>
+     </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="modal fade" id="sair" role="dialog">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Deseja realmente sair ?</h4>
+			</div>
+			<div class="modal-footer">
+				<form class="bottom-left" action="/FarmaWeb/logout" method="POST">
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Sim</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
 <body class="container">
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.ProdutoDao" />
 	<jsp:useBean id="daoFormaDePagamento" class="br.com.farmaweb.daos.FormaDePagamentoDao" />
-	
-	<strong>Procurar o produto:</strong> <input type="text" onkeyup="filtrar()" id="filtro" name="produto"/>
 	<div class="row">
 		<div class="col-xs-6">
-			<table class="table table-bordered" id="myTable">
+			<table class="table-fill" id="myTable">
+			<thead>
 				<tr>
-					<th></th>
 					<th>Foto</th>
 					<th>Produto</th>
-					<th>InformaÃ§Ãµes</th>
-					<th>PreÃ§o</th>
+					<th>Informações</th>
+					<th>Preço</th>
 					<th>Desconto</th>
 					<th>Receita</th>
+					<th></th>
+				</thead>
 				</tr>
 				<c:forEach var="produto" items="${dao.listaProdutoFarmacia(cod_farmacia)}">
 					<tr>
-						<td id="cod_produto${produto.cod_produto}"></td>
 						<td>
-							<a href="#" class="thumbnail" data-toggle="modal" data-target="#lightbox">
+							<a href="#" data-toggle="modal" data-target="#lightbox">
 								<img src="/FarmaWeb/recuperaImagem?cod_produto=${produto.cod_produto}&cod_farmacia=${cod_farmacia}" width="100" height="100"/>
 							</a>
 						</td>
@@ -115,8 +276,8 @@ footer {
 					      		<td>Não</td> 
 					    	</c:otherwise>
 						</c:choose>
-						<td><a class="btn btn-xs btn-info adicionar" data-toggle="modal" data-id="${produto.cod_produto}">Adicionar</a></td>
-						
+						<td><a class="btn btn-primary adicionar" data-toggle="modal" data-id="${produto.cod_produto}">Adicionar</a></td>
+						<input type="hidden" id="cod_produto${produto.cod_produto}">
 					</tr>
 				</c:forEach>
 			</table>
@@ -420,10 +581,6 @@ footer {
 		});
 		
 	</script>
-
-	<form action="/FarmaWeb/voltar" method="POST">
-		<button type="submit" class="btn btn-primary">Voltar</button>
-	</form>
 
 </body>
 </html>

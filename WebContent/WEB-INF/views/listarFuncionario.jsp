@@ -41,12 +41,12 @@
 	}
 	 
 	th {
-	  color:black;
- 	 background:DodgerBlue;
+	  color:#fff;
+      background:#337ab7;
+      font-weight: bold;
 	  border-bottom:4px solid #9ea7af;
 	  border-right: 1px solid #343a45;
-	  font-size:23px;
-	  font-weight: 100;
+	  font-size:16px;
 	  padding:24px;
 	  text-align:left;
 	  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
@@ -197,8 +197,7 @@
 				<th>Nome</th>
 				<th>Telefone</th>
 				<th>Função</th>
-				<th>Ação</th>
-				<th></th>
+				<th colspan="2"></th>
 	
 			</tr>
 		</thead>

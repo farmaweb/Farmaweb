@@ -35,10 +35,7 @@ img {
 		</div>
 		<div class="row">
 			<nav id="menu">
-				<button type="button" class="btn btn-default" data-toggle="modal"
-					data-target="#clienteModal">Cliente não cadastrado ?</button>
-				<button type="button" class="btn btn-default" data-toggle="modal"
-					data-target="#farmaciaModal">Farmácia não cadastrada  ?</button>
+				<a href data-toggle="modal" data-target="#farmaciaModal">Cadastre sua Farmácia!</a>
 			</nav>
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
 				<h1 class="text-center login-title"
@@ -51,6 +48,9 @@ img {
 						<button class="btn btn-lg btn-primary btn-block" type="submit">
 							Entrar</button>
 					</form>
+					
+					<a href data-toggle="modal" data-target="#clienteModal">Cliente não cadastrado?</a>
+					
 					<c:if test="${verificaResultado == 0}">
 						<div class="alert alert-danger">
 							<strong>Atenção!</strong> Login ou Senha incorretos.
@@ -62,7 +62,6 @@ img {
 						</div>
 					</c:if>
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -115,7 +114,7 @@ img {
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Cadastre um administrador</h4>
+				<h4 class="modal-title">Cadastre um usuário</h4>
 			</div>
 			<div class="modal-body">
 				<form class="form-signin" action="/FarmaWeb/incluirFuncionario"

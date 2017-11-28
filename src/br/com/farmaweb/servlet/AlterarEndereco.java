@@ -21,7 +21,7 @@ public class AlterarEndereco extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		int cod_endereco = Integer.parseInt(req.getParameter("cod_endereco"));
+		String cod_endereco = req.getParameter("cod_endereco");
 		int cep = Integer.parseInt(req.getParameter("cep"));
 		String rua = req.getParameter("rua");
 		String numero = req.getParameter("numero");
@@ -33,7 +33,7 @@ public class AlterarEndereco extends HttpServlet {
 
 		Endereco endereco = new Endereco();
 
-		endereco.setCod_endereco(cod_endereco);
+		endereco.setCod_endereco(Integer.parseInt(cod_endereco));
 		endereco.setCep(cep);
 		endereco.setRua(rua);
 		endereco.setNumero(numero);
@@ -56,7 +56,7 @@ public class AlterarEndereco extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/listarEndereco.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
 		rd.forward(req, res);
 	}
 }

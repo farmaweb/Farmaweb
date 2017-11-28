@@ -25,7 +25,7 @@ body {
 }
 
 div.table-title {
-   display: block;
+  display: block;
   margin: auto;
   max-width: 600px;
   padding:5px;
@@ -46,11 +46,11 @@ div.table-title {
 }
  
 th {
-  color:black;
-  background:DodgerBlue;
+  background:#337ab7;
+  font-weight: bold;
   border-bottom:4px solid #9ea7af;
   border-right: 1px solid #343a45;
-  font-size:23px;
+  font-size:16px;
   font-weight: 100;
   padding:24px;
   text-align:left;
@@ -65,6 +65,8 @@ th:first-child {
 th:last-child {
   border-top-right-radius:3px;
   border-right:none;
+  color:#fff;
+  font-weight: bold;
 }
   
 tr {

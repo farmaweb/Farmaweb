@@ -31,7 +31,6 @@
 
 body {
   font-family: "Roboto", helvetica, arial, sans-serif;
-  font-size: 10px;
   font-weight: 400;
   text-rendering: optimizeLegibility;
 }
@@ -57,11 +56,11 @@ div.table-title {
 }
  
 th {
-  color:black;
-  background:DodgerBlue;
+  color:#fff;
+  background:#337ab7;
   border-bottom:4px solid #9ea7af;
   border-right: 1px solid #343a45;
-  font-size:12px;
+  font-size:16px;
   font-weight: 100;
   padding:14px;
   text-align:left;
@@ -219,15 +218,14 @@ table {
 				<th>Receita</th>
 				<th>Preço</th>
 				<th>Desconto</th>
-				<th>Ação</th>
-				<th></th>
+				<th colspan="2">Ação</th>
 			</tr>
 		</thead>
 		<tbody class="table-hover">
 			<c:forEach var="produto" items="${dao.getProdutos(usuarioLogado.cod_login)}">
 				<tr>
 					<td>
-						<a href="#" class="thumbnail" data-toggle="modal" data-target="#lightbox">
+						<a href="#" data-toggle="modal" data-target="#lightbox">
 							<img src="/FarmaWeb/recuperaImagem?cod_produto=${produto.cod_produto}" width="100" height="100"/>
 						</a>
 					</td>
@@ -273,16 +271,16 @@ table {
 					<div class="form-group">
 	
 						<label for="Nome_Produto">Nome do Produto:</label>
-						<input type="text" minlength="3" maxlength="20" name="nome_produto" style="border-radius: 5px;" required>
+						<input type="text" minlength="3" maxlength="45" name="nome_produto" style="border-radius: 5px;" required>
 						</br>
 						<label for="Marca_Fabricante">Marca/Fabricante:</label>
-						<input type="text" minlength="3" maxlength="20" name="marca_fabricante" style="border-radius: 5px;" required>
+						<input type="text" minlength="3" maxlength="45" name="marca_fabricante" style="border-radius: 5px;" required>
 						</br>
 						<label for="Caracteristica">Caracteristica:</label>
-						<input type="text" minlength="3" maxlength="20" name="caracteristica" style="border-radius: 5px;" required>
+						<input type="text" minlength="3" maxlength="45" name="caracteristica" style="border-radius: 5px;" required>
 						</br>
 						<label for="Descricao_Produto">Descrição do Produto:</label>
-						<input type="text" minlength="6" maxlength="30" name="descricao_produto" style="border-radius: 5px;" required>
+						<input type="text" minlength="6" maxlength="45" name="descricao_produto" style="border-radius: 5px;" required>
 						</br> 
 						<label for="Receita">Receita:</label>
 						<input type="radio" name="receita" value="1" required> Sim
