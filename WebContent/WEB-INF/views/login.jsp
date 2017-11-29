@@ -24,14 +24,14 @@ img {
     top: 15px;
     right: 10px;
 }
+
 </style>
 
 </head>
 <body>
 	<div class="container">
 		<div class="bottom-left">
-			<img alt=""
-				src="https://www.afterhourshomedoctorwa.com.au/wp-content/uploads/2017/04/Home_Doctor_Perth_Bunbury-228x300.png"></img>
+			<img alt="" src="https://previews.123rf.com/images/iosphere/iosphere1406/iosphere140600173/29270500-illustration-of-cartoon-pharmacist-with-medicine-pills-and-bottle-Stock-Photo.jpg" width="300" height="300"></img>
 		</div>
 		<div class="row">
 			<nav id="menu">
@@ -39,7 +39,7 @@ img {
 			</nav>
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
 				<h1 class="text-center login-title"
-					style="color: DodgerBlue; font-size: 80px;">FarmaWeb</h1>
+					style="color: DodgerBlue; font-size: 70px;">FarmaWeb</h1>
 				<div class="account-wall">
 					<form class="form-signin" action="/FarmaWeb/login" method="POST">
 						<input type="text" class="form-control" placeholder="Usuario"
@@ -80,7 +80,7 @@ img {
 				<form class="form-signin" action="/FarmaWeb/cadastrarUsuario"
 					method="POST">
 					<div class="form-group">
-
+						<h4 class="modal-title">Cliente</h4>
 						<label for="Usuario">Usuario:</label> <input type="text" minlength="3" maxlength="20" name="usuario" style="border-radius: 5px;" required> </br><label for="Senha">Senha:</label>
 						<input type="password" minlength="6" maxlength="30" name="senha" style="border-radius: 5px;" required>
 						</br> 
@@ -96,6 +96,30 @@ img {
 						<label for="Telefone">Telefone:</label> 
 						<input type="text" id="telefone" name="tel_cliente" style="border-radius: 5px;" required> 
 						<input type="hidden" name="tipo" value="1" />
+					</div>
+					<div class="form-group">
+						<h4 class="modal-title">Endereço</h4>
+						<label for="cep">Cep:</label> 
+						<input id="cep" type="text" name="cep" style="border-radius: 5px;" required>
+						</br>
+						<label for="rua">Rua:</label> 
+						<input id="rua" type="text" name="rua" style="border-radius: 5px;" readonly="true" required>
+						</br>
+						<label for="numero">Número:</label> 
+						<input type="text" name="numero" style="border-radius: 5px;" required>
+						</br>
+						<label for="bairro">Bairro:</label> 
+						<input id="bairro" type="text" name="bairro" style="border-radius: 5px;" readonly="true" required>
+						</br>
+						<label for="cidade">Cidade:</label> 
+						<input id="cidade" type="text" name="cidade" style="border-radius: 5px;" readonly="true" required>
+						</br>
+						<label for="estado">Estado:</label> 
+						<input id="estado" type="text" name="estado" style="border-radius: 5px;" readonly="true" required>
+						</br>
+						<label for="complemento">Complemento:</label> 
+						<input type="text" name="complemento" style="border-radius: 5px;">
+						
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-default" type="submit">Salvar</button>
@@ -164,9 +188,9 @@ img {
 				<form class="form-signin" action="/FarmaWeb/incluirFarmacia"
 					method="POST">
 					<div class="form-group">
-
+						<h4 class="modal-title">Farmácia</h4>
 						<label for="nome_fantasia">Nome Fantasia:</label> 
-						<input type="text" minlength="6" maxlength="20" name="nome_fantasia" style="border-radius: 5px;" required> 
+						<input type="text" minlength="6" maxlength="40" name="nome_fantasia" style="border-radius: 5px;" required> 
 						</br>
 						</br> 
 						<label for="razao_social">Razão Social:</label>
@@ -187,31 +211,29 @@ img {
 						<label for="observacao">Observação:</label>
 						</br>
 						<textarea rows="3" cols="50" name="observacao" style="border-radius: 5px;" placeholder="Ex.: Horario de Funcionamento"></textarea> 
-						</br>
+					</div>
+					<div class="form-group">
 						<h4 class="modal-title">Endereço</h4>
-						</br>
 						<label for="cep">Cep:</label> 
-						<input id="cep" type="text" name="cep" style="border-radius: 5px;" required>
+						<input id="cep_farmacia" type="text" name="cep_farmacia" style="border-radius: 5px;" required>
 						</br>
 						<label for="rua">Rua:</label> 
-						<input id="rua" type="text" name="rua" style="border-radius: 5px;" readonly="true" required>
+						<input id="rua_farmacia" type="text" name="rua_farmacia" style="border-radius: 5px;" readonly="true" required>
 						</br>
 						<label for="numero">Número:</label> 
 						<input type="text" name="numero" style="border-radius: 5px;" required>
 						</br>
 						<label for="bairro">Bairro:</label> 
-						<input id="bairro" type="text" name="bairro" style="border-radius: 5px;" readonly="true" required>
+						<input id="bairro_farmacia" type="text" name="bairro_farmacia" style="border-radius: 5px;" readonly="true" required>
 						</br>
 						<label for="cidade">Cidade:</label> 
-						<input id="cidade" type="text" name="cidade" style="border-radius: 5px;" readonly="true" required>
+						<input id="cidade_farmacia" type="text" name="cidade_farmacia" style="border-radius: 5px;" readonly="true" required>
 						</br>
 						<label for="estado">Estado:</label> 
-						<input id="estado" type="text" name="estado" style="border-radius: 5px;" readonly="true" required>
+						<input id="estado_farmacia" type="text" name="estado_farmacia" style="border-radius: 5px;" readonly="true" required>
 						</br>
 						<label for="complemento">Complemento:</label> 
 						<input type="text" name="complemento" style="border-radius: 5px;">	
-						
-						
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-default" type="submit" data-toggle="modal"
@@ -241,6 +263,19 @@ img {
 					$("#bairro").val(resposta.bairro);
 					$("#cidade").val(resposta.localidade);
 					$("#estado").val(resposta.uf);
+				}
+			});
+		});
+		
+		$("#cep_farmacia").focusout(function(){
+			$.ajax({
+				url: 'https://viacep.com.br/ws/'+$(this).val()+'/json/unicode/',
+				dataType: 'json',
+				success: function(resposta){
+					$("#rua_farmacia").val(resposta.logradouro);
+					$("#bairro_farmacia").val(resposta.bairro);
+					$("#cidade_farmacia").val(resposta.localidade);
+					$("#estado_farmacia").val(resposta.uf);
 				}
 			});
 		});

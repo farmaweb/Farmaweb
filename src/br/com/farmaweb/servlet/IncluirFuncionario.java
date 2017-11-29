@@ -79,7 +79,8 @@ public class IncluirFuncionario extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
+		req.setAttribute("verificaResultado", 1);
+		RequestDispatcher rd = req.getRequestDispatcher("/");
 		rd.forward(req, res);
 	}
 }

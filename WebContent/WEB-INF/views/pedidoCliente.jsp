@@ -240,7 +240,7 @@ table {
 </div>
 
 
-<body class="container">
+<body>
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.ProdutoDao" />
 	<jsp:useBean id="daoFormaDePagamento" class="br.com.farmaweb.daos.FormaDePagamentoDao" />
 	<div class="row">
@@ -352,7 +352,7 @@ table {
 							<label for="tipo_pagamento">Tipo De Pagamento:</label>
 								
 							<select id="cod_pagamento" class="selectpicker" >
-							    <c:forEach var="forma" items="${daoFormaDePagamento.getPagamentos(cod_farmacia)}">
+							    <c:forEach var="forma" items="${daoFormaDePagamento.getPagamentosPedido(cod_farmacia)}">
 							        <option  value="${forma.cod_pagamento}">
 							            ${forma.tipo_pagamento}
 							        </option>

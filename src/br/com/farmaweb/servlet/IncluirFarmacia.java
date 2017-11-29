@@ -26,12 +26,12 @@ public class IncluirFarmacia extends HttpServlet {
               throws ServletException, IOException {
 			
 		//incluir endere�o farm�cia
-		int cep = Integer.parseInt(req.getParameter("cep"));
-		String rua = req.getParameter("rua");
+		int cep = Integer.parseInt(req.getParameter("cep_farmacia"));
+		String rua = req.getParameter("rua_farmacia");
 		String numero = req.getParameter("numero");
-		String bairro = req.getParameter("bairro");
-		String cidade = req.getParameter("cidade");
-		String estado = req.getParameter("estado");
+		String bairro = req.getParameter("bairro_farmacia");
+		String cidade = req.getParameter("cidade_farmacia");
+		String estado = req.getParameter("estado_farmacia");
 		String complemento = req.getParameter("complemento");
 		Float taxa_entrega = Float.parseFloat(req.getParameter("taxa_entrega"));
 		String tempo_entrega = req.getParameter("tempo_entrega");

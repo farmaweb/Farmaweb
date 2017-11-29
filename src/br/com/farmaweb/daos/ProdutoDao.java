@@ -233,7 +233,7 @@ public class ProdutoDao {
 	public int alterarProduto(Produto produto) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(
-					"update produto set nome_produto = ?, marca_fabricante = ?, caracteristica = ?, descricao_produto = ?, quantidade_produto = ? , receita = ? , preco_unitario = ?, desconto = ? where cod_produto = ?");
+					"update produto set nome_produto = ?, marca_fabricante = ?, caracteristica = ?, descricao_produto = ?, quantidade_produto = ? , receita = ? , preco_unitario = ?, desconto = ?, foto_produto = ? where cod_produto = ?");
 
 			stmt.setString(1, produto.getNome_produto());
 			stmt.setString(2, produto.getMarca_fabricante());
@@ -243,7 +243,10 @@ public class ProdutoDao {
 			stmt.setInt(6, produto.getReceita());
 			stmt.setDouble(7, produto.getPreco_unitario());
 			stmt.setInt(8, produto.getDesconto());
-			stmt.setInt(9, produto.getCod_produto());
+			if (produto.getFoto_produto() != null) {
+                stmt.setBlob(9, produto.getFoto_produto());
+            }
+			stmt.setInt(10, produto.getCod_produto());
 
 			int ret = stmt.executeUpdate();
 

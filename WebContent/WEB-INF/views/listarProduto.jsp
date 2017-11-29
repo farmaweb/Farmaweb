@@ -204,7 +204,7 @@ table {
 	</div>
 </div>
 
-<body class="container">
+<body>
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.ProdutoDao" />
 	<table class="table-fill" id="myTable">
 		<thead>
@@ -212,8 +212,8 @@ table {
 				<th>Foto</th>
 				<th>Produto</th>
 				<th>Marca/Fabricante</th>
-				<th>Característica</th>
 				<th>Descrição</th>
+				<th>Característica</th>
 				<th>Quantidade</th>
 				<th>Receita</th>
 				<th>Preço</th>
@@ -231,8 +231,8 @@ table {
 					</td>
 					<td>${produto.nome_produto}</td>
 					<td>${produto.marca_fabricante}</td>
-					<td>${produto.caracteristica}</td>
 					<td>${produto.descricao_produto}</td>
+					<td>${produto.caracteristica}</td>
 					<td>${produto.quantidade_produto}</td>
 					<c:choose>
 					    <c:when test="${produto.receita == 1}">
@@ -267,7 +267,7 @@ table {
 				<h4 class="modal-title">Cadastro de Produto</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-signin" action="/FarmaWeb/incluirProduto" method="POST"  enctype="multipart/form-data">
+				<form class="form-signin" action="/FarmaWeb/incluirProduto" method="POST" enctype="multipart/form-data">
 					<div class="form-group">
 	
 						<label for="Nome_Produto">Nome do Produto:</label>
@@ -314,36 +314,36 @@ table {
 				<h4 class="modal-title">Editar Produto</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-signin" action="/FarmaWeb/AlterarProduto" method="POST">
+				<form class="form-signin" action="/FarmaWeb/AlterarProduto" method="POST" enctype="multipart/form-data">
 					<div class="form-group">
 	
 						<label for="Nome_Produto">Nome do Produto:</label>
-						<input type="text" class="editarNome" minlength="3" maxlength="20" name="nome_produto" style="border-radius: 5px;" required>
+						<input type="text" class="editarNome" minlength="3" maxlength="45" name="nome_produto_alterar" style="border-radius: 5px;" required>
 						</br>
 						<label for="Marca_Fabricante">Marca/Fabricante:</label>
-						<input type="text" class="editarMarca" minlength="3" maxlength="20" name="marca_fabricante" style="border-radius: 5px;" required>
+						<input type="text" class="editarMarca" minlength="3" maxlength="45" name="marca_fabricante_alterar" style="border-radius: 5px;" required>
 						</br>
 						<label for="Caracteristica">Caracteristica:</label>
-						<input type="text" class="editarCaracteristica" minlength="3" maxlength="20" name="caracteristica" style="border-radius: 5px;" required>
+						<input type="text" class="editarCaracteristica" minlength="3" maxlength="45" name="caracteristica_alterar" style="border-radius: 5px;" required>
 						</br>
 						<label for="Descricao_Produto">Descrição do Produto:</label>
-						<input type="text" class="alterarDescricao" minlength="6" maxlength="30" name="descricao_produto" style="border-radius: 5px;" required>
+						<input type="text" class="alterarDescricao" minlength="6" maxlength="45" name="descricao_produto_alterar" style="border-radius: 5px;" required>
 						</br> 
 						<label for="Receita">Receita:</label>
-						<input type="radio" class="alterarReceitaSim" name="receita" value="1" required> Sim
-  						<input type="radio" class="alterarReceitaNao" name="receita" value="0"required> Não
+						<input type="radio" class="alterarReceitaSim" name="receita_alterar" value="1" required> Sim
+  						<input type="radio" class="alterarReceitaNao" name="receita_alterar" value="0"required> Não
 						</br>
 						<label for="Quantidade_Produto">Quantidade:</label>
-						<input type="text" class="alterarQuantidade" name="quantidade_produto" style="border-radius: 5px;" required> 
+						<input type="text" class="alterarQuantidade" name="quantidade_produto_alterar" style="border-radius: 5px;" required> 
 						</br> 
 						<label for="preco_uniario">Preço Unitário:</label> 
-						<input type="text" class="currency" data-thousands="." data-decimal="." name="preco_unitario" style="border-radius: 5px;" required>
+						<input type="text" class="currency" data-thousands="." data-decimal="." name="preco_unitario_alterar" style="border-radius: 5px;" required>
 						</br>
 						<label for="desconto">Desconto:</label> 
-						<input type="text" class="alterarDesconto" name="desconto" style="border-radius: 5px;" required>%
+						<input type="text" class="alterarDesconto" name="desconto_alterar" style="border-radius: 5px;" required>%
 						</br>
-						<input type="file" name="foto_produto"/>
-						<input type="hidden" id="cod_produto" name="cod_produto"/>
+						<input type="file" name="foto_produto_alterar"/>
+						<input type="hidden" class="codProduto" id="cod_produto" name="cod_produto_alterar"/>
 					</div>
 						<div class="modal-footer">
 							<button class="btn btn-default" type="submit">Salvar</button>
@@ -393,7 +393,7 @@ table {
 		        	 $('.alterarQuantidade').val(response.quantidade_produto).text(response.quantidade_produto);
 		        	 $('.currency').val(response.preco_unitario).text(response.preco_unitario);
 		        	 $('.alterarDesconto').val(response.desconto).text(response.desconto);
-		        	 $('#cod_produto').val(response.cod_produto);
+		        	 $('.codProduto').val(response.cod_produto).text(response.cod_produto);
 	            },
 	            error: function (e) {
 		              console.log(e);
