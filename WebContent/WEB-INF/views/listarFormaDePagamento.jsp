@@ -190,7 +190,7 @@ table {
 		</div>
 	</div>
 	
-<body class="container">
+<body>
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.FormaDePagamentoDao" />
 	<table class="table-fill">
 		<thead>
@@ -199,7 +199,7 @@ table {
 			</tr>
 		</thead>
 		<tbody class="table-hover">
-			<c:forEach var="forma" items="${dao.getPagamentos(usuarioLogado.cod_login)}">
+			<c:forEach var="forma" items="${dao.getPagamentosFarmacia(usuarioLogado.cod_login)}">
 				<tr>
 					<td>${forma.tipo_pagamento}</td>
 				</tr>

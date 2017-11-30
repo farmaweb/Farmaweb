@@ -182,7 +182,7 @@ table {
 	</div>
 </div>
 
-<body class="container">
+<body>
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.EnderecoDao" />
 	<table class="table-fill">
 		<thead>

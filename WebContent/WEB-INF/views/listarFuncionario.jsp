@@ -187,7 +187,7 @@
 	</div>
 </div>	
 
-<body class="container">
+<body>
 	<jsp:useBean id="dao" class="br.com.farmaweb.daos.FuncionarioDao" />
 
 	<table class="table-fill" id="myTable">

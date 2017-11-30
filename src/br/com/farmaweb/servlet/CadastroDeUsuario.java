@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.farmaweb.daos.ClienteDao;
+import br.com.farmaweb.daos.EndCliDao;
+import br.com.farmaweb.daos.EnderecoDao;
 import br.com.farmaweb.daos.LoginDao;
 import br.com.farmaweb.models.Cliente;
+import br.com.farmaweb.models.Endereco;
 import br.com.farmaweb.models.Login;
 
 @WebServlet("/cadastrarUsuario")
@@ -36,6 +39,14 @@ public class CadastroDeUsuario extends HttpServlet {
 		String email_cliente = req.getParameter("email_cliente");
 		Long tel_cliente = Long.parseLong(req.getParameter("tel_cliente").replace("-", "").trim());
 		
+		//Endereço
+		int cep = Integer.parseInt(req.getParameter("cep"));
+		String rua = req.getParameter("rua");
+		String numero = req.getParameter("numero");
+		String bairro = req.getParameter("bairro");
+		String cidade = req.getParameter("cidade");
+		String estado = req.getParameter("estado");
+		String complemento = req.getParameter("complemento");
 		
 		Login login = new Login();
 		login.setUsuario(usuario);
@@ -58,6 +69,26 @@ public class CadastroDeUsuario extends HttpServlet {
 			
 			ClienteDao clientedao = new ClienteDao();
 			clientedao.incluirCliente(cliente);
+			
+			Endereco endereco = new Endereco();
+
+			endereco.setCep(cep);
+			endereco.setRua(rua);
+			endereco.setNumero(numero);
+			endereco.setBairro(bairro);
+			endereco.setCidade(cidade);
+			endereco.setEstado(estado);
+			endereco.setComplemento(complemento);
+			
+			EnderecoDao enderecoDao = null;
+			EndCliDao endcliDao = null;
+			
+			enderecoDao = new EnderecoDao();
+			endcliDao = new EndCliDao();
+
+			int cod_endereco = enderecoDao.incluirEndereco(endereco);
+			endcliDao.incluirEndCli(cod_endereco, cod_login);
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
