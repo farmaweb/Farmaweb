@@ -106,7 +106,6 @@ a.lightbox-close:after {
 
 body {
   font-family: "Roboto", helvetica, arial, sans-serif;
-  font-size: 20px;
   font-weight: 400;
   text-rendering: optimizeLegibility;
 }
