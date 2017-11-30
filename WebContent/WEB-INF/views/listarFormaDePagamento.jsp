@@ -154,6 +154,10 @@ table {
 .btn-primary {
   margin-top:20px;
 }
+
+#incluir {
+  margin-left: 50px;
+}
 </style>
 </head>
 
@@ -205,7 +209,7 @@ table {
 			</c:forEach>
 		</tbody>
 	</table>
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Incluir forma de pagamento</button>			
+	<button type="button" id="incluir" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Incluir forma de pagamento</button>			
 	
 
 

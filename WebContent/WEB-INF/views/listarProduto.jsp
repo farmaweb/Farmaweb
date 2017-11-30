@@ -218,7 +218,7 @@ table {
 				<th>Receita</th>
 				<th>Preço</th>
 				<th>Desconto</th>
-				<th colspan="2">Ação</th>
+				<th colspan="2"></th>
 			</tr>
 		</thead>
 		<tbody class="table-hover">

@@ -72,6 +72,25 @@ public class ClienteDao {
 		}
 	}
 
+	public String getNomeCliente(int cod_login) {
+		String nome_cliente = "";
+		try {			
+			PreparedStatement stmt = this.connection.prepareStatement(
+					"select nome_cliente from cliente where cod_cliente = ?");
+			stmt.setInt(1, cod_login);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				nome_cliente = rs.getString("nome_cliente");
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return nome_cliente;
+	}
+
+	
 	public int excluirEndereco(Cliente cliente) throws SQLException {
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement("delete from cliente where cod_cliente = ?");

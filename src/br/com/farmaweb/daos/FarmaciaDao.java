@@ -55,6 +55,24 @@ public class FarmaciaDao {
 
 		return nome_farmacia;
 	}
+	
+	public String getNomeFarm(int cod_login) {
+		String nome_farmacia = "";
+		try {			
+			PreparedStatement stmt = this.connection.prepareStatement(
+					"select far.nome_fantasia from farmacia as far inner join funcionario as fun on fun.cod_farm_func = far.cod_farmacia inner join login as log on fun.cod_funcionario = ?");
+			stmt.setInt(1, cod_login);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				nome_farmacia = rs.getString("nome_fantasia");
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return nome_farmacia;
+	}
 
 	public ArrayList<Farmacia> getFarmacias() {
 		try {

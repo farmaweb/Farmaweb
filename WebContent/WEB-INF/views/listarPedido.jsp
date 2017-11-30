@@ -392,8 +392,9 @@ table {
 	$('.close').click( function (){
 		$('#detalhes').empty();
 	});
-		
+	
 	function getDetalhes(cod_pedido) {
+		$('#detalhes').empty();
 		$.ajax({
 		         type: 'GET',    
 		         url:'/FarmaWeb/buscarDetalhes?cod_pedido=' + cod_pedido,

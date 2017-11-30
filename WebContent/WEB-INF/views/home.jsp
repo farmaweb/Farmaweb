@@ -161,9 +161,11 @@ a.lightbox-close:after {
       <ul class="nav navbar-nav navbar-right">
 		<p class="navbar-btn">
           	<c:if test="${usuarioLogado.tipo == 1}">
+          		<span>Olá, ${nome_cliente}</span>
  				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalEnderecos">Selecione o seu endereço</button> 
  				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalExclusao">Excluir Perfil</button>
 			</c:if>	
+		 	  <span>${nome_farmacia}</span>
               <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Sair</button>
          </p>
       </ul>
@@ -610,6 +612,7 @@ a.lightbox-close:after {
 	});
 		
 	function getDetalhes(cod_pedido) {
+		$('#detalhes').empty();
 		$.ajax({
 		         type: 'GET',    
 		         url:'/FarmaWeb/buscarDetalhes?cod_pedido=' + cod_pedido,
